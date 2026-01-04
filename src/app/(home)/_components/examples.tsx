@@ -100,7 +100,7 @@ export function Examples() {
           </div>
         </div>
 
-        <Map center={[0, 30]} zoom={0.8}>
+        <Map center={[0, 30]} zoom={0.5}>
           {analyticsData.map((loc) => (
             <MapMarker key={loc.city} longitude={loc.lng} latitude={loc.lat}>
               <MarkerContent>

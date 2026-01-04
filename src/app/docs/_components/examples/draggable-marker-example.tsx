@@ -12,7 +12,7 @@ export function DraggableMarkerExample() {
 
   return (
     <div className="h-[400px] w-full">
-      <Map center={[-73.98, 40.76]} zoom={12}>
+      <Map center={[-73.98, 40.75]} zoom={12}>
         <MapMarker
           draggable
           longitude={draggableMarker.lng}

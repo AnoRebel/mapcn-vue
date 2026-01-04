@@ -443,7 +443,8 @@ export default function ApiReferencePage() {
       <DocsSection title="MapRoute">
         <p>
           Renders a line/route on the map connecting coordinate points. Must be
-          used inside <DocsCode>Map</DocsCode>.
+          used inside <DocsCode>Map</DocsCode>. Supports click and hover
+          interactions for building route selection UIs.
         </p>
         <DocsPropTable
           props={[
@@ -475,6 +476,28 @@ export default function ApiReferencePage() {
               type: "[number, number]",
               description:
                 "Dash pattern [dash length, gap length] for dashed lines.",
+            },
+            {
+              name: "onClick",
+              type: "() => void",
+              description: "Callback when the route line is clicked.",
+            },
+            {
+              name: "onMouseEnter",
+              type: "() => void",
+              description: "Callback when mouse enters the route line.",
+            },
+            {
+              name: "onMouseLeave",
+              type: "() => void",
+              description: "Callback when mouse leaves the route line.",
+            },
+            {
+              name: "interactive",
+              type: "boolean",
+              default: "true",
+              description:
+                "Whether the route is interactive (shows pointer cursor on hover).",
             },
           ]}
         />

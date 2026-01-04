@@ -18,7 +18,9 @@ interface DocsHeaderProps {
 export function DocsHeader({ title, description }: DocsHeaderProps) {
   return (
     <div className="space-y-3">
-      <h1 className="text-3xl font-semibold tracking-tight">{title}</h1>
+      <h1 className="text-3xl font-semibold tracking-tight text-primary">
+        {title}
+      </h1>
       <p className="text-lg text-muted-foreground leading-relaxed">
         {description}
       </p>
@@ -90,7 +92,9 @@ export function DocsSection({ title, children }: DocsSectionProps) {
   return (
     <section className="space-y-5">
       {title && (
-        <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+        <h2 className="text-xl font-semibold tracking-tight text-primary">
+          {title}
+        </h2>
       )}
       <div className="text-muted-foreground leading-7 space-y-4 [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:space-y-2">
         {children}
