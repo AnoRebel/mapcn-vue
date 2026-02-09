@@ -3,7 +3,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '~/components/ui/tabs'
 import CodeBlock from './CodeBlock.vue'
 import CopyButton from './CopyButton.vue'
 
-const props = defineProps<{
+defineProps<{
   code: string
   language?: string
   title?: string
@@ -33,9 +33,7 @@ const activeTab = ref('preview')
           </TabsTrigger>
         </TabsList>
         
-        <div v-if="activeTab === 'code'" class="flex items-center gap-2">
-          <CopyButton :text="code" />
-        </div>
+        <CopyButton :text="code" />
       </div>
 
       <!-- Preview Content -->

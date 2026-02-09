@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useIntersectionObserver } from '@vueuse/core'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { cn } from '@/lib/utils'
 
 interface TocItem {
@@ -13,23 +12,67 @@ const props = defineProps<{
   class?: string
 }>()
 
-const activeId = ref<string | null>(null)
+const activeId = ref<string | null>(props.items[0]?.slug ?? null)
 
-// Use VueUse's useIntersectionObserver for better performance
-useIntersectionObserver(
-  () => props.items.map(item => document.getElementById(item.slug)).filter(Boolean) as HTMLElement[],
-  (entries) => {
-    for (const entry of entries) {
-      if (entry.isIntersecting) {
-        activeId.value = entry.target.id
-      }
-    }
-  },
-  { 
-    rootMargin: '0% 0% -80% 0%',
-    threshold: 0,
+let observer: IntersectionObserver | null = null
+
+function setupObserver() {
+  // Clean up previous observer
+  if (observer) {
+    observer.disconnect()
+    observer = null
   }
-)
+
+  if (!props.items.length) return
+
+  // Track which sections are visible; pick the topmost one
+  const visibleIds = new Set<string>()
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          visibleIds.add(entry.target.id)
+        } else {
+          visibleIds.delete(entry.target.id)
+        }
+      }
+
+      // Pick the first item (in TOC order) that's currently visible
+      for (const item of props.items) {
+        if (visibleIds.has(item.slug)) {
+          activeId.value = item.slug
+          return
+        }
+      }
+    },
+    {
+      // Top 20% of viewport triggers "in view"
+      rootMargin: '0px 0px -80% 0px',
+      threshold: 0,
+    },
+  )
+
+  // Observe all heading elements by their slug id
+  for (const item of props.items) {
+    const el = document.getElementById(item.slug)
+    if (el) observer.observe(el)
+  }
+}
+
+onMounted(() => {
+  // Small delay to ensure DOM sections are rendered
+  requestAnimationFrame(() => setupObserver())
+})
+
+// Re-setup if toc items change (e.g. navigating between docs pages)
+watch(() => props.items, () => {
+  requestAnimationFrame(() => setupObserver())
+}, { deep: true })
+
+onUnmounted(() => {
+  observer?.disconnect()
+})
 </script>
 
 <template>

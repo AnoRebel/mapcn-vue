@@ -82,75 +82,76 @@ function handleLocate() {
   if (!('geolocation' in navigator)) {
     locationError.value = 'Geolocation not supported'
     waitingForLocation.value = false
-    console.error('Geolocation is not supported by this browser')
     return
   }
   
-  let attempts = 0
-  const maxAttempts = 2
+  // Use watchPosition for faster results — it fires as soon as *any* 
+  // position fix arrives (even a coarse one), then we cancel immediately.
+  // This avoids the common desktop timeout where getCurrentPosition waits
+  // for a high-accuracy fix that never comes.
+  let resolved = false
+  let fallbackTimer: ReturnType<typeof setTimeout> | null = null
   
-  // Try to get position with fallback strategy
-  const tryGetPosition = (highAccuracy: boolean) => {
-    attempts++
-    console.log(`Geolocation attempt ${attempts}/${maxAttempts} (highAccuracy: ${highAccuracy})`)
+  const onSuccess = (pos: GeolocationPosition) => {
+    if (resolved) return
+    resolved = true
+    cleanup()
     
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        console.log('Geolocation success:', pos.coords.latitude, pos.coords.longitude)
-        const coords = {
-          longitude: pos.coords.longitude,
-          latitude: pos.coords.latitude,
-        }
-        map.value?.flyTo({
-          center: [coords.longitude, coords.latitude],
-          zoom: 14,
-          duration: 1500,
-        })
-        props.onLocate?.(coords)
-        waitingForLocation.value = false
-      },
-      (error) => {
-        console.log(`Geolocation attempt ${attempts} failed:`, error.code, error.message)
-        
-        // Try fallback if we haven't exceeded max attempts
-        if (attempts < maxAttempts) {
-          console.log('Trying fallback geolocation without high accuracy...')
-          // Don't wait, try immediately
-          tryGetPosition(false)
-          return
-        }
-        
-        // All attempts failed
-        waitingForLocation.value = false
-        let errorMsg = 'Unable to retrieve your location'
-        
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            errorMsg = 'Location access denied. Please enable location permissions in your browser.'
-            break
-          case error.POSITION_UNAVAILABLE:
-            errorMsg = 'Location unavailable. Try using a mobile device with GPS.'
-            break
-          case error.TIMEOUT:
-            errorMsg = 'Location timed out. Try again or check your device settings.'
-            break
-          default:
-            errorMsg = `Location error: ${error.message || 'Unknown error'}`
-        }
-        
-        locationError.value = errorMsg
-        console.error('Geolocation error:', errorMsg, error)
-      },
-      {
-        enableHighAccuracy: highAccuracy,
-        timeout: 5000, // Short 5s timeout for both attempts
-        maximumAge: Infinity, // Accept any cached position
-      }
-    )
+    const coords = {
+      longitude: pos.coords.longitude,
+      latitude: pos.coords.latitude,
+    }
+    map.value?.flyTo({
+      center: [coords.longitude, coords.latitude],
+      zoom: 14,
+      duration: 1500,
+    })
+    props.onLocate?.(coords)
+    waitingForLocation.value = false
   }
   
-  // Start with high accuracy
-  tryGetPosition(true)
+  const onError = (error: GeolocationPositionError) => {
+    if (resolved) return
+    resolved = true
+    cleanup()
+    
+    waitingForLocation.value = false
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        locationError.value = 'Location access denied. Please enable location permissions.'
+        break
+      case error.POSITION_UNAVAILABLE:
+        locationError.value = 'Location unavailable. Check your device settings.'
+        break
+      case error.TIMEOUT:
+        locationError.value = 'Location timed out. Try again or check your device settings.'
+        break
+      default:
+        locationError.value = `Location error: ${error.message || 'Unknown error'}`
+    }
+  }
+  
+  // Start watching — accepts first position, any accuracy
+  const watchId = navigator.geolocation.watchPosition(onSuccess, onError, {
+    enableHighAccuracy: true,
+    timeout: 15000,
+    maximumAge: 60000, // Accept positions up to 60s old
+  })
+  
+  // Safety net: if no response in 20s, give up
+  fallbackTimer = setTimeout(() => {
+    if (!resolved) {
+      resolved = true
+      navigator.geolocation.clearWatch(watchId)
+      waitingForLocation.value = false
+      locationError.value = 'Location timed out. Try again or check your device settings.'
+    }
+  }, 20000)
+  
+  function cleanup() {
+    navigator.geolocation.clearWatch(watchId)
+    if (fallbackTimer) clearTimeout(fallbackTimer)
+  }
 }
 
 function handleFullscreen() {
@@ -199,13 +200,17 @@ function handleFullscreen() {
       >
         <svg
           viewBox="0 0 24 24"
-          class="size-5 transition-transform duration-200"
-          :style="{ transform: `rotateX(${pitch}deg) rotateZ(${-bearing}deg)` }"
+          width="20"
+          height="20"
+          class="transition-transform duration-200"
+          :style="{ transform: `rotateX(${pitch}deg) rotateZ(${-bearing}deg)`, transformStyle: 'preserve-3d' }"
         >
-          <path d="M12 2L16 12H12V2Z" class="fill-red-500" />
-          <path d="M12 2L8 12H12V2Z" class="fill-red-300" />
-          <path d="M12 22L16 12H12V22Z" class="fill-muted-foreground/60" />
-          <path d="M12 22L8 12H12V22Z" class="fill-muted-foreground/30" />
+          <!-- North needle (red) -->
+          <path d="M12 2L16 12H12V2Z" fill="#ef4444" />
+          <path d="M12 2L8 12H12V2Z" fill="#fca5a5" />
+          <!-- South needle (gray) -->
+          <path d="M12 22L16 12H12V22Z" fill="#9ca3af" />
+          <path d="M12 22L8 12H12V22Z" fill="#d1d5db" />
         </svg>
       </button>
     </div>
