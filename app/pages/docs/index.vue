@@ -7,7 +7,8 @@ import DocsLink from '~/components/docs/DocsLink.vue'
 definePageMeta({ layout: 'docs' })
 
 useSeoMeta({
-  title: 'Introduction - mapcn-vue',
+  title: 'Introduction',
+  description: 'Beautiful, accessible map components for Vue. Built on MapLibre GL, styled with Tailwind CSS, designed for shadcn-vue.',
 })
 
 const features = [
@@ -30,6 +31,7 @@ const features = [
       { title: 'Why MapLibre Directly?', slug: 'why-maplibre-directly' },
       { title: 'Any Map Style', slug: 'any-map-style' },
       { title: 'Features', slug: 'features' },
+      { title: 'Credits', slug: 'credits' },
     ]"
   >
     <DocsSection>
@@ -139,6 +141,17 @@ const features = [
           <p class="text-sm text-muted-foreground">{{ feature.description }}</p>
         </div>
       </div>
+    </DocsSection>
+
+    <DocsSection title="Credits">
+      <p>
+        <strong class="text-foreground">mapcn-vue</strong> is the official Vue/Nuxt port of
+        <DocsLink href="https://github.com/AnmolSaini16/mapcn" external>mapcn</DocsLink>,
+        originally built by
+        <DocsLink href="https://github.com/AnmolSaini16" external>Anmoldeep Singh</DocsLink>
+        for React/Next.js. Vue port by
+        <DocsLink href="https://github.com/AnoRebel" external>AnoRebel</DocsLink>.
+      </p>
     </DocsSection>
   </DocsLayout>
 </template>

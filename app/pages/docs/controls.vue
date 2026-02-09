@@ -6,7 +6,10 @@ import DocsCode from '~/components/docs/DocsCode.vue'
 import ExamplePreview from '~/components/docs/ExamplePreview.vue'
 
 definePageMeta({ layout: 'docs' })
-useSeoMeta({ title: 'Controls - mapcn-vue' })
+useSeoMeta({
+  title: 'Controls',
+  description: 'Add zoom, compass, geolocation, and fullscreen controls to your map with the MapControls component.',
+})
 
 const controlsCode = `<template>
   <div class="h-[400px] w-full">

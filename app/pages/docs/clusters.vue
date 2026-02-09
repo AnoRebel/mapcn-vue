@@ -7,7 +7,10 @@ import DocsCode from '~/components/docs/DocsCode.vue'
 import ExamplePreview from '~/components/docs/ExamplePreview.vue'
 
 definePageMeta({ layout: 'docs' })
-useSeoMeta({ title: 'Clusters - mapcn-vue' })
+useSeoMeta({
+  title: 'Clusters',
+  description: 'Efficiently render thousands of points with automatic clustering using MapClusterLayer. Color-coded clusters expand on zoom.',
+})
 
 interface SelectedPoint {
   feature: GeoJSON.Feature

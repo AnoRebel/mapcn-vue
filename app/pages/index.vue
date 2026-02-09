@@ -2,12 +2,9 @@
 definePageMeta({ layout: 'default' })
 
 useSeoMeta({
-  title: 'mapcn-vue - Beautiful maps made simple',
-  description: 'Ready to use, customizable map components for Vue. Built on MapLibre. Styled with Tailwind.',
-  ogTitle: 'mapcn-vue - Beautiful maps made simple',
-  ogDescription: 'Ready to use, customizable map components for Vue.',
+  title: 'Beautiful Maps Made Simple',
+  description: 'Ready-to-use, customizable map components for Vue. Built on MapLibre GL, styled with Tailwind CSS. Zero config, copy-paste into your project.',
   ogImage: '/banner.png',
-  twitterCard: 'summary_large_image',
 })
 </script>
 

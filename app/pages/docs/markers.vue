@@ -9,7 +9,10 @@ import DocsLink from '~/components/docs/DocsLink.vue'
 import ExamplePreview from '~/components/docs/ExamplePreview.vue'
 
 definePageMeta({ layout: 'docs' })
-useSeoMeta({ title: 'Markers - mapcn-vue' })
+useSeoMeta({
+  title: 'Markers',
+  description: 'Add interactive markers to your map with custom content, tooltips, popups, labels, and drag support.',
+})
 
 const locations = [
   { id: 1, name: 'Empire State Building', lng: -73.9857, lat: 40.7484 },

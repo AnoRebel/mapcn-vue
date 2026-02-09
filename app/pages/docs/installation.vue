@@ -9,7 +9,10 @@ import DocsNote from '~/components/docs/DocsNote.vue'
 import PackageManagerTabs from '~/components/docs/PackageManagerTabs.vue'
 
 definePageMeta({ layout: 'docs' })
-useSeoMeta({ title: 'Installation - mapcn-vue' })
+useSeoMeta({
+  title: 'Installation',
+  description: 'Install mapcn-vue map components with one command using shadcn-vue CLI. Works with npm, yarn, pnpm, and bun.',
+})
 
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl

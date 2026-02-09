@@ -14,7 +14,10 @@ const viewport = ref<MapViewport>({
   bearing: 0,
   pitch: 0,
 })
-useSeoMeta({ title: 'Map - mapcn-vue' })
+useSeoMeta({
+  title: 'Map',
+  description: 'Learn how to render a basic map, control the viewport programmatically, and use custom map tile styles with mapcn-vue.',
+})
 
 const basicMapCode = `<template>
   <div class="h-[400px] w-full">

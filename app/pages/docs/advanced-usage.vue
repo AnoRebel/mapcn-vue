@@ -13,7 +13,10 @@ import CustomLayerExample from '~/components/docs/examples/CustomLayerExample.vu
 import LayerMarkersExample from '~/components/docs/examples/LayerMarkersExample.vue'
 
 definePageMeta({ layout: 'docs' })
-useSeoMeta({ title: 'Advanced - mapcn-vue' })
+useSeoMeta({
+  title: 'Advanced Usage',
+  description: 'Access the raw MapLibre instance, build custom controls, add GeoJSON layers, and render markers via map layers.',
+})
 
 const mapRef = ref<{ getMap: () => any } | null>(null)
 const mapRef2 = ref<{ getMap: () => any } | null>(null)

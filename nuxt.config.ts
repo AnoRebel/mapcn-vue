@@ -10,12 +10,35 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/image',
     '@nuxt/eslint',
+    '@nuxt/scripts',
+    'nuxt-umami',
+    '@nuxtjs/seo',
   ],
 
   css: ['~/assets/css/main.css'],
 
   vite: {
     plugins: [tailwindcss()],
+  },
+
+  site: {
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://mapcn.anorebel.net',
+    name: 'mapcn-vue',
+    description: 'Beautiful, accessible map components for Vue. Built on MapLibre GL, styled with Tailwind CSS.',
+    defaultLocale: 'en',
+  },
+
+  ogImage: {
+    enabled: false,
+  },
+
+  schemaOrg: {
+    identity: {
+      type: 'Organization',
+      name: 'mapcn-vue',
+      logo: '/icon.svg',
+      url: 'https://mapcn.anorebel.net',
+    },
   },
 
   colorMode: {
@@ -55,9 +78,40 @@ export default defineNuxtConfig({
     preset: 'bun',
   },
 
+  umami: {
+     id: process.env.NUXT_UMAMI_SITE_ID || "",
+     host: "https://umami.anorebel.net",
+     autoTrack: true,
+     proxy: "cloak",
+     // useDirective: true,
+     // ignoreLocalhost: true,
+     // excludeQueryParams: false,
+     // domains: ['cool-site.app', 'my-space.site'],
+     // customEndpoint: '/my-custom-endpoint',
+     // enabled: false,
+     // logErrors: true,
+   },
+ 
+   scripts: {
+     registry: {
+       rybbitAnalytics: {
+         scriptInput: {
+           src: "https://rybbit.anorebel.net/api/script.js",
+         },
+         siteId: process.env.NUXT_RYBBIT_SITE_ID || "",
+       },
+     },
+   },
+
   runtimeConfig: {
+    rybbit: {
+      siteId: process.env.NUXT_RYBBIT_SITE_ID || "",
+    },
+    umami: {
+      id: process.env.NUXT_UMAMI_SITE_ID || "",
+    },
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://mapcn.anorebel.net',
     },
   },
 })

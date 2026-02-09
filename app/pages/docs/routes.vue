@@ -8,7 +8,10 @@ import ExamplePreview from '~/components/docs/ExamplePreview.vue'
 import RoutePlanningExample from '~/components/docs/examples/RoutePlanningExample.vue'
 
 definePageMeta({ layout: 'docs' })
-useSeoMeta({ title: 'Routes - mapcn-vue' })
+useSeoMeta({
+  title: 'Routes',
+  description: 'Draw routes and lines on the map with animation, dash patterns, auto-fit bounds, and click interactions.',
+})
 
 // NYC to Brooklyn route example
 const routeCoordinates: [number, number][] = [

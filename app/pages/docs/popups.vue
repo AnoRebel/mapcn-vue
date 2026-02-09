@@ -8,7 +8,10 @@ import DocsCode from '~/components/docs/DocsCode.vue'
 import ExamplePreview from '~/components/docs/ExamplePreview.vue'
 
 definePageMeta({ layout: 'docs' })
-useSeoMeta({ title: 'Popups - mapcn-vue' })
+useSeoMeta({
+  title: 'Popups',
+  description: 'Display standalone popups at any coordinates on the map with custom content, close buttons, and anchor positioning.',
+})
 
 const showPopup = ref(true)
 

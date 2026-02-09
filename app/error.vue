@@ -3,7 +3,8 @@ import { MapPin } from 'lucide-vue-next'
 import { Button } from '~/components/ui/button'
 
 useSeoMeta({
-  title: 'Page Not Found - mapcn-vue',
+  title: 'Page Not Found',
+  description: 'The page you\'re looking for doesn\'t exist or has been moved.',
 })
 </script>
 
