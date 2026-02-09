@@ -1,50 +1,36 @@
-<div align="center">
-  <img src="public/banner.png" alt="mapcn banner" />
-  <br>
-  <br>
-  <p>
-    Free & open source map components. Zero config, one command setup.<br/>
-    Built on <a href="https://maplibre.org/">MapLibre GL</a>, styled with <a href="https://tailwindcss.com/">Tailwind</a>, works seamlessly with <a href="https://ui.shadcn.com/">shadcn/ui</a>.
-  </p>
-  
-  <p>
-    <a href="https://mapcn.dev/docs">Get Started</a> •
-    <a href="https://mapcn.dev/docs/installation">Installation</a> •
-    <a href="https://mapcn.dev/docs/basic-map">Examples</a>
-  </p>
-</div>
+# mapcn-vue
 
----
+Beautiful maps, made simple. Vue/Nuxt port of mapcn.
+
+Free & open source map components. Zero config, one command setup.
+Built on [MapLibre GL](https://maplibre.org/), styled with [Tailwind](https://tailwindcss.com/), works seamlessly with [shadcn-vue](https://www.shadcn-vue.com/).
 
 ## Features
 
 - 🎨 **Theme-aware** — Automatically adapts to light/dark mode
 - 🎯 **Zero config** — Works out of the box with sensible defaults
-- 📦 **shadcn/ui compatible** — Uses the same patterns and styling conventions
+- 📦 **shadcn/vue compatible** — Uses the same patterns and styling conventions
 - 🗺️ **MapLibre GL powered** — Full access to MapLibre's powerful mapping capabilities
 - 🧩 **Composable** — Build complex map UIs with simple, declarative components
 - 📍 **Markers & Popups** — Rich marker system with popups, tooltips, and labels
 - 🛤️ **Routes** — Draw routes and paths on your maps
 - 🎮 **Controls** — Zoom, compass, locate, and fullscreen controls
 
-## Basemap Terms of Service
+## Quick Start
 
-This project uses [CARTO Basemaps](https://docs.carto.com/faqs/carto-basemaps) which are based on OpenStreetMap data.
+```bash
+npx shadcn-vue@latest add https://mapcn.dev/maps/map.json
+```
 
-- **Commercial use**: Requires a CARTO Enterprise license. [Request a demo](https://carto.com/request-live-demo) for pricing details.
-- **Non-commercial use**: Free for CARTO grantees under their [basemap terms](https://carto.com/legal/bmap).
-- **Alternative**: You can switch to [OpenStreetMap](https://www.openstreetmap.org/) tiles or any other MapLibre-compatible tile provider.
+## Documentation
 
-## Contributing
+Visit [mapcn.dev/docs](https://mapcn.dev/docs) for full documentation.
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Credits
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Originally built by [Anmoldeep Singh](https://github.com/AnmolSaini16).
+Vue port by [AnoRebel](https://github.com/AnoRebel).
 
 ## License
 
-MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License

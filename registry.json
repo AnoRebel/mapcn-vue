@@ -1,20 +1,75 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "mapcn",
-  "homepage": "https://github.com/anmoldeepsingh/mapcn",
+  "$schema": "https://shadcn-vue.com/schema/registry.json",
+  "name": "mapcn-vue",
+  "homepage": "https://github.com/AnoRebel/mapcn-vue",
   "items": [
     {
       "name": "map",
       "type": "registry:ui",
       "title": "Map",
       "description": "A MapLibre-powered map component with markers, popups, tooltips, routes, and controls.",
-      "dependencies": ["maplibre-gl", "lucide-react"],
+      "dependencies": ["maplibre-gl", "lucide-vue-next"],
       "registryDependencies": [],
       "files": [
         {
-          "path": "src/registry/map.tsx",
-          "type": "registry:ui",
-          "target": "components/ui/map.tsx"
+          "path": "registry/map/index.ts",
+          "type": "registry:utils"
+        },
+        {
+          "path": "registry/map/Map.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MapMarker.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MarkerContent.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MarkerPopup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MarkerTooltip.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MarkerLabel.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MapPopup.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MapControls.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MapRoute.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MapClusterLayer.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/constants.ts",
+          "type": "registry:utils"
+        },
+        {
+          "path": "registry/map/composables/useMap.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/map/composables/useMarker.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/map/composables/useResolvedTheme.ts",
+          "type": "registry:hook"
         }
       ],
       "css": {
