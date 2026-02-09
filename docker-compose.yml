@@ -7,5 +7,5 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - NUXT_PUBLIC_SITE_URL=http://localhost:3000
+      - NUXT_PUBLIC_SITE_URL=https://mapcn.anorebel.net
     restart: unless-stopped
