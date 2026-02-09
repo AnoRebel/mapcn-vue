@@ -30,7 +30,7 @@ const props = defineProps<{
           <TooltipTrigger as-child>
             <Button variant="ghost" size="sm" as-child>
               <a
-                href="https://github.com/sponsors/AnmolSaini16"
+                href="https://github.com/sponsors/AnoRebel"
                 target="_blank"
                 rel="noopener noreferrer"
               >
