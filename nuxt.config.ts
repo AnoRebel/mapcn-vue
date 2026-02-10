@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   site: {
     url: process.env.NUXT_PUBLIC_SITE_URL || 'https://mapcn.anorebel.net',
     name: 'mapcn-vue',
-    description: 'Beautiful, accessible map components for Vue. Built on MapLibre GL, styled with Tailwind CSS.',
+    description: 'Beautiful, accessible map components for Vue/Nuxt. Built on MapLibre GL, styled with Tailwind CSS.',
     defaultLocale: 'en',
   },
 

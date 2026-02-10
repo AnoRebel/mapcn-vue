@@ -3,7 +3,7 @@ definePageMeta({ layout: 'default' })
 
 useSeoMeta({
   title: 'Beautiful Maps Made Simple',
-  description: 'Ready-to-use, customizable map components for Vue. Built on MapLibre GL, styled with Tailwind CSS. Zero config, copy-paste into your project.',
+  description: 'Ready-to-use, customizable map components for Vue/Nuxt. Built on MapLibre GL, styled with Tailwind CSS. Zero config, copy-paste into your project.',
   ogImage: '/banner.png',
 })
 </script>

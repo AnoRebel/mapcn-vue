@@ -38,7 +38,7 @@ function copy() {
       </h1>
 
       <p class="mt-6 text-foreground/80 text-lg md:text-xl leading-relaxed animate-fade-up delay-200 max-w-lg">
-        Ready to use, customizable map components for Vue.
+        Ready to use, customizable map components for Vue/Nuxt.
         <br class="hidden sm:block" />
         Built on MapLibre. Styled with Tailwind.
       </p>

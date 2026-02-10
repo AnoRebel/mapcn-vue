@@ -26,7 +26,7 @@
         </span>
         <span class="text-muted-foreground/80">•</span>
         <span>
-          Vue port by
+          Vue/Nuxt port by
           <a
             href="https://github.com/AnoRebel"
             target="_blank"

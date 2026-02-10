@@ -8,7 +8,7 @@ definePageMeta({ layout: 'docs' })
 
 useSeoMeta({
   title: 'Introduction',
-  description: 'Beautiful, accessible map components for Vue. Built on MapLibre GL, styled with Tailwind CSS, designed for shadcn-vue.',
+  description: 'Beautiful, accessible map components for Vue/Nuxt. Built on MapLibre GL, styled with Tailwind CSS, designed for shadcn-vue.',
 })
 
 const features = [
@@ -49,7 +49,7 @@ const features = [
 
     <DocsSection title="Why mapcn-vue?">
       <p>
-        There's no proper copy-paste, easy-to-use map integration for Vue.
+        There's no proper copy-paste, easy-to-use map integration for Vue/Nuxt.
         Most solutions require complex configurations, API keys, or
         heavy wrapper libraries. mapcn-vue solves this:
       </p>
@@ -87,7 +87,7 @@ const features = [
         own the map instance without extra framework dependencies.
       </p>
       <p>
-        UI elements like markers, popups, and tooltips are rendered via Vue
+        UI elements like markers, popups, and tooltips are rendered via Vue/Nuxt
         portals, giving you complete styling freedom. You can drop down to raw
         MapLibre APIs anytime without "escaping" a wrapper.
       </p>
@@ -149,7 +149,7 @@ const features = [
         <DocsLink href="https://github.com/AnmolSaini16/mapcn" external>mapcn</DocsLink>,
         originally built by
         <DocsLink href="https://github.com/AnmolSaini16" external>Anmoldeep Singh</DocsLink>
-        for React/Next.js. Vue port by
+        for React/Next.js. Vue/Nuxt port by
         <DocsLink href="https://github.com/AnoRebel" external>AnoRebel</DocsLink>.
       </p>
     </DocsSection>
