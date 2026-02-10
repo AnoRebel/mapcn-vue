@@ -271,6 +271,24 @@ watch(resolvedTheme, (theme) => {
 
   mapInstance.value.setStyle(newStyle, { diff: true })
 })
+
+// Watch for style prop changes (for dynamic style switching)
+watch(() => props.styles, (newStyles) => {
+  if (!mapInstance.value || !resolvedTheme.value) return
+
+  const theme = resolvedTheme.value
+  const newStyle = theme === 'dark' 
+    ? (newStyles?.dark ?? defaultStyles.dark)
+    : (newStyles?.light ?? defaultStyles.light)
+
+  if (currentStyleRef.value === newStyle) return
+
+  clearStyleTimeout()
+  currentStyleRef.value = newStyle
+  isStyleLoaded.value = false
+
+  mapInstance.value.setStyle(newStyle, { diff: true })
+}, { deep: true })
 </script>
 
 <template>

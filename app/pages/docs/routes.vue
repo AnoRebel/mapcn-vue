@@ -6,6 +6,7 @@ import DocsCode from '~/components/docs/DocsCode.vue'
 import DocsLink from '~/components/docs/DocsLink.vue'
 import ExamplePreview from '~/components/docs/ExamplePreview.vue'
 import RoutePlanningExample from '~/components/docs/examples/RoutePlanningExample.vue'
+import AnimatedRouteExample from '~/components/docs/examples/AnimatedRouteExample.vue'
 
 definePageMeta({ layout: 'docs' })
 useSeoMeta({
@@ -101,6 +102,7 @@ const routeCoordinates = [
     :toc="[
       { title: 'Basic Route', slug: 'basic-route' },
       { title: 'Animated Route', slug: 'animated-route' },
+      { title: 'Live Tracking', slug: 'live-tracking' },
       { title: 'Route Planning', slug: 'route-planning' },
     ]"
   >
@@ -170,10 +172,19 @@ const routeCoordinates = [
       </ExamplePreview>
     </DocsSection>
 
+    <DocsSection id="live-tracking" title="Live Tracking">
+      <p>
+        Simulate a vehicle or person traveling along a route with configurable
+        transport modes (walking, driving, commuting). Features start/pause/reset
+        controls, progress tracking, and editable destinations.
+      </p>
+      <AnimatedRouteExample class="mt-4" />
+    </DocsSection>
+
     <DocsSection id="route-planning" title="Route Planning">
       <p>
-        Display multiple route options and let users select between them. 
-        This example fetches real driving directions from the 
+        Display multiple route options and let users select between them.
+        This example fetches real driving directions from the
         <DocsLink href="http://project-osrm.org/" external>OSRM API</DocsLink>.
         Click on a route or use the buttons to switch.
       </p>
