@@ -4,7 +4,9 @@ import { Map, type MapViewport } from '~~/registry/map'
 import DocsLayout from '~/components/docs/DocsLayout.vue'
 import DocsSection from '~/components/docs/DocsSection.vue'
 import DocsCode from '~/components/docs/DocsCode.vue'
+import DocsLink from '~/components/docs/DocsLink.vue'
 import ExamplePreview from '~/components/docs/ExamplePreview.vue'
+import CustomStyleExample from '~/components/docs/examples/CustomStyleExample.vue'
 
 definePageMeta({ layout: 'docs' })
 
@@ -48,15 +50,46 @@ const viewport = ref<MapViewport>({
   </div>
 </template>`
 
-const customStylesCode = `<template>
-  <Map
-    :center="[-74.006, 40.7128]"
-    :zoom="12"
-    :styles="{
-      light: 'https://tiles.openfreemap.org/styles/positron',
-      dark: 'https://tiles.openfreemap.org/styles/dark'
-    }"
-  />
+const customStylesCode = `<script setup lang="ts">
+import { ref, watch, computed } from 'vue'
+import { Map } from '@/components/ui/map'
+
+const styles = {
+  default: undefined,
+  openstreetmap: 'https://tiles.openfreemap.org/styles/bright',
+  openstreetmap3d: 'https://tiles.openfreemap.org/styles/liberty',
+}
+
+const selectedStyle = ref('default')
+const pitch = ref(0)
+
+watch(selectedStyle, (newStyle) => {
+  pitch.value = newStyle === 'openstreetmap3d' ? 60 : 0
+})
+
+const currentStyleUrl = computed(() => styles[selectedStyle.value])
+<\/script>
+
+<template>
+  <div class="h-[400px] relative w-full">
+    <Map
+      :center="[-0.1276, 51.5074]"
+      :zoom="15"
+      :pitch="pitch"
+      :styles="currentStyleUrl ? { light: currentStyleUrl, dark: currentStyleUrl } : undefined"
+      class="h-full"
+    />
+    <div class="absolute top-2 right-2 z-10">
+      <select
+        v-model="selectedStyle"
+        class="bg-background text-foreground border rounded-md px-2 py-1 text-sm shadow"
+      >
+        <option value="default">Default (Carto)</option>
+        <option value="openstreetmap">OpenStreetMap</option>
+        <option value="openstreetmap3d">OpenStreetMap 3D</option>
+      </select>
+    </div>
+  </div>
 </template>`
 </script>
 
@@ -106,19 +139,13 @@ const customStylesCode = `<template>
 
     <DocsSection id="custom-styles" title="Custom Styles">
       <p>
-        Override the default Carto basemaps with custom tile styles using the
-        <DocsCode>styles</DocsCode> prop. Any MapLibre-compatible style URL works.
+        Use the <DocsCode>styles</DocsCode> prop to provide custom map styles.
+        This example uses free vector tiles from
+        <DocsLink href="https://openfreemap.org" external>OpenFreeMap</DocsLink>,
+        an open-source project, the data comes from OpenStreetMap.
       </p>
-      <ExamplePreview :code="customStylesCode" class="mt-4" height="h-[300px]">
-        <Map
-          :center="[-74.006, 40.7128]"
-          :zoom="12"
-          :styles="{
-            light: 'https://tiles.openfreemap.org/styles/positron',
-            dark: 'https://tiles.openfreemap.org/styles/dark'
-          }"
-          class="h-full"
-        />
+      <ExamplePreview :code="customStylesCode" class="mt-4" height="h-[400px]">
+        <CustomStyleExample />
       </ExamplePreview>
     </DocsSection>
   </DocsLayout>
