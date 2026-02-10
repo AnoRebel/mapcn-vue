@@ -13,7 +13,7 @@
       "files": [
         {
           "path": "registry/map/index.ts",
-          "type": "registry:utils"
+          "type": "registry:lib"
         },
         {
           "path": "registry/map/Map.vue",
@@ -57,7 +57,7 @@
         },
         {
           "path": "registry/map/constants.ts",
-          "type": "registry:utils"
+          "type": "registry:lib"
         },
         {
           "path": "registry/map/composables/useMap.ts",
@@ -75,10 +75,13 @@
       "css": {
         "@layer base": {
           ".maplibregl-popup-content": {
-             "@apply bg-transparent! shadow-none! p-0! rounded-none!": {}
+            "background-color": "transparent",
+            "box-shadow": "none",
+            "padding": "0",
+            "border-radius": "0"
           },
           ".maplibregl-popup-tip": {
-            "@apply hidden!": {}
+            "display": "none"
           }
         }
       }
