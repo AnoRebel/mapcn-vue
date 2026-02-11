@@ -9,6 +9,9 @@ import {
   Wrench,
   Settings,
   Layers,
+  Grid3X3,
+  Sparkles,
+  Boxes,
 } from 'lucide-vue-next'
 import type { Component } from 'vue'
 
@@ -30,6 +33,7 @@ export const docsNavigation: NavGroup[] = [
       { title: 'Getting Started', href: '/docs', icon: BookOpen },
       { title: 'Installation', href: '/docs/installation', icon: Code },
       { title: 'API Reference', href: '/docs/api-reference', icon: Braces },
+      { title: 'Examples', href: '/docs/examples', icon: Sparkles },
     ],
   },
   {
@@ -41,6 +45,8 @@ export const docsNavigation: NavGroup[] = [
       { title: 'Popups', href: '/docs/popups', icon: MessageSquare },
       { title: 'Routes', href: '/docs/routes', icon: Route },
       { title: 'Clusters', href: '/docs/clusters', icon: Layers },
+      { title: 'Layers', href: '/docs/layers', icon: Grid3X3 },
+      { title: 'deck.gl', href: '/docs/deckgl', icon: Boxes },
       { title: 'Advanced', href: '/docs/advanced-usage', icon: Wrench },
     ],
   },

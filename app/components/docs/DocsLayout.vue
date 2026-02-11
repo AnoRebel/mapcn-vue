@@ -25,7 +25,7 @@ const props = defineProps<{
     <!-- Main Content -->
     <main class="flex-1 min-w-0">
       <div class="px-4 sm:px-6 lg:px-8 xl:px-12 py-8 lg:py-12">
-        <div class="max-w-3xl mx-auto w-full min-w-0">
+        <div class="max-w-4xl xl:max-w-5xl mx-auto w-full min-w-0">
           <!-- Header -->
           <div class="space-y-3 mb-8">
             <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">

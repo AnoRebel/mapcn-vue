@@ -191,15 +191,12 @@
 .delay-800 { animation-delay: 800ms; }
 .delay-900 { animation-delay: 900ms; }
 
-html .shiki,
-html .shiki span {
-  color: var(--shiki-light) !important;
+/* Shiki syntax highlighting - preserve theme colors */
+html .shiki {
   background-color: transparent !important;
 }
 
-html.dark .shiki,
-html.dark .shiki span {
-  color: var(--shiki-dark) !important;
+html.dark .shiki {
   background-color: transparent !important;
 }
 
