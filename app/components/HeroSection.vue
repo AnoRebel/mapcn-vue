@@ -39,7 +39,7 @@ function copy() {
 
       <p class="mt-6 text-foreground/80 text-lg md:text-xl leading-relaxed animate-fade-up delay-200 max-w-lg">
         Ready to use, customizable map components for Vue/Nuxt.
-        <br class="hidden sm:block" />
+        <br class="hidden sm:block" >
         Built on MapLibre. Styled with Tailwind.
       </p>
 
@@ -56,7 +56,7 @@ function copy() {
             <code class="text-foreground/80 truncate flex-1 text-left">
               {{ installCommand }}
             </code>
-            <button @click="copy" class="text-muted-foreground hover:text-foreground transition-colors">
+            <button class="text-muted-foreground hover:text-foreground transition-colors" @click="copy">
               <Check v-if="copied" class="size-4 text-emerald-500" />
               <Copy v-else class="size-4" />
             </button>

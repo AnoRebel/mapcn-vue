@@ -7,6 +7,9 @@
     "build": "nuxt build",
     "preview": "nuxt preview",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "typecheck": "nuxt typecheck",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare"
@@ -39,8 +42,10 @@
     "@nuxtjs/color-mode": "^4",
     "@nuxtjs/seo": "3.4.0",
     "@types/node": "^25.2.2",
+    "@types/prettier": "^3.0.0",
     "nuxt": "^4.3.1",
     "nuxt-umami": "3.2.1",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   },
   "trustedDependencies": [

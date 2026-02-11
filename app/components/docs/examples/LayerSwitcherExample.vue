@@ -138,9 +138,9 @@ const mapStyles = computed(() => {
             <button
               v-for="style in ['light', 'dark', 'satellite']"
               :key="style"
-              @click="currentStyle = style as any"
               :class="currentStyle === style ? 'bg-primary text-primary-foreground' : 'bg-secondary'"
               class="px-3 py-1 text-sm rounded-md capitalize"
+              @click="currentStyle = style as any"
             >
               {{ style }}
             </button>

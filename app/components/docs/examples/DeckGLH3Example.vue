@@ -54,7 +54,7 @@ const layers = computed(() => [
             max="1"
             step="0.1"
             class="w-full"
-          />
+          >
         </div>
         <div class="space-y-2">
           <div class="flex justify-between">
@@ -68,7 +68,7 @@ const layers = computed(() => [
             max="500"
             step="10"
             class="w-full"
-          />
+          >
         </div>
       </CardContent>
     </Card>

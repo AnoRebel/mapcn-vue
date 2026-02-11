@@ -80,10 +80,10 @@ watch(() => isLoaded.value, (loaded) => {
     v-if="selectedPoint"
     :longitude="selectedPoint.coordinates[0]"
     :latitude="selectedPoint.coordinates[1]"
-    @close="selectedPoint = null"
     :close-on-click="false"
     :offset="10"
     :close-button="true"
+    @close="selectedPoint = null"
   >
     <div class="min-w-[140px]">
       <p class="font-medium">{{ selectedPoint.name }}</p>

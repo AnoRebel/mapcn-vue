@@ -46,22 +46,22 @@ const layers = computed(() => [
       <CardContent class="p-4 grid grid-cols-2 gap-4">
         <div class="space-y-2">
           <span class="text-sm font-medium">Hexagon Radius</span>
-          <input v-model.number="radius" type="range" min="50" max="500" step="10" class="w-full" />
+          <input v-model.number="radius" type="range" min="50" max="500" step="10" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ radius }}m</span>
         </div>
         <div class="space-y-2">
           <span class="text-sm font-medium">Coverage</span>
-          <input v-model.number="coverage" type="range" min="0.1" max="1" step="0.1" class="w-full" />
+          <input v-model.number="coverage" type="range" min="0.1" max="1" step="0.1" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ Math.round(coverage * 100) }}%</span>
         </div>
         <div class="space-y-2">
           <span class="text-sm font-medium">Elevation Scale</span>
-          <input v-model.number="elevationScale" type="range" min="0" max="200" step="10" class="w-full" />
+          <input v-model.number="elevationScale" type="range" min="0" max="200" step="10" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ elevationScale }}</span>
         </div>
         <div class="space-y-2">
           <span class="text-sm font-medium">Upper Percentile</span>
-          <input v-model.number="upperPercentile" type="range" min="50" max="100" step="5" class="w-full" />
+          <input v-model.number="upperPercentile" type="range" min="50" max="100" step="5" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ upperPercentile }}%</span>
         </div>
       </CardContent>

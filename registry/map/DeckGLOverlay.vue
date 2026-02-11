@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { MapboxOverlay } from '@deck.gl/mapbox'
 import type { Layer } from '@deck.gl/core'
 import { useMap } from './composables/useMap'
@@ -65,6 +65,4 @@ onUnmounted(cleanupOverlay)
 watch(() => props.layers, updateLayers, { deep: true })
 </script>
 
-<template>
-  <!-- DeckGLOverlay is a renderless component -->
-</template>
+

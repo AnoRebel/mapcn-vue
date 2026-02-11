@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch, useId, computed } from 'vue'
-import MapLibreGL, { type FitBoundsOptions } from 'maplibre-gl'
+import MapLibreGL from 'maplibre-gl'
 import { useMap } from './composables/useMap'
 
 const props = withDefaults(defineProps<{
@@ -214,7 +214,3 @@ watch([() => props.color, () => props.width, () => props.opacity, () => props.da
   }
 })
 </script>
-
-<template>
-  <!-- MapRoute is a renderless component -->
-</template>

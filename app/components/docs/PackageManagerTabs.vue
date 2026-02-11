@@ -54,13 +54,13 @@ const activeCommand = computed(() => {
       <button
         v-for="pm in packageManagers"
         :key="pm.name"
-        @click="activeTab = pm.name"
         :class="cn(
           'px-4 py-2 text-sm font-medium transition-colors relative',
           activeTab === pm.name
             ? 'text-foreground'
             : 'text-muted-foreground hover:text-foreground'
         )"
+        @click="activeTab = pm.name"
       >
         {{ pm.label }}
         <span
@@ -74,10 +74,10 @@ const activeCommand = computed(() => {
     <div class="relative group">
       <pre class="p-4 text-sm font-mono overflow-x-auto"><code>{{ activeCommand }}</code></pre>
       <button
-        @click="copyToClipboard(activeCommand)"
         class="absolute top-2 right-2 p-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 hover:bg-background border border-border"
         :class="{ 'opacity-100': copied }"
         aria-label="Copy to clipboard"
+        @click="copyToClipboard(activeCommand)"
       >
         <Check v-if="copied" class="size-4 text-green-500" />
         <Copy v-else class="size-4" />

@@ -94,9 +94,9 @@ function fitBounds() {
       <button
         v-for="(route, index) in routes"
         :key="index"
-        @click="selectedRoute = index"
         class="w-full flex items-center gap-3 p-2 rounded-lg text-left transition-colors"
         :class="selectedRoute === index ? 'bg-primary/10 border border-primary/30' : 'hover:bg-muted/50 border border-transparent'"
+        @click="selectedRoute = index"
       >
         <div class="flex-1">
           <div class="flex items-center gap-2">

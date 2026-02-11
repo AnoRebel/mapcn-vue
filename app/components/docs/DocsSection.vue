@@ -14,7 +14,7 @@ const id = computed(() => props.title ? slugify(props.title) : undefined)
 </script>
 
 <template>
-  <section class="space-y-5 scroll-mt-24" :id="id">
+  <section :id="id" class="space-y-5 scroll-mt-24">
     <h2 v-if="title" class="text-xl font-semibold tracking-tight text-foreground">
       {{ title }}
     </h2>

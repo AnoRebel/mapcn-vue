@@ -41,13 +41,13 @@ const facilityTypes = {
     <Card>
       <CardContent class="p-4 space-y-4">
         <label class="flex items-center gap-2">
-          <input v-model="showProximity" type="checkbox" class="rounded" />
+          <input v-model="showProximity" type="checkbox" class="rounded" >
           <span class="text-sm">Show Proximity Zones</span>
         </label>
         
         <div v-if="showProximity" class="space-y-2">
           <span class="text-sm font-medium">Walkable Distance</span>
-          <input v-model.number="proximityRadius" type="range" min="0.005" max="0.02" step="0.001" class="w-full" />
+          <input v-model.number="proximityRadius" type="range" min="0.005" max="0.02" step="0.001" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ (proximityRadius * 111).toFixed(1) }} km radius</span>
         </div>
 
@@ -67,8 +67,8 @@ const facilityTypes = {
       <Map :center="[-73.99, 40.74]" :zoom="12" class="h-full">
         <!-- Isochrone circles -->
         <MapGeoJson
-          v-if="showProximity"
           v-for="(ring, time) in isochrones"
+          v-if="showProximity"
           :key="time"
           :data="{
             type: 'FeatureCollection',

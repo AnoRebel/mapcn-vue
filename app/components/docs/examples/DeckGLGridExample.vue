@@ -47,17 +47,17 @@ const layers = computed(() => [
       <CardContent class="p-4 grid grid-cols-3 gap-4">
         <div class="space-y-2">
           <span class="text-sm font-medium">Cell Size</span>
-          <input v-model.number="cellSize" type="range" min="50" max="500" step="25" class="w-full" />
+          <input v-model.number="cellSize" type="range" min="50" max="500" step="25" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ cellSize }}m</span>
         </div>
         <div class="space-y-2">
           <span class="text-sm font-medium">Elevation</span>
-          <input v-model.number="elevationScale" type="range" min="0" max="50" step="5" class="w-full" />
+          <input v-model.number="elevationScale" type="range" min="0" max="50" step="5" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ elevationScale }}x</span>
         </div>
         <div class="space-y-2">
           <span class="text-sm font-medium">Coverage</span>
-          <input v-model.number="coverage" type="range" min="0.5" max="1" step="0.05" class="w-full" />
+          <input v-model.number="coverage" type="range" min="0.5" max="1" step="0.05" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ Math.round(coverage * 100) }}%</span>
         </div>
       </CardContent>

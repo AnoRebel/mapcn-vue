@@ -125,8 +125,8 @@ const currentStyleUrl = computed(() => styles[selectedStyle.value])
         <div class="relative h-full">
           <Map 
             :viewport="viewport" 
-            @viewport-change="viewport = $event" 
             class="h-full" 
+            @viewport-change="viewport = $event" 
           />
           <div class="absolute top-2 left-2 z-10 flex flex-wrap gap-x-3 gap-y-1 text-xs font-mono bg-background/80 backdrop-blur px-2 py-1.5 rounded border">
             <span>lng: {{ viewport.center[0].toFixed(3) }}</span>

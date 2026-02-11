@@ -43,7 +43,7 @@ const layers = computed(() => [
       <CardContent class="p-4 space-y-4">
         <div class="space-y-2">
           <span class="text-sm font-medium">Cell Size (pixels)</span>
-          <input v-model.number="cellSize" type="range" min="10" max="50" step="5" class="w-full" />
+          <input v-model.number="cellSize" type="range" min="10" max="50" step="5" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ cellSize }}px</span>
         </div>
       </CardContent>

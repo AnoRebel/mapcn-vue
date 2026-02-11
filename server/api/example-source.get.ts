@@ -31,8 +31,8 @@ export default defineEventHandler((event) => {
     }
     
     throw createError({ statusCode: 404, statusMessage: 'File not found' })
-  } catch (error: any) {
-    if (error.statusCode) throw error
+  } catch (error) {
+    if (error instanceof Error && 'statusCode' in error) throw error
     throw createError({ statusCode: 500, statusMessage: 'Failed to read file' })
   }
 })

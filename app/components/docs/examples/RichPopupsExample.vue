@@ -75,7 +75,7 @@ const places: Place[] = [
               :src="place.image"
               :alt="place.name"
               class="w-full h-full object-cover"
-            />
+            >
           </div>
           <div class="space-y-2 p-3">
             <div>

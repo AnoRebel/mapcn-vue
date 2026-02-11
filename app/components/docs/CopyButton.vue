@@ -19,9 +19,9 @@ async function copy() {
 
 <template>
   <button
-    @click="copy"
     :class="cn('p-1.5 rounded hover:bg-muted transition-colors', props.class)"
     aria-label="Copy code"
+    @click="copy"
   >
     <Check v-if="copied" class="size-3.5 text-emerald-500" />
     <Copy v-else class="size-3.5 text-muted-foreground" />

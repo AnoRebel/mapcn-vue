@@ -110,7 +110,7 @@ onMounted(() => {
           </div>
         </div>
 
-        <Button @click="calculateRoute" :disabled="loading" class="w-full">
+        <Button :disabled="loading" class="w-full" @click="calculateRoute">
           {{ loading ? 'Calculating...' : 'Calculate Route' }}
         </Button>
 

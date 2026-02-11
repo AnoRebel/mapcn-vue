@@ -53,7 +53,7 @@ const presetViews = [
               step="5"
               class="w-full"
               @input="updateCamera"
-            />
+            >
           </div>
           <div class="space-y-2">
             <div class="flex justify-between">
@@ -68,7 +68,7 @@ const presetViews = [
               step="10"
               class="w-full"
               @input="updateCamera"
-            />
+            >
           </div>
         </div>
 

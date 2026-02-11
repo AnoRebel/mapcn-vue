@@ -175,16 +175,16 @@ const depthBarWidth = computed(() =>
       <!-- Style Toggle -->
       <div class="absolute top-4 right-4 flex gap-2">
         <button
-          @click="mapStyle = 'satellite'"
           :class="mapStyle === 'satellite' ? 'bg-primary text-primary-foreground' : 'bg-background'"
           class="px-3 py-1 text-sm rounded-md border shadow-sm"
+          @click="mapStyle = 'satellite'"
         >
           Satellite
         </button>
         <button
-          @click="mapStyle = 'dark'"
           :class="mapStyle === 'dark' ? 'bg-primary text-primary-foreground' : 'bg-background'"
           class="px-3 py-1 text-sm rounded-md border shadow-sm"
+          @click="mapStyle = 'dark'"
         >
           Dark
         </button>

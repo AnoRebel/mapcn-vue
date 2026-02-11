@@ -172,8 +172,8 @@ const toggleLayer = () => {
     <Button
       size="sm"
       :variant="isLayerVisible ? 'default' : 'secondary'"
-      @click="toggleLayer"
       :disabled="!layersReady"
+      @click="toggleLayer"
     >
       <X v-if="isLayerVisible" class="size-4 mr-1.5" />
       <Layers v-else class="size-4 mr-1.5" />

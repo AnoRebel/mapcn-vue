@@ -114,7 +114,7 @@ const layers = computed(() => [
         
         <div class="space-y-2">
           <span class="text-sm font-medium">Animation Speed</span>
-          <input v-model.number="speed" type="range" min="0.5" max="5" step="0.5" class="w-full" />
+          <input v-model.number="speed" type="range" min="0.5" max="5" step="0.5" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ speed }}x</span>
         </div>
         

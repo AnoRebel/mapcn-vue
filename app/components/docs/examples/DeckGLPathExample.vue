@@ -82,7 +82,7 @@ const layers = computed(() => [
             <h3 class="font-semibold">{{ selectedTrail }}</h3>
             <p class="text-sm text-muted-foreground">Trail selected</p>
           </div>
-          <button @click="selectedTrail = null" class="text-sm text-muted-foreground hover:text-foreground">
+          <button class="text-sm text-muted-foreground hover:text-foreground" @click="selectedTrail = null">
             Clear
           </button>
         </div>
@@ -104,7 +104,7 @@ const layers = computed(() => [
             max="3"
             step="0.1"
             class="w-full"
-          />
+          >
         </div>
       </CardContent>
     </Card>

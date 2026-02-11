@@ -66,7 +66,7 @@ const selectedCityData = computed(() => {
               Population: {{ selectedCityData.properties?.population?.toLocaleString() }}
             </p>
           </div>
-          <button @click="selectedCity = null" class="text-sm text-muted-foreground hover:text-foreground">
+          <button class="text-sm text-muted-foreground hover:text-foreground" @click="selectedCity = null">
             Clear
           </button>
         </div>
@@ -83,9 +83,9 @@ const selectedCityData = computed(() => {
             <button
               v-for="(cat, key) in categories"
               :key="key"
-              @click="cat.visible.value = !cat.visible.value"
               class="w-full flex items-center gap-3 p-2 rounded-lg transition-colors"
               :class="cat.visible.value ? 'bg-muted' : 'opacity-50'"
+              @click="cat.visible.value = !cat.visible.value"
             >
               <div
                 class="w-4 h-4 rounded-full"

@@ -21,24 +21,24 @@ onMounted(async () => {
     <div class="flex items-center justify-between border-b bg-muted/30 px-2 h-12">
       <div class="flex gap-2">
         <button
-          @click="activeTab = 'preview'"
           :class="cn(
             'px-2 py-1 text-xs font-medium rounded transition-colors',
             activeTab === 'preview'
               ? 'text-foreground bg-muted dark:bg-muted/80'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-muted/80'
           )"
+          @click="activeTab = 'preview'"
         >
           Preview
         </button>
         <button
-          @click="activeTab = 'code'"
           :class="cn(
             'px-3 py-1 text-xs font-medium rounded transition-colors',
             activeTab === 'code'
               ? 'text-foreground bg-muted dark:bg-muted/80'
               : 'text-muted-foreground hover:text-foreground hover:bg-muted dark:hover:bg-muted/80'
           )"
+          @click="activeTab = 'code'"
         >
           Code
         </button>

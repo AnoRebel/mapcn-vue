@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils'
-
 interface TocItem {
   title: string
   slug: string
@@ -11,7 +9,7 @@ interface NavLink {
   href: string
 }
 
-const props = defineProps<{
+defineProps<{
   title: string
   description: string
   prev?: NavLink

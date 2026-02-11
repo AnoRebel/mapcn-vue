@@ -36,11 +36,11 @@ onMounted(() => {
   <Tooltip>
     <TooltipTrigger as-child>
       <Button
-        @click="toggleTheme"
         variant="ghost"
         aria-label="Toggle theme"
         size="icon"
         class="size-8"
+        @click="toggleTheme"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

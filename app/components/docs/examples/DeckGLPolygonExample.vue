@@ -87,15 +87,15 @@ const layers = computed(() => [
       <CardContent class="p-4 space-y-4">
         <div class="flex flex-wrap gap-4">
           <label class="flex items-center gap-2">
-            <input v-model="filled" type="checkbox" class="rounded" />
+            <input v-model="filled" type="checkbox" class="rounded" >
             <span class="text-sm">Filled</span>
           </label>
           <label class="flex items-center gap-2">
-            <input v-model="stroked" type="checkbox" class="rounded" />
+            <input v-model="stroked" type="checkbox" class="rounded" >
             <span class="text-sm">Stroked</span>
           </label>
           <label class="flex items-center gap-2">
-            <input v-model="extruded" type="checkbox" class="rounded" />
+            <input v-model="extruded" type="checkbox" class="rounded" >
             <span class="text-sm">3D Extruded</span>
           </label>
         </div>
@@ -109,7 +109,7 @@ const layers = computed(() => [
             max="500"
             step="10"
             class="w-full"
-          />
+          >
         </div>
       </CardContent>
     </Card>

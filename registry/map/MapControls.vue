@@ -176,16 +176,16 @@ function handleFullscreen() {
     <!-- Zoom Controls -->
     <div v-if="showZoom" class="flex flex-col rounded-md border border-border bg-background shadow-sm overflow-hidden">
       <button
-        @click="handleZoomIn"
         class="flex items-center justify-center size-8 hover:bg-accent dark:hover:bg-accent/40 transition-colors"
         aria-label="Zoom in"
+        @click="handleZoomIn"
       >
         <Plus class="size-4" />
       </button>
       <button
-        @click="handleZoomOut"
         class="flex items-center justify-center size-8 hover:bg-accent dark:hover:bg-accent/40 transition-colors border-t border-border"
         aria-label="Zoom out"
+        @click="handleZoomOut"
       >
         <Minus class="size-4" />
       </button>
@@ -194,9 +194,9 @@ function handleFullscreen() {
     <!-- Compass -->
     <div v-if="showCompass" class="flex flex-col rounded-md border border-border bg-background shadow-sm overflow-hidden">
       <button
-        @click="handleResetBearing"
         class="flex items-center justify-center size-8 hover:bg-accent dark:hover:bg-accent/40 transition-colors"
         aria-label="Reset bearing to north"
+        @click="handleResetBearing"
       >
         <svg
           viewBox="0 0 24 24"
@@ -218,10 +218,10 @@ function handleFullscreen() {
     <!-- Locate -->
     <div v-if="showLocate" class="flex flex-col rounded-md border border-border bg-background shadow-sm overflow-hidden">
       <button
-        @click="handleLocate"
         :disabled="waitingForLocation"
         class="flex items-center justify-center size-8 hover:bg-accent dark:hover:bg-accent/40 transition-colors disabled:opacity-50"
         aria-label="Find my location"
+        @click="handleLocate"
       >
         <Loader2 v-if="waitingForLocation" class="size-4 animate-spin" />
         <Locate v-else class="size-4" />
@@ -231,9 +231,9 @@ function handleFullscreen() {
     <!-- Fullscreen -->
     <div v-if="showFullscreen" class="flex flex-col rounded-md border border-border bg-background shadow-sm overflow-hidden">
       <button
-        @click="handleFullscreen"
         class="flex items-center justify-center size-8 hover:bg-accent dark:hover:bg-accent/40 transition-colors"
         aria-label="Toggle fullscreen"
+        @click="handleFullscreen"
       >
         <Maximize class="size-4" />
       </button>

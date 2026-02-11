@@ -201,7 +201,7 @@ function resetView() {
         <div class="relative h-full">
           <Map ref="mapRef" :center="[-74.006, 40.7128]" :zoom="10" class="h-full" @load="onMapLoad" />
           <div class="absolute bottom-4 left-4 z-10 flex gap-2">
-            <Button @click="handleFlyTo" size="sm" :disabled="!mapReady">
+            <Button size="sm" :disabled="!mapReady" @click="handleFlyTo">
               Fly to NYC
             </Button>
           </div>
@@ -233,10 +233,10 @@ function resetView() {
             <MapControls />
           </Map>
           <div class="absolute top-4 left-4 z-10 flex gap-2">
-            <Button @click="toggle3D" size="sm">
+            <Button size="sm" @click="toggle3D">
               3D View
             </Button>
-            <Button @click="resetView" size="sm" variant="outline">
+            <Button size="sm" variant="outline" @click="resetView">
               Reset
             </Button>
           </div>

@@ -71,8 +71,8 @@ const showPopup = ref(true)
               v-if="showPopup"
               :longitude="-74.006"
               :latitude="40.7128"
-              @close="showPopup = false"
               :close-button="true"
+              @close="showPopup = false"
             >
               <div class="space-y-2">
                 <h3 class="font-semibold text-foreground">New York City</h3>
@@ -85,7 +85,7 @@ const showPopup = ref(true)
               </div>
             </MapPopup>
           </Map>
-          <Button v-if="!showPopup" @click="showPopup = true" class="absolute bottom-4 left-4 z-10">
+          <Button v-if="!showPopup" class="absolute bottom-4 left-4 z-10" @click="showPopup = true">
             Show Popup
           </Button>
         </div>

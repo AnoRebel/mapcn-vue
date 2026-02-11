@@ -63,11 +63,11 @@ const layers = computed(() => [
       <CardContent class="p-4 space-y-4">
         <div class="space-y-2">
           <span class="text-sm font-medium">Icon Size</span>
-          <input v-model.number="iconSize" type="range" min="16" max="48" step="4" class="w-full" />
+          <input v-model.number="iconSize" type="range" min="16" max="48" step="4" class="w-full" >
           <span class="text-xs text-muted-foreground">{{ iconSize }}px</span>
         </div>
         <label class="flex items-center gap-2">
-          <input v-model="billboard" type="checkbox" class="rounded" />
+          <input v-model="billboard" type="checkbox" class="rounded" >
           <span class="text-sm">Billboard (always face camera)</span>
         </label>
       </CardContent>

@@ -145,7 +145,7 @@ const formatDuration = (minutes: number) => {
           </div>
         </div>
 
-        <Button @click="optimizeRoute" :disabled="loading" class="w-full">
+        <Button :disabled="loading" class="w-full" @click="optimizeRoute">
           <Calculator class="w-4 h-4 mr-1" />
           {{ loading ? 'Optimizing...' : 'Optimize Route' }}
         </Button>

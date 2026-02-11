@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, watch, useId, computed } from 'vue'
-import MapLibreGL from 'maplibre-gl'
+import type { ImageSource } from 'maplibre-gl'
 import { useMap } from './composables/useMap'
 
 const props = withDefaults(defineProps<{
@@ -59,7 +59,7 @@ function cleanupLayer() {
 function updateImage() {
   if (!isLoaded.value || !map.value || !isSetup.value) return
 
-  const source = map.value.getSource(sourceId.value) as MapLibreGL.ImageSource
+  const source = map.value.getSource(sourceId.value) as ImageSource
   if (source) {
     source.updateImage({
       url: props.url,
@@ -95,7 +95,3 @@ watch(() => props.opacity, () => {
   map.value.setPaintProperty(layerId.value, 'raster-opacity', props.opacity)
 })
 </script>
-
-<template>
-  <!-- MapImageOverlay is a renderless component -->
-</template>

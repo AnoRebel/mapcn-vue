@@ -51,7 +51,7 @@ const layers = computed(() => [
             max="3"
             step="0.1"
             class="w-full"
-          />
+          >
         </div>
         <div class="space-y-2">
           <span class="text-sm font-medium">Arc Width</span>
@@ -62,7 +62,7 @@ const layers = computed(() => [
             max="5"
             step="0.5"
             class="w-full"
-          />
+          >
         </div>
       </CardContent>
     </Card>

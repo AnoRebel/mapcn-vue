@@ -130,8 +130,8 @@ onUnmounted(() => {
           <Button
             v-else
             size="sm"
-            @click="startAnimation"
             :disabled="currentStopIndex >= stops.length - 1"
+            @click="startAnimation"
           >
             <Play class="w-4 h-4 mr-1" />
             {{ currentStopIndex >= stops.length - 1 ? 'Complete' : 'Start' }}

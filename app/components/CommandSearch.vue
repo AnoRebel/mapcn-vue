@@ -49,9 +49,9 @@ const allNavItems = computed(() =>
   <Button
     variant="outline"
     size="sm"
-    @click="open = true"
     aria-label="Search documentation"
     class="hidden group md:flex items-center w-[180px] dark:border-border/50 border-border/70 rounded-lg text-sm font-normal text-muted-foreground"
+    @click="open = true"
   >
     <SearchIcon class="size-3.5 shrink-0" />
     <span>Search docs...</span>

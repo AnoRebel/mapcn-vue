@@ -52,7 +52,7 @@ const layers = computed(() => [
             max="500"
             step="10"
             class="w-full"
-          />
+          >
           <span class="text-xs text-muted-foreground">{{ radius }}m</span>
         </div>
         <div class="space-y-2">
@@ -64,7 +64,7 @@ const layers = computed(() => [
             max="60"
             step="5"
             class="w-full"
-          />
+          >
           <span class="text-xs text-muted-foreground">{{ pitch }}°</span>
         </div>
       </CardContent>

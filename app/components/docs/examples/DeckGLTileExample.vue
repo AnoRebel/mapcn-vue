@@ -53,7 +53,7 @@ const exampleCode = `<TileLayer
             max="1"
             step="0.1"
             class="w-full"
-          />
+          >
         </div>
       </CardContent>
     </Card>

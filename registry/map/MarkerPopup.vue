@@ -67,9 +67,9 @@ watch(() => props.offset, (offset) => {
       <button
         v-if="closeButton"
         type="button"
-        @click="handleClose"
         class="absolute top-1 right-1 z-10 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         aria-label="Close popup"
+        @click="handleClose"
       >
         <X class="h-4 w-4" />
         <span class="sr-only">Close</span>

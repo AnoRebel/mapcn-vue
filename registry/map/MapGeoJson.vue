@@ -274,7 +274,3 @@ watch(() => props.style, () => {
   }
 }, { deep: true })
 </script>
-
-<template>
-  <!-- MapGeoJson is a renderless component -->
-</template>

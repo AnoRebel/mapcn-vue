@@ -31,9 +31,9 @@ function flyTo() {
   <ExampleCard label="Fly To" class="aspect-square" delay="delay-600">
     <ClientOnly>
       <Map
+        ref="mapRef"
         :center="destination.startCenter"
         :zoom="0.5"
-        ref="mapRef"
         :projection="{ type: 'globe' }"
         class="h-full"
       >

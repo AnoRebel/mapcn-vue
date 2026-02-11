@@ -110,8 +110,8 @@ function handlePopupClose() {
             v-if="selectedPoint"
             :longitude="selectedPoint.coords[0]"
             :latitude="selectedPoint.coords[1]"
-            @close="handlePopupClose"
             :close-button="true"
+            @close="handlePopupClose"
           >
             <div class="space-y-1 p-2">
               <p class="text-sm font-medium">Earthquake</p>

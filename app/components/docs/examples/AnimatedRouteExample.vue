@@ -236,8 +236,8 @@ const TransportIcon = computed(() => transportModes[mode.value].icon)
               variant="default"
               size="sm"
               class="h-8 gap-1"
-              @click="startAnimation"
               :disabled="status === 'completed'"
+              @click="startAnimation"
             >
               <Play class="w-4 h-4" />
               {{ status === 'completed' ? 'Done' : status === 'paused' ? 'Resume' : 'Start' }}

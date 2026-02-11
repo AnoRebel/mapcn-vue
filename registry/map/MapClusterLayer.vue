@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onUnmounted, watch, useId } from 'vue'
-import MapLibreGL from 'maplibre-gl'
+import type { MapMouseEvent, MapGeoJSONFeature, GeoJSONSource } from 'maplibre-gl'
 import { useMap } from './composables/useMap'
 
 const props = withDefaults(defineProps<{
@@ -31,8 +31,8 @@ const isSetup = ref(false)
 
 // Event handlers stored for cleanup
 const handlers = {
-  handleClusterClick: null as ((e: MapLibreGL.MapMouseEvent & { features?: MapLibreGL.MapGeoJSONFeature[] }) => Promise<void>) | null,
-  handlePointClick: null as ((e: MapLibreGL.MapMouseEvent & { features?: MapLibreGL.MapGeoJSONFeature[] }) => void) | null,
+  handleClusterClick: null as ((e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => Promise<void>) | null,
+  handlePointClick: null as ((e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => void) | null,
   handleMouseEnterCluster: null as (() => void) | null,
   handleMouseLeaveCluster: null as (() => void) | null,
   handleMouseEnterPoint: null as (() => void) | null,
@@ -116,7 +116,7 @@ watch(() => isLoaded.value, (loaded) => {
   })
 
   // Cluster click handler
-  handlers.handleClusterClick = async (e: MapLibreGL.MapMouseEvent & { features?: MapLibreGL.MapGeoJSONFeature[] }) => {
+  handlers.handleClusterClick = async (e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
     const features = map.value!.queryRenderedFeatures(e.point, {
       layers: [clusterLayerId.value],
     })
@@ -130,14 +130,14 @@ watch(() => isLoaded.value, (loaded) => {
     if (props.onClusterClick) {
       props.onClusterClick(clusterId, coordinates, pointCount)
     } else {
-      const source = map.value!.getSource(sourceId.value) as MapLibreGL.GeoJSONSource
+      const source = map.value!.getSource(sourceId.value) as GeoJSONSource
       const zoom = await source.getClusterExpansionZoom(clusterId)
       map.value!.easeTo({ center: coordinates, zoom })
     }
   }
 
   // Unclustered point click handler
-  handlers.handlePointClick = (e: MapLibreGL.MapMouseEvent & { features?: MapLibreGL.MapGeoJSONFeature[] }) => {
+  handlers.handlePointClick = (e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
     if (!props.onPointClick || !e.features?.length) return
 
     const feature = e.features[0]!
@@ -212,7 +212,7 @@ onUnmounted(() => {
 // Watch for data changes (only for non-URL data)
 watch(() => props.data, (data) => {
   if (!isLoaded.value || !map.value || typeof data === 'string') return
-  const source = map.value.getSource(sourceId.value) as MapLibreGL.GeoJSONSource
+  const source = map.value.getSource(sourceId.value) as GeoJSONSource
   if (source) {
     source.setData(data)
   }
@@ -248,7 +248,3 @@ watch([() => props.clusterColors, () => props.clusterThresholds, () => props.poi
   }
 })
 </script>
-
-<template>
-  <!-- MapClusterLayer is a renderless component -->
-</template>
