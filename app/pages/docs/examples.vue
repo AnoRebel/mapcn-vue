@@ -33,6 +33,7 @@ const examples = {
     description: 'Core MapLibre GL features and controls',
     items: [
       { name: 'FlyTo Animations', component: 'FlyToExample', deps: [], desc: 'Smooth camera transitions between cities' },
+      { name: 'Pitch & Bearing', component: 'PitchControlExample', deps: [], desc: '3D map tilt and rotation controls' },
       { name: 'Layer Switcher', component: 'LayerSwitcherExample', deps: [], desc: 'Toggle layer visibility and switch basemaps' },
       { name: 'Interactive Legend', component: 'InteractiveLegendExample', deps: [], desc: 'Category filtering with clickable legend' },
       { name: 'Custom Styles', component: 'CustomStyleExample', deps: [], desc: 'Dynamic style switching with OpenFreeMap' },
@@ -59,6 +60,9 @@ const examples = {
       { name: 'Path Layer', component: 'DeckGLPathExample', deps: ['deck.gl'], desc: 'GPS trails and routes with custom styling' },
       { name: 'Polygon Layer', component: 'DeckGLPolygonExample', deps: ['deck.gl'], desc: 'Filled and stroked polygons with 3D extrusion' },
       { name: 'Column Layer', component: 'DeckGLColumnExample', deps: ['deck.gl'], desc: '3D extruded columns for height data' },
+      { name: 'Icon Layer', component: 'DeckGLIconExample', deps: ['deck.gl'], desc: 'Custom icon markers with SVG support' },
+      { name: 'Text Layer', component: 'DeckGLTextExample', deps: ['deck.gl'], desc: 'Text labels with backgrounds and collision detection' },
+      { name: 'Trips Layer', component: 'DeckGLTripsExample', deps: ['deck.gl'], desc: 'Animated trip paths with timestamp trails' },
     ],
   },
   deckglAgg: {
@@ -80,6 +84,15 @@ const examples = {
       { name: 'H3 Hexagons', component: 'DeckGLH3Example', deps: ['deck.gl', 'h3-js'], desc: 'Uber H3 spatial indexing' },
     ],
   },
+  deckglSpatial: {
+    title: '📍 deck.gl Spatial Indexing',
+    description: 'Grid-based aggregation and spatial indexing',
+    deps: 'bun add @deck.gl/aggregation-layers',
+    items: [
+      { name: 'Grid Layer', component: 'DeckGLGridExample', deps: ['deck.gl'], desc: 'Square grid aggregation with 3D elevation' },
+      { name: 'Hexagon Layer', component: 'DeckGLHexagonExample', deps: ['deck.gl'], desc: 'Hexagonal binning for data aggregation' },
+    ],
+  },
 }
 </script>
 
@@ -97,6 +110,7 @@ const examples = {
       { title: 'deck.gl Core', slug: 'deckgl-core' },
       { title: 'deck.gl Aggregation', slug: 'deckgl-aggregation' },
       { title: 'deck.gl Geographic', slug: 'deckgl-geographic' },
+      { title: 'deck.gl Spatial Indexing', slug: 'deckgl-spatial' },
     ]"
   >
     <DocsSection id="overview" title="Overview">
@@ -214,6 +228,21 @@ const examples = {
             <span class="text-xs bg-orange-500/10 text-orange-600 px-2 py-1 rounded">
               {{ item.deps.includes('h3-js') ? 'deck.gl + h3-js' : 'deck.gl' }}
             </span>
+          </div>
+          <p class="text-sm text-muted-foreground mt-1">{{ item.desc }}</p>
+        </div>
+      </div>
+    </DocsSection>
+
+    <!-- deck.gl Spatial Indexing -->
+    <DocsSection id="deckgl-spatial" :title="examples.deckglSpatial.title">
+      <p>{{ examples.deckglSpatial.description }}</p>
+      <pre class="mt-2 p-3 bg-muted rounded-lg text-sm"><code>{{ examples.deckglSpatial.deps }}</code></pre>
+      <div class="mt-4 space-y-2">
+        <div v-for="item in examples.deckglSpatial.items" :key="item.name" class="p-3 bg-muted rounded-lg border-l-4 border-primary">
+          <div class="flex items-center justify-between">
+            <span class="font-medium">{{ item.name }}</span>
+            <span class="text-xs bg-orange-500/10 text-orange-600 px-2 py-1 rounded">deck.gl</span>
           </div>
           <p class="text-sm text-muted-foreground mt-1">{{ item.desc }}</p>
         </div>
