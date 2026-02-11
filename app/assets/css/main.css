@@ -181,23 +181,43 @@
   animation: scale-in 0.5s ease-out both;
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
-.delay-600 { animation-delay: 600ms; }
-.delay-700 { animation-delay: 700ms; }
-.delay-800 { animation-delay: 800ms; }
-.delay-900 { animation-delay: 900ms; }
+.delay-100 {
+  animation-delay: 100ms;
+}
+.delay-200 {
+  animation-delay: 200ms;
+}
+.delay-300 {
+  animation-delay: 300ms;
+}
+.delay-400 {
+  animation-delay: 400ms;
+}
+.delay-500 {
+  animation-delay: 500ms;
+}
+.delay-600 {
+  animation-delay: 600ms;
+}
+.delay-700 {
+  animation-delay: 700ms;
+}
+.delay-800 {
+  animation-delay: 800ms;
+}
+.delay-900 {
+  animation-delay: 900ms;
+}
 
-/* Shiki syntax highlighting - preserve theme colors */
-html .shiki {
+/* Shiki syntax highlighting - dual theme support */
+html .shiki,
+html .shiki span {
+  color: var(--shiki-light) !important;
   background-color: transparent !important;
 }
 
-html.dark .shiki {
+html.dark .shiki,
+html.dark .shiki span {
+  color: var(--shiki-dark) !important;
   background-color: transparent !important;
 }
-
-

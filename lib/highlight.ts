@@ -1,15 +1,15 @@
-import { codeToHtml } from 'shiki'
+import { codeToHtml } from "shiki";
 
 export async function highlightCode(
   code: string,
-  lang: string = 'vue'
+  lang: string = "vue",
 ): Promise<string> {
   return codeToHtml(code, {
     lang,
     themes: {
-      light: 'github-light',
-      dark: 'github-dark',
+      light: "github-light",
+      dark: "github-dark",
     },
     defaultColor: false,
-  })
+  });
 }
