@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { Map, DeckGLOverlay } from '~~/registry/map'
-import { Card, CardContent } from '~/components/ui/card'
-import { Slider } from '~/components/ui/slider'
-import { ScatterplotLayer } from '@deck.gl/layers'
+import { ref, computed } from "vue";
+import { Map, DeckGLOverlay } from "~~/registry/map";
+import { Card, CardContent } from "~/components/ui/card";
+import { Slider } from "~/components/ui/slider";
+import { ScatterplotLayer } from "@deck.gl/layers";
 
 // NYC taxi pickup locations (sample data)
 const taxiData = [
@@ -17,17 +17,17 @@ const taxiData = [
   { position: [-73.9969, 40.7061], pickups: 450 },
   { position: [-74.0092, 40.7251], pickups: 300 },
   { position: [-73.9712, 40.7614], pickups: 700 },
-]
+];
 
-const radius = ref(1000)
-const opacity = ref(0.8)
+const radius = ref([1000]);
+const opacity = ref([0.8]);
 
 const layers = computed(() => [
   new ScatterplotLayer({
-    id: 'scatterplot-layer',
+    id: "scatterplot-layer",
     data: taxiData,
-    getPosition: d => d.position,
-    getRadius: d => Math.sqrt(d.pickups) * 30,
+    getPosition: (d) => d.position,
+    getRadius: (d) => Math.sqrt(d.pickups) * 30,
     getFillColor: [255, 99, 71],
     getLineColor: [255, 255, 255],
     lineWidthMinPixels: 2,
@@ -35,16 +35,16 @@ const layers = computed(() => [
     radiusMaxPixels: 100,
     stroked: true,
     filled: true,
-    opacity: opacity.value,
-    radiusScale: radius.value / 1000,
+    opacity: opacity.value[0] ?? 0.8,
+    radiusScale: (radius.value[0] ?? 1000) / 1000,
     pickable: true,
     onHover: (info) => {
       if (info.object) {
-        console.log('Pickups:', info.object.pickups)
+        console.log("Pickups:", info.object.pickups);
       }
     },
   }),
-])
+]);
 </script>
 
 <template>
@@ -55,14 +55,16 @@ const layers = computed(() => [
         <div class="space-y-2">
           <div class="flex justify-between">
             <span class="text-sm font-medium">Radius Scale</span>
-            <span class="text-sm text-muted-foreground">{{ radius }}m</span>
+            <span class="text-sm text-muted-foreground">{{ radius[0] }}m</span>
           </div>
           <Slider v-model="radius" :min="100" :max="5000" :step="100" />
         </div>
         <div class="space-y-2">
           <div class="flex justify-between">
             <span class="text-sm font-medium">Opacity</span>
-            <span class="text-sm text-muted-foreground">{{ Math.round(opacity * 100) }}%</span>
+            <span class="text-sm text-muted-foreground"
+              >{{ Math.round((opacity[0] ?? 0.8) * 100) }}%</span
+            >
           </div>
           <Slider v-model="opacity" :min="0.1" :max="1" :step="0.1" />
         </div>
@@ -71,17 +73,14 @@ const layers = computed(() => [
 
     <!-- Map -->
     <div class="h-[400px] w-full rounded-lg overflow-hidden border">
-      <Map
-        :center="[-73.98, 40.75]"
-        :zoom="11"
-        class="h-full"
-      >
+      <Map :center="[-73.98, 40.75]" :zoom="11" class="h-full">
         <DeckGLOverlay :layers="layers" :interleaved="true" />
       </Map>
     </div>
 
     <p class="text-sm text-muted-foreground">
-      ScatterplotLayer showing taxi pickup density. Each circle size represents the number of pickups at that location.
+      ScatterplotLayer showing taxi pickup density. Each circle size represents
+      the number of pickups at that location.
     </p>
   </div>
 </template>
