@@ -8,6 +8,9 @@ export { default as MapPopup } from './MapPopup.vue'
 export { default as MapControls } from './MapControls.vue'
 export { default as MapRoute } from './MapRoute.vue'
 export { default as MapClusterLayer } from './MapClusterLayer.vue'
+export { default as MapGeoJson, type GeoJsonLayerStyle } from './MapGeoJson.vue'
+export { default as MapImageOverlay } from './MapImageOverlay.vue'
+export { default as DeckGLOverlay } from './DeckGLOverlay.vue'
 
 // Export composables
 export { useMap } from './composables/useMap'
