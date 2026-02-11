@@ -1,125 +1,157 @@
 <script setup lang="ts">
-import { ref, computed, onUnmounted } from 'vue'
-import { Map, MapMarker, MapRoute, MarkerContent, MarkerPopup } from '~~/registry/map'
-import { Button } from '~/components/ui/button'
-import { Input } from '~/components/ui/input'
-import { Label } from '~/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
-import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card'
-import { Play, Pause, RotateCcw, Car, Footprints, Train } from 'lucide-vue-next'
+import { ref, computed, onUnmounted } from "vue";
+import {
+  Map,
+  MapMarker,
+  MapRoute,
+  MarkerContent,
+  MarkerPopup,
+} from "~~/registry/map";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import {
+  Play,
+  Pause,
+  RotateCcw,
+  Car,
+  Footprints,
+  Train,
+} from "lucide-vue-next";
+import type { Component } from "vue";
 
-type TransportMode = 'driving' | 'walking' | 'commute'
-type RouteStatus = 'idle' | 'playing' | 'paused' | 'completed'
+type TransportMode = "driving" | "walking" | "commute";
+type RouteStatus = "idle" | "playing" | "paused" | "completed";
 
 interface RouteConfig {
-  start: { lng: number; lat: number; name: string }
-  end: { lng: number; lat: number; name: string }
-  speed: number // km/h
+  start: { lng: number; lat: number; name: string };
+  end: { lng: number; lat: number; name: string };
+  speed: number; // km/h
 }
 
-const transportModes: Record<TransportMode, { icon: any; label: string; speed: number }> = {
-  driving: { icon: Car, label: 'Driving', speed: 50 },
-  walking: { icon: Footprints, label: 'Walking', speed: 5 },
-  commute: { icon: Train, label: 'Commute', speed: 30 },
-}
+const transportModes: Record<
+  TransportMode,
+  { icon: Component; label: string; speed: number }
+> = {
+  driving: { icon: Car, label: "Driving", speed: 50 },
+  walking: { icon: Footprints, label: "Walking", speed: 5 },
+  commute: { icon: Train, label: "Commute", speed: 30 },
+};
 
-const mode = ref<TransportMode>('driving')
-const status = ref<RouteStatus>('idle')
-const progress = ref(0) // 0 to 100
-const animationFrame = ref<number | null>(null)
-const lastTimestamp = ref<number>(0)
+const mode = ref<TransportMode>("driving");
+const status = ref<RouteStatus>("idle");
+const progress = ref(0); // 0 to 100
+const animationFrame = ref<number | null>(null);
+const lastTimestamp = ref<number>(0);
 
 const config = ref<RouteConfig>({
-  start: { lng: -74.006, lat: 40.7128, name: 'New York' },
-  end: { lng: -73.9857, lat: 40.7484, name: 'Empire State' },
+  start: { lng: -74.006, lat: 40.7128, name: "New York" },
+  end: { lng: -73.9857, lat: 40.7484, name: "Empire State" },
   speed: 50,
-})
+});
 
 // Calculate route distance (simplified haversine)
 const routeDistance = computed(() => {
-  const R = 6371 // Earth's radius in km
-  const dLat = (config.value.end.lat - config.value.start.lat) * Math.PI / 180
-  const dLon = (config.value.end.lng - config.value.start.lng) * Math.PI / 180
-  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(config.value.start.lat * Math.PI / 180) * Math.cos(config.value.end.lat * Math.PI / 180) *
-    Math.sin(dLon/2) * Math.sin(dLon/2)
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
-  return R * c
-})
+  const R = 6371; // Earth's radius in km
+  const dLat =
+    ((config.value.end.lat - config.value.start.lat) * Math.PI) / 180;
+  const dLon =
+    ((config.value.end.lng - config.value.start.lng) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((config.value.start.lat * Math.PI) / 180) *
+      Math.cos((config.value.end.lat * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+});
 
-const currentSpeed = computed(() => transportModes[mode.value].speed)
+const currentSpeed = computed(() => transportModes[mode.value].speed);
 const estimatedTime = computed(() => {
-  const hours = routeDistance.value / currentSpeed.value
-  const minutes = Math.round(hours * 60)
-  return minutes
-})
+  const hours = routeDistance.value / currentSpeed.value;
+  const minutes = Math.round(hours * 60);
+  return minutes;
+});
 
 // Current position based on progress
 const currentPosition = computed(() => {
-  const t = progress.value / 100
+  const t = progress.value / 100;
   return {
-    lng: config.value.start.lng + (config.value.end.lng - config.value.start.lng) * t,
-    lat: config.value.start.lat + (config.value.end.lat - config.value.start.lat) * t,
-  }
-})
+    lng:
+      config.value.start.lng +
+      (config.value.end.lng - config.value.start.lng) * t,
+    lat:
+      config.value.start.lat +
+      (config.value.end.lat - config.value.start.lat) * t,
+  };
+});
 
 function startAnimation() {
-  if (status.value === 'completed') {
-    progress.value = 0
+  if (status.value === "completed") {
+    progress.value = 0;
   }
-  status.value = 'playing'
-  lastTimestamp.value = performance.now()
-  animate()
+  status.value = "playing";
+  lastTimestamp.value = performance.now();
+  animate();
 }
 
 function pauseAnimation() {
-  status.value = 'paused'
+  status.value = "paused";
   if (animationFrame.value) {
-    cancelAnimationFrame(animationFrame.value)
+    cancelAnimationFrame(animationFrame.value);
   }
 }
 
 function resetAnimation() {
-  status.value = 'idle'
-  progress.value = 0
+  status.value = "idle";
+  progress.value = 0;
   if (animationFrame.value) {
-    cancelAnimationFrame(animationFrame.value)
+    cancelAnimationFrame(animationFrame.value);
   }
 }
 
 function animate() {
-  if (status.value !== 'playing') return
+  if (status.value !== "playing") return;
 
-  const now = performance.now()
-  const deltaTime = (now - lastTimestamp.value) / 1000 // seconds
-  lastTimestamp.value = now
+  const now = performance.now();
+  const deltaTime = (now - lastTimestamp.value) / 1000; // seconds
+  lastTimestamp.value = now;
 
   // Calculate progress increment based on speed and distance
-  const distanceKm = routeDistance.value
-  const speedKmS = currentSpeed.value / 3600 // km/s
-  const progressIncrement = (speedKmS * deltaTime / distanceKm) * 100
+  const distanceKm = routeDistance.value;
+  const speedKmS = currentSpeed.value / 3600; // km/s
+  const progressIncrement = ((speedKmS * deltaTime) / distanceKm) * 100;
 
-  progress.value = Math.min(progress.value + progressIncrement, 100)
+  progress.value = Math.min(progress.value + progressIncrement, 100);
 
   if (progress.value >= 100) {
-    status.value = 'completed'
-    return
+    status.value = "completed";
+    return;
   }
 
-  animationFrame.value = requestAnimationFrame(animate)
+  animationFrame.value = requestAnimationFrame(animate);
 }
 
 function updateConfig() {
-  resetAnimation()
+  resetAnimation();
 }
 
 onUnmounted(() => {
   if (animationFrame.value) {
-    cancelAnimationFrame(animationFrame.value)
+    cancelAnimationFrame(animationFrame.value);
   }
-})
+});
 
-const TransportIcon = computed(() => transportModes[mode.value].icon)
+const TransportIcon = computed(() => transportModes[mode.value].icon);
 </script>
 
 <template>
@@ -203,7 +235,11 @@ const TransportIcon = computed(() => transportModes[mode.value].icon)
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem v-for="(info, key) in transportModes" :key="key" :value="key">
+                <SelectItem
+                  v-for="(info, key) in transportModes"
+                  :key="key"
+                  :value="key"
+                >
                   <div class="flex items-center gap-2">
                     <component :is="info.icon" class="w-4 h-4" />
                     {{ info.label }}
@@ -240,7 +276,13 @@ const TransportIcon = computed(() => transportModes[mode.value].icon)
               @click="startAnimation"
             >
               <Play class="w-4 h-4" />
-              {{ status === 'completed' ? 'Done' : status === 'paused' ? 'Resume' : 'Start' }}
+              {{
+                status === "completed"
+                  ? "Done"
+                  : status === "paused"
+                    ? "Resume"
+                    : "Start"
+              }}
             </Button>
             <Button
               variant="outline"
@@ -288,12 +330,11 @@ const TransportIcon = computed(() => transportModes[mode.value].icon)
         />
 
         <!-- Start Marker -->
-        <MapMarker
-          :longitude="config.start.lng"
-          :latitude="config.start.lat"
-        >
+        <MapMarker :longitude="config.start.lng" :latitude="config.start.lat">
           <MarkerContent>
-            <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-white shadow-lg flex items-center justify-center">
+            <div
+              class="w-8 h-8 rounded-full bg-green-500 border-2 border-white shadow-lg flex items-center justify-center"
+            >
               <span class="text-white text-xs font-bold">A</span>
             </div>
           </MarkerContent>
@@ -304,12 +345,11 @@ const TransportIcon = computed(() => transportModes[mode.value].icon)
         </MapMarker>
 
         <!-- End Marker -->
-        <MapMarker
-          :longitude="config.end.lng"
-          :latitude="config.end.lat"
-        >
+        <MapMarker :longitude="config.end.lng" :latitude="config.end.lat">
           <MarkerContent>
-            <div class="w-8 h-8 rounded-full bg-red-500 border-2 border-white shadow-lg flex items-center justify-center">
+            <div
+              class="w-8 h-8 rounded-full bg-red-500 border-2 border-white shadow-lg flex items-center justify-center"
+            >
               <span class="text-white text-xs font-bold">B</span>
             </div>
           </MarkerContent>
@@ -324,14 +364,23 @@ const TransportIcon = computed(() => transportModes[mode.value].icon)
           v-if="status !== 'idle'"
           :longitude="currentPosition.lng"
           :latitude="currentPosition.lat"
-          :rotation="Math.atan2(
-            config.end.lat - config.start.lat,
-            config.end.lng - config.start.lng
-          ) * 180 / Math.PI"
+          :rotation="
+            (Math.atan2(
+              config.end.lat - config.start.lat,
+              config.end.lng - config.start.lng,
+            ) *
+              180) /
+            Math.PI
+          "
         >
           <MarkerContent>
-            <div class="w-8 h-8 rounded-full bg-primary border-2 border-white shadow-lg flex items-center justify-center animate-pulse">
-              <component :is="TransportIcon" class="w-4 h-4 text-primary-foreground" />
+            <div
+              class="w-8 h-8 rounded-full bg-primary border-2 border-white shadow-lg flex items-center justify-center animate-pulse"
+            >
+              <component
+                :is="TransportIcon"
+                class="w-4 h-4 text-primary-foreground"
+              />
             </div>
           </MarkerContent>
         </MapMarker>

@@ -1,36 +1,38 @@
 <script setup lang="ts">
-import { Map } from '~~/registry/map'
-import LayerMarkersInner from './LayerMarkersInner.vue'
-import ExamplePreview from '../ExamplePreview.vue'
+import { Map } from "~~/registry/map";
+import LayerMarkersInner from "./LayerMarkersInner.vue";
+import ExamplePreview from "../ExamplePreview.vue";
 
 function generateRandomPoints(count: number) {
-  const center = { lng: -73.98, lat: 40.75 }
-  const features = []
+  const center = { lng: -73.98, lat: 40.75 };
+  const features = [];
 
   for (let i = 0; i < count; i++) {
-    const lng = center.lng + (Math.random() - 0.5) * 0.15
-    const lat = center.lat + (Math.random() - 0.5) * 0.1
+    const lng = center.lng + (Math.random() - 0.5) * 0.15;
+    const lat = center.lat + (Math.random() - 0.5) * 0.1;
     features.push({
-      type: 'Feature' as const,
+      type: "Feature" as const,
       properties: {
         id: i,
         name: `Location ${i + 1}`,
-        category: ['Restaurant', 'Cafe', 'Bar', 'Shop'][Math.floor(Math.random() * 4)],
+        category: ["Restaurant", "Cafe", "Bar", "Shop"][
+          Math.floor(Math.random() * 4)
+        ],
       },
       geometry: {
-        type: 'Point' as const,
+        type: "Point" as const,
         coordinates: [lng, lat],
       },
-    })
+    });
   }
 
   return {
-    type: 'FeatureCollection' as const,
+    type: "FeatureCollection" as const,
     features,
-  }
+  };
 }
 
-const pointsData = generateRandomPoints(200)
+const pointsData = generateRandomPoints(200);
 
 const layerMarkersCode = `<script setup lang="ts">
 import { ref, watchEffect } from 'vue'
@@ -64,7 +66,7 @@ watchEffect(() => {
     }
   })
 })
-<\/script>
+${"<"}/script>
 
 <template>
   <div class="relative h-[400px]">
@@ -78,7 +80,7 @@ watchEffect(() => {
       <p class="font-medium">{{ selectedPoint.name }}</p>
     </MapPopup>
   </div>
-</template>`
+</template>`;
 </script>
 
 <template>

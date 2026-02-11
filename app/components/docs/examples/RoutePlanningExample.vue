@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Map, MapControls } from '~~/registry/map'
-import RoutePlanningInner from './RoutePlanningInner.vue'
-import ExamplePreview from '../ExamplePreview.vue'
+import { Map, MapControls } from "~~/registry/map";
+import RoutePlanningInner from "./RoutePlanningInner.vue";
+import ExamplePreview from "../ExamplePreview.vue";
 
 const routePlanningCode = `<script setup lang="ts">
 import { ref } from 'vue'
@@ -23,7 +23,7 @@ const routes = [
     isFastest: false 
   },
 ]
-<\/script>
+${"<"}/script>
 
 <template>
   <div class="relative h-[500px]">
@@ -62,7 +62,7 @@ const routes = [
       </MapMarker>
     </Map>
   </div>
-</template>`
+</template>`;
 </script>
 
 <template>

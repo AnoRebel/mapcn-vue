@@ -1,83 +1,107 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Map, MapGeoJson, MapMarker, MarkerContent, MarkerPopup } from '~~/registry/map'
-import { Card, CardContent } from '~/components/ui/card'
-import { Button } from '~/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
-import type { FeatureCollection } from 'geojson'
+import { ref } from "vue";
+import { Map, MapGeoJson } from "~~/registry/map";
+import { Card, CardContent } from "~/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import type { Feature, FeatureCollection } from "geojson";
 
 // Sample GeoJSON data - earthquake locations
 const earthquakeData: FeatureCollection = {
-  type: 'FeatureCollection',
+  type: "FeatureCollection",
   features: [
     {
-      type: 'Feature',
-      properties: { magnitude: 4.5, location: 'San Francisco, CA', time: '2 hours ago' },
-      geometry: { type: 'Point', coordinates: [-122.4194, 37.7749] },
+      type: "Feature",
+      properties: {
+        magnitude: 4.5,
+        location: "San Francisco, CA",
+        time: "2 hours ago",
+      },
+      geometry: { type: "Point", coordinates: [-122.4194, 37.7749] },
     },
     {
-      type: 'Feature',
-      properties: { magnitude: 3.2, location: 'Los Angeles, CA', time: '5 hours ago' },
-      geometry: { type: 'Point', coordinates: [-118.2437, 34.0522] },
+      type: "Feature",
+      properties: {
+        magnitude: 3.2,
+        location: "Los Angeles, CA",
+        time: "5 hours ago",
+      },
+      geometry: { type: "Point", coordinates: [-118.2437, 34.0522] },
     },
     {
-      type: 'Feature',
-      properties: { magnitude: 5.1, location: 'Seattle, WA', time: '1 day ago' },
-      geometry: { type: 'Point', coordinates: [-122.3321, 47.6062] },
+      type: "Feature",
+      properties: {
+        magnitude: 5.1,
+        location: "Seattle, WA",
+        time: "1 day ago",
+      },
+      geometry: { type: "Point", coordinates: [-122.3321, 47.6062] },
     },
     {
-      type: 'Feature',
-      properties: { magnitude: 2.8, location: 'Portland, OR', time: '2 days ago' },
-      geometry: { type: 'Point', coordinates: [-122.6784, 45.5152] },
+      type: "Feature",
+      properties: {
+        magnitude: 2.8,
+        location: "Portland, OR",
+        time: "2 days ago",
+      },
+      geometry: { type: "Point", coordinates: [-122.6784, 45.5152] },
     },
     {
-      type: 'Feature',
-      properties: { magnitude: 4.2, location: 'Reno, NV', time: '3 days ago' },
-      geometry: { type: 'Point', coordinates: [-119.8138, 39.5296] },
+      type: "Feature",
+      properties: { magnitude: 4.2, location: "Reno, NV", time: "3 days ago" },
+      geometry: { type: "Point", coordinates: [-119.8138, 39.5296] },
     },
   ],
-}
+};
 
 // Polygon data - national parks
 const parkData: FeatureCollection = {
-  type: 'FeatureCollection',
+  type: "FeatureCollection",
   features: [
     {
-      type: 'Feature',
-      properties: { name: 'Yellowstone', type: 'National Park' },
+      type: "Feature",
+      properties: { name: "Yellowstone", type: "National Park" },
       geometry: {
-        type: 'Polygon',
-        coordinates: [[
-          [-110.5, 44.2], [-110.5, 45.1], [-109.8, 45.1],
-          [-109.8, 44.2], [-110.5, 44.2],
-        ]],
-      },
-    },
-  ],
-}
-
-// Line data - fault lines
-const faultLineData: FeatureCollection = {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Feature',
-      properties: { name: 'San Andreas Fault', type: 'Fault Line' },
-      geometry: {
-        type: 'LineString',
+        type: "Polygon",
         coordinates: [
-          [-122.5, 37.7], [-121.8, 36.8], [-120.5, 35.5],
-          [-119.5, 34.5], [-118.5, 33.8], [-117.2, 32.8],
+          [
+            [-110.5, 44.2],
+            [-110.5, 45.1],
+            [-109.8, 45.1],
+            [-109.8, 44.2],
+            [-110.5, 44.2],
+          ],
         ],
       },
     },
   ],
-}
+};
 
-const selectedFeature = ref<any>(null)
+// Line data - fault lines
+const faultLineData: FeatureCollection = {
+  type: "FeatureCollection",
+  features: [
+    {
+      type: "Feature",
+      properties: { name: "San Andreas Fault", type: "Fault Line" },
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [-122.5, 37.7],
+          [-121.8, 36.8],
+          [-120.5, 35.5],
+          [-119.5, 34.5],
+          [-118.5, 33.8],
+          [-117.2, 32.8],
+        ],
+      },
+    },
+  ],
+};
 
-function handlePointClick(feature: any) {
-  selectedFeature.value = feature
+const selectedFeature = ref<Feature | null>(null);
+
+function handlePointClick(feature: Feature) {
+  selectedFeature.value = feature;
 }
 </script>
 
@@ -88,14 +112,27 @@ function handlePointClick(feature: any) {
       <CardContent class="p-4">
         <div class="flex items-center justify-between">
           <div>
-            <h3 class="font-semibold">{{ selectedFeature.properties?.location || selectedFeature.properties?.name }}</h3>
-            <p class="text-sm text-muted-foreground">{{ selectedFeature.properties?.type }}</p>
+            <h3 class="font-semibold">
+              {{
+                selectedFeature.properties?.location ||
+                selectedFeature.properties?.name
+              }}
+            </h3>
+            <p class="text-sm text-muted-foreground">
+              {{ selectedFeature.properties?.type }}
+            </p>
           </div>
-          <div v-if="selectedFeature.properties?.magnitude" class="text-2xl font-bold text-orange-500">
+          <div
+            v-if="selectedFeature.properties?.magnitude"
+            class="text-2xl font-bold text-orange-500"
+          >
             M{{ selectedFeature.properties.magnitude }}
           </div>
         </div>
-        <p v-if="selectedFeature.properties?.time" class="text-xs text-muted-foreground mt-2">
+        <p
+          v-if="selectedFeature.properties?.time"
+          class="text-xs text-muted-foreground mt-2"
+        >
           {{ selectedFeature.properties.time }}
         </p>
       </CardContent>
@@ -115,12 +152,12 @@ function handlePointClick(feature: any) {
             <MapGeoJson
               :data="earthquakeData"
               layer-type="circle"
-              :style="{ 
-                circleRadius: 8, 
-                circleColor: '#f97316', 
+              :style="{
+                circleRadius: 8,
+                circleColor: '#f97316',
                 circleOpacity: 0.8,
                 strokeColor: '#fff',
-                strokeWidth: 2 
+                strokeWidth: 2,
               }"
               :fit-bounds="true"
               :interactive="true"
@@ -129,7 +166,8 @@ function handlePointClick(feature: any) {
           </Map>
         </div>
         <p class="text-sm text-muted-foreground mt-2">
-          Click on earthquake markers to see details. Circle size represents magnitude.
+          Click on earthquake markers to see details. Circle size represents
+          magnitude.
         </p>
       </TabsContent>
 
@@ -139,11 +177,11 @@ function handlePointClick(feature: any) {
             <MapGeoJson
               :data="parkData"
               layer-type="fill"
-              :style="{ 
-                fillColor: '#22c55e', 
+              :style="{
+                fillColor: '#22c55e',
                 fillOpacity: 0.5,
                 strokeColor: '#15803d',
-                strokeWidth: 2 
+                strokeWidth: 2,
               }"
               :fit-bounds="true"
             />
@@ -160,10 +198,10 @@ function handlePointClick(feature: any) {
             <MapGeoJson
               :data="faultLineData"
               layer-type="line"
-              :style="{ 
-                strokeColor: '#dc2626', 
+              :style="{
+                strokeColor: '#dc2626',
                 strokeWidth: 3,
-                strokeOpacity: 0.8 
+                strokeOpacity: 0.8,
               }"
               :fit-bounds="true"
             />

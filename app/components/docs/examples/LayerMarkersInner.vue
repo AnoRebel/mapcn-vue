@@ -1,78 +1,88 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { Map, MapPopup, useMap } from '~~/registry/map'
+import { ref, watch } from "vue";
+import type { MapLayerMouseEvent } from "maplibre-gl";
+import { MapPopup, useMap } from "~~/registry/map";
+import type { FeatureCollection } from "geojson";
 
 interface SelectedPoint {
-  id: number
-  name: string
-  category: string
-  coordinates: [number, number]
+  id: number;
+  name: string;
+  category: string;
+  coordinates: [number, number];
 }
 
 const props = defineProps<{
-  pointsData: any
-}>()
+  pointsData: FeatureCollection;
+}>();
 
-const { map, isLoaded } = useMap()
-const selectedPoint = ref<SelectedPoint | null>(null)
-const isSetup = ref(false)
+const { map, isLoaded } = useMap();
+const selectedPoint = ref<SelectedPoint | null>(null);
+const isSetup = ref(false);
 
 // Generate stable IDs
-const sourceId = `markers-source-${Math.random().toString(36).substr(2, 9)}`
-const layerId = `markers-layer-${Math.random().toString(36).substr(2, 9)}`
+const sourceId = `markers-source-${Math.random().toString(36).substr(2, 9)}`;
+const layerId = `markers-layer-${Math.random().toString(36).substr(2, 9)}`;
 
 // Setup layers when map is loaded
-watch(() => isLoaded.value, (loaded) => {
-  if (!loaded || !map.value || isSetup.value) return
+watch(
+  () => isLoaded.value,
+  (loaded) => {
+    if (!loaded || !map.value || isSetup.value) return;
 
-  // Add source
-  if (!map.value.getSource(sourceId)) {
-    map.value.addSource(sourceId, {
-      type: 'geojson',
-      data: props.pointsData,
-    })
-  }
-
-  // Add layer
-  if (!map.value.getLayer(layerId)) {
-    map.value.addLayer({
-      id: layerId,
-      type: 'circle',
-      source: sourceId,
-      paint: {
-        'circle-radius': 6,
-        'circle-color': '#3b82f6',
-        'circle-stroke-width': 2,
-        'circle-stroke-color': '#ffffff',
-      },
-    })
-  }
-
-  const handleClick = (e: any) => {
-    if (!e.features?.length) return
-    const feature = e.features[0]
-    selectedPoint.value = {
-      id: feature.properties?.id,
-      name: feature.properties?.name,
-      category: feature.properties?.category,
-      coordinates: feature.geometry.coordinates,
+    // Add source
+    if (!map.value.getSource(sourceId)) {
+      map.value.addSource(sourceId, {
+        type: "geojson",
+        data: props.pointsData,
+      });
     }
-  }
 
-  const handleMouseEnter = () => {
-    map.value!.getCanvas().style.cursor = 'pointer'
-  }
+    // Add layer
+    if (!map.value.getLayer(layerId)) {
+      map.value.addLayer({
+        id: layerId,
+        type: "circle",
+        source: sourceId,
+        paint: {
+          "circle-radius": 6,
+          "circle-color": "#3b82f6",
+          "circle-stroke-width": 2,
+          "circle-stroke-color": "#ffffff",
+        },
+      });
+    }
 
-  const handleMouseLeave = () => {
-    map.value!.getCanvas().style.cursor = ''
-  }
+    const handleClick = (e: MapLayerMouseEvent) => {
+      if (!e.features?.length) return;
+      const feature = e.features[0];
+      if (!feature) return;
+      selectedPoint.value = {
+        id: feature.properties?.id,
+        name: feature.properties?.name,
+        category: feature.properties?.category,
+        coordinates: (feature.geometry as GeoJSON.Point).coordinates as [
+          number,
+          number,
+        ],
+      };
+    };
 
-  map.value.on('click', layerId, handleClick)
-  map.value.on('mouseenter', layerId, handleMouseEnter)
-  map.value.on('mouseleave', layerId, handleMouseLeave)
-  
-  isSetup.value = true
-}, { immediate: true })
+    const handleMouseEnter = () => {
+      map.value!.getCanvas().style.cursor = "pointer";
+    };
+
+    const handleMouseLeave = () => {
+      map.value!.getCanvas().style.cursor = "";
+    };
+
+    map.value.on("click", layerId, handleClick);
+    map.value.on("mouseenter", layerId, handleMouseEnter);
+    map.value.on("mouseleave", layerId, handleMouseLeave);
+
+    isSetup.value = true;
+  },
+  { immediate: true },
+);
 </script>
 
 <template>

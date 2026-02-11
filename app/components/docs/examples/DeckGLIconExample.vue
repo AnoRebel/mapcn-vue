@@ -1,23 +1,63 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { Map, DeckGLOverlay } from '~~/registry/map'
-import { Card, CardContent } from '~/components/ui/card'
-import { IconLayer } from '@deck.gl/layers'
+import { ref, computed } from "vue";
+import { Map, DeckGLOverlay } from "~~/registry/map";
+import { Card, CardContent } from "~/components/ui/card";
+import { IconLayer } from "@deck.gl/layers";
 
 // POI data with icons
 const pois = [
-  { position: [-74.006, 40.7128], icon: 'restaurant', name: 'Restaurant A', color: [255, 100, 100] },
-  { position: [-73.9857, 40.7484], icon: 'cafe', name: 'Coffee Shop', color: [100, 255, 100] },
-  { position: [-73.9772, 40.7527], icon: 'shopping', name: 'Mall', color: [100, 100, 255] },
-  { position: [-73.9632, 40.7794], icon: 'park', name: 'Central Park', color: [255, 255, 100] },
-  { position: [-73.9969, 40.7061], icon: 'hospital', name: 'Hospital', color: [255, 100, 255] },
-  { position: [-73.9712, 40.7614], icon: 'school', name: 'School', color: [100, 255, 255] },
-  { position: [-73.9442, 40.6782], icon: 'bank', name: 'Bank', color: [255, 200, 100] },
-  { position: [-74.0445, 40.6892], icon: 'gas', name: 'Gas Station', color: [200, 100, 255] },
-]
+  {
+    position: [-74.006, 40.7128],
+    icon: "restaurant",
+    name: "Restaurant A",
+    color: [255, 100, 100],
+  },
+  {
+    position: [-73.9857, 40.7484],
+    icon: "cafe",
+    name: "Coffee Shop",
+    color: [100, 255, 100],
+  },
+  {
+    position: [-73.9772, 40.7527],
+    icon: "shopping",
+    name: "Mall",
+    color: [100, 100, 255],
+  },
+  {
+    position: [-73.9632, 40.7794],
+    icon: "park",
+    name: "Central Park",
+    color: [255, 255, 100],
+  },
+  {
+    position: [-73.9969, 40.7061],
+    icon: "hospital",
+    name: "Hospital",
+    color: [255, 100, 255],
+  },
+  {
+    position: [-73.9712, 40.7614],
+    icon: "school",
+    name: "School",
+    color: [100, 255, 255],
+  },
+  {
+    position: [-73.9442, 40.6782],
+    icon: "bank",
+    name: "Bank",
+    color: [255, 200, 100],
+  },
+  {
+    position: [-74.0445, 40.6892],
+    icon: "gas",
+    name: "Gas Station",
+    color: [200, 100, 255],
+  },
+];
 
-const iconSize = ref(24)
-const billboard = ref(true)
+const iconSize = ref(24);
+const billboard = ref(true);
 
 // SVG icons as data URIs
 const iconMapping: Record<string, string> = {
@@ -29,31 +69,32 @@ const iconMapping: Record<string, string> = {
   school: `data:image/svg+xml;base64,${btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>')}`,
   bank: `data:image/svg+xml;base64,${btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="22" x2="21" y2="22"/><path d="M12 2 2 7h20L12 2z"/><path d="M6 7v15"/><path d="M10 7v15"/><path d="M14 7v15"/><path d="M18 7v15"/></svg>')}`,
   gas: `data:image/svg+xml;base64,${btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 22v-8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8"/><path d="M19 11V7a2 2 0 0 0-2-2h-2"/><path d="M19 11h2a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-1"/><circle cx="8" cy="17" r="2"/></svg>')}`,
-}
+};
 
 const layers = computed(() => [
   new IconLayer({
-    id: 'icon-layer',
+    id: "icon-layer",
     data: pois,
-    getPosition: d => d.position,
-    getIcon: d => ({
+    getPosition: (d) => d.position,
+    // @ts-expect-error deck.gl IconLayer getIcon type mismatch
+    getIcon: (d) => ({
       url: iconMapping[d.icon] || iconMapping.restaurant,
       width: iconSize.value,
       height: iconSize.value,
       mask: true,
     }),
     getSize: () => iconSize.value,
-    getColor: d => d.color,
+    getColor: (d) => d.color,
     sizeScale: 1,
     billboard: billboard.value,
     pickable: true,
     onClick: (info) => {
       if (info.object) {
-        console.log('Clicked:', info.object.name)
+        console.log("Clicked:", info.object.name);
       }
     },
   }),
-])
+]);
 </script>
 
 <template>
@@ -63,11 +104,18 @@ const layers = computed(() => [
       <CardContent class="p-4 space-y-4">
         <div class="space-y-2">
           <span class="text-sm font-medium">Icon Size</span>
-          <input v-model.number="iconSize" type="range" min="16" max="48" step="4" class="w-full" >
+          <input
+            v-model.number="iconSize"
+            type="range"
+            min="16"
+            max="48"
+            step="4"
+            class="w-full"
+          />
           <span class="text-xs text-muted-foreground">{{ iconSize }}px</span>
         </div>
         <label class="flex items-center gap-2">
-          <input v-model="billboard" type="checkbox" class="rounded" >
+          <input v-model="billboard" type="checkbox" class="rounded" />
           <span class="text-sm">Billboard (always face camera)</span>
         </label>
       </CardContent>
@@ -81,7 +129,7 @@ const layers = computed(() => [
     </div>
 
     <p class="text-sm text-muted-foreground">
-      IconLayer renders custom icons at point locations. Supports SVG icons, 
+      IconLayer renders custom icons at point locations. Supports SVG icons,
       billboarding, and interaction. Perfect for POI visualization.
     </p>
   </div>

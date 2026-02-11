@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { Map, MapControls } from '~~/registry/map'
-import CustomLayerInner from './CustomLayerInner.vue'
-import ExamplePreview from '../ExamplePreview.vue'
+import { Map, MapControls } from "~~/registry/map";
+import CustomLayerInner from "./CustomLayerInner.vue";
+import ExamplePreview from "../ExamplePreview.vue";
 
 const geojsonData = {
-  type: 'FeatureCollection' as const,
+  type: "FeatureCollection" as const,
   features: [
     {
-      type: 'Feature' as const,
-      properties: { name: 'Central Park', type: 'park' },
+      type: "Feature" as const,
+      properties: { name: "Central Park", type: "park" },
       geometry: {
-        type: 'Polygon' as const,
+        type: "Polygon" as const,
         coordinates: [
           [
             [-73.9731, 40.7644],
@@ -23,10 +23,10 @@ const geojsonData = {
       },
     },
     {
-      type: 'Feature' as const,
-      properties: { name: 'Bryant Park', type: 'park' },
+      type: "Feature" as const,
+      properties: { name: "Bryant Park", type: "park" },
       geometry: {
-        type: 'Polygon' as const,
+        type: "Polygon" as const,
         coordinates: [
           [
             [-73.9837, 40.7536],
@@ -39,7 +39,7 @@ const geojsonData = {
       },
     },
   ],
-}
+};
 
 const customLayerCode = `<script setup lang="ts">
 import { ref, watchEffect } from 'vue'
@@ -70,7 +70,7 @@ watchEffect(() => {
     },
   })
 })
-<\/script>
+${"<"}/script>
 
 <template>
   <div class="relative h-[400px]">
@@ -81,7 +81,7 @@ watchEffect(() => {
       Toggle Parks
     </Button>
   </div>
-</template>`
+</template>`;
 </script>
 
 <template>

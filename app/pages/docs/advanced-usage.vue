@@ -1,63 +1,63 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Map, MapControls } from '~~/registry/map'
-import { Button } from '~/components/ui/button'
-import DocsLayout from '~/components/docs/DocsLayout.vue'
-import DocsSection from '~/components/docs/DocsSection.vue'
-import DocsCode from '~/components/docs/DocsCode.vue'
-import DocsLink from '~/components/docs/DocsLink.vue'
-import DocsNote from '~/components/docs/DocsNote.vue'
-import ExamplePreview from '~/components/docs/ExamplePreview.vue'
-import CameraInfo from '~/components/docs/examples/CameraInfo.vue'
-import CustomLayerExample from '~/components/docs/examples/CustomLayerExample.vue'
-import LayerMarkersExample from '~/components/docs/examples/LayerMarkersExample.vue'
+import { ref } from "vue";
+import type { Map as MapLibreMap } from "maplibre-gl";
+import { Map, MapControls } from "~~/registry/map";
+import { Button } from "~/components/ui/button";
+import DocsLayout from "~/components/docs/DocsLayout.vue";
+import DocsSection from "~/components/docs/DocsSection.vue";
+import DocsCode from "~/components/docs/DocsCode.vue";
+import DocsLink from "~/components/docs/DocsLink.vue";
+import DocsNote from "~/components/docs/DocsNote.vue";
+import ExamplePreview from "~/components/docs/ExamplePreview.vue";
+import CameraInfo from "~/components/docs/examples/CameraInfo.vue";
+import CustomLayerExample from "~/components/docs/examples/CustomLayerExample.vue";
+import LayerMarkersExample from "~/components/docs/examples/LayerMarkersExample.vue";
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: "docs" });
 useSeoMeta({
-  title: 'Advanced Usage',
-  description: 'Access the raw MapLibre instance, build custom controls, add GeoJSON layers, and render markers via map layers.',
-})
+  title: "Advanced Usage",
+  description:
+    "Access the raw MapLibre instance, build custom controls, add GeoJSON layers, and render markers via map layers.",
+});
 
-const mapRef = ref<{ getMap: () => any } | null>(null)
-const mapRef2 = ref<{ getMap: () => any } | null>(null)
-const mapReady = ref(false)
+const mapRef = ref<{ getMap: () => unknown } | null>(null);
+const mapRef2 = ref<{ getMap: () => unknown } | null>(null);
+const mapReady = ref(false);
 
 function handleFlyTo() {
-  const map = mapRef.value?.getMap()
+  const map = mapRef.value?.getMap() as MapLibreMap | undefined;
   if (map) {
-    map.flyTo({ center: [-74.006, 40.7128], zoom: 14, duration: 2000 })
+    map.flyTo({ center: [-74.006, 40.7128], zoom: 14, duration: 2000 });
   }
 }
 
 function onMapLoad() {
-  mapReady.value = true
+  mapReady.value = true;
 }
 
 function toggle3D() {
-  const map = mapRef2.value?.getMap()
+  const map = mapRef2.value?.getMap() as MapLibreMap | undefined;
   if (map) {
-    const currentPitch = map.getPitch()
+    const currentPitch = map.getPitch();
     map.easeTo({
       pitch: currentPitch > 0 ? 0 : 60,
-      duration: 1000
-    })
+      duration: 1000,
+    });
   }
 }
 
 function resetView() {
-  const map = mapRef2.value?.getMap()
+  const map = mapRef2.value?.getMap() as MapLibreMap | undefined;
   if (map) {
     map.easeTo({
       center: [-73.9857, 40.7484],
       zoom: 14,
       pitch: 0,
       bearing: 0,
-      duration: 1500
-    })
+      duration: 1500,
+    });
   }
 }
-
-
 
 const refCode = `<script setup lang="ts">
 import { ref } from 'vue'
@@ -78,7 +78,7 @@ function handleFlyTo() {
 <template>
   <button @click="handleFlyTo">Fly to NYC</button>
   <Map ref="mapRef" :center="[-74, 40.7]" :zoom="10" />
-</template>`
+</template>`;
 
 const useMapCode = `<script setup lang="ts">
 import { Map, useMap } from '~~/registry/map'
@@ -105,7 +105,7 @@ function MapEventListener() {
   <Map :center="[-74, 40.7]" :zoom="10">
     <MapEventListener />
   </Map>
-</template>`
+</template>`;
 
 const customControlsCode = `<script setup lang="ts">
 import { ref } from 'vue'
@@ -155,7 +155,7 @@ function resetView() {
       </Button>
     </div>
   </div>
-</template>`
+</template>`;
 </script>
 
 <template>
@@ -167,16 +167,22 @@ function resetView() {
       { title: 'Using a Ref', slug: 'using-a-ref' },
       { title: 'Using the Composable', slug: 'using-the-composable' },
       { title: 'Example: Custom Controls', slug: 'example-custom-controls' },
-      { title: 'Example: Custom GeoJSON Layer', slug: 'example-custom-geojson-layer' },
-      { title: 'Example: Markers via Layers', slug: 'example-markers-via-layers' },
+      {
+        title: 'Example: Custom GeoJSON Layer',
+        slug: 'example-custom-geojson-layer',
+      },
+      {
+        title: 'Example: Markers via Layers',
+        slug: 'example-markers-via-layers',
+      },
       { title: 'Extend to Build', slug: 'extend-to-build' },
     ]"
   >
     <DocsSection>
       <p>
         Access the underlying MapLibre GL map instance to use any feature from
-        the MapLibre GL JS API. You can use either a <DocsCode>ref</DocsCode>
-        or the <DocsCode>useMap</DocsCode> composable.
+        the MapLibre GL JS API. You can use either a <DocsCode>ref</DocsCode> or
+        the <DocsCode>useMap</DocsCode> composable.
       </p>
     </DocsSection>
 
@@ -199,7 +205,13 @@ function resetView() {
       </p>
       <ExamplePreview :code="refCode" class="mt-4">
         <div class="relative h-full">
-          <Map ref="mapRef" :center="[-74.006, 40.7128]" :zoom="10" class="h-full" @load="onMapLoad" />
+          <Map
+            ref="mapRef"
+            :center="[-74.006, 40.7128]"
+            :zoom="10"
+            class="h-full"
+            @load="onMapLoad"
+          />
           <div class="absolute bottom-4 left-4 z-10 flex gap-2">
             <Button size="sm" :disabled="!mapReady" @click="handleFlyTo">
               Fly to NYC
@@ -212,8 +224,8 @@ function resetView() {
     <DocsSection id="using-the-composable" title="Using the Composable">
       <p>
         For child components rendered inside <DocsCode>Map</DocsCode>, use the
-        <DocsCode>useMap</DocsCode> composable to access the map instance and listen
-        to events.
+        <DocsCode>useMap</DocsCode> composable to access the map instance and
+        listen to events.
       </p>
       <ExamplePreview :code="useMapCode" class="mt-4" height="h-[300px]">
         <Map :center="[-74.006, 40.7128]" :zoom="10" class="h-full">
@@ -229,13 +241,16 @@ function resetView() {
       </p>
       <ExamplePreview :code="customControlsCode" class="mt-4">
         <div class="relative h-full">
-          <Map ref="mapRef2" :center="[-73.9857, 40.7484]" :zoom="14" class="h-full">
+          <Map
+            ref="mapRef2"
+            :center="[-73.9857, 40.7484]"
+            :zoom="14"
+            class="h-full"
+          >
             <MapControls />
           </Map>
           <div class="absolute top-4 left-4 z-10 flex gap-2">
-            <Button size="sm" @click="toggle3D">
-              3D View
-            </Button>
+            <Button size="sm" @click="toggle3D"> 3D View </Button>
             <Button size="sm" variant="outline" @click="resetView">
               Reset
             </Button>
@@ -244,7 +259,10 @@ function resetView() {
       </ExamplePreview>
     </DocsSection>
 
-    <DocsSection id="example-custom-geojson-layer" title="Example: Custom GeoJSON Layer">
+    <DocsSection
+      id="example-custom-geojson-layer"
+      title="Example: Custom GeoJSON Layer"
+    >
       <p>
         Add custom GeoJSON data as layers with fill and outline styles. This
         example shows NYC parks with hover interactions.
@@ -252,7 +270,10 @@ function resetView() {
       <CustomLayerExample class="mt-4" />
     </DocsSection>
 
-    <DocsSection id="example-markers-via-layers" title="Example: Markers via Layers">
+    <DocsSection
+      id="example-markers-via-layers"
+      title="Example: Markers via Layers"
+    >
       <p>
         When displaying hundreds or thousands of markers, use GeoJSON layers
         instead of DOM-based <DocsCode>MapMarker</DocsCode> components. This
@@ -282,8 +303,8 @@ function resetView() {
           place markers for custom areas
         </li>
         <li>
-          <strong>3D buildings</strong> - Extrude building footprints for
-          urban visualization
+          <strong>3D buildings</strong> - Extrude building footprints for urban
+          visualization
         </li>
         <li>
           <strong>Animations</strong> - Animate markers along routes or create

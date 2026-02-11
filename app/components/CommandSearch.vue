@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed } from "vue";
 import {
   ArrowDown,
   ArrowUp,
   CornerDownLeft,
   FileText,
   SearchIcon,
-} from 'lucide-vue-next'
+} from "lucide-vue-next";
 import {
   CommandDialog,
   CommandEmpty,
@@ -14,35 +14,35 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '~/components/ui/command'
-import { Kbd } from '~/components/ui/kbd'
-import { Button } from '~/components/ui/button'
-import { docsNavigation } from '~/utils/docs-navigation'
+} from "~/components/ui/command";
+import { Kbd } from "~/components/ui/kbd";
+import { Button } from "~/components/ui/button";
+import { docsNavigation } from "~/utils/docs-navigation";
 
-const open = ref(false)
-const router = useRouter()
+const open = ref(false);
+const router = useRouter();
 
 // Keyboard shortcut: Cmd/Ctrl + K
 onMounted(() => {
   function handleKeyDown(e: KeyboardEvent) {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault()
-      open.value = !open.value
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      open.value = !open.value;
     }
   }
 
-  document.addEventListener('keydown', handleKeyDown)
-  onUnmounted(() => document.removeEventListener('keydown', handleKeyDown))
-})
+  document.addEventListener("keydown", handleKeyDown);
+  onUnmounted(() => document.removeEventListener("keydown", handleKeyDown));
+});
 
 function handleSelect(href: string) {
-  open.value = false
-  router.push(href)
+  open.value = false;
+  router.push(href);
 }
 
-const allNavItems = computed(() => 
-  docsNavigation.flatMap(group => group.items)
-)
+const _allNavItems = computed(() =>
+  docsNavigation.flatMap((group) => group.items),
+);
 </script>
 
 <template>
@@ -91,7 +91,9 @@ const allNavItems = computed(() =>
         </CommandItem>
       </CommandGroup>
     </CommandList>
-    <div class="border-t p-3 text-xs text-muted-foreground/80 flex items-center justify-between">
+    <div
+      class="border-t p-3 text-xs text-muted-foreground/80 flex items-center justify-between"
+    >
       <div class="flex items-center gap-2.5">
         <span class="flex items-center gap-1.5">
           <Kbd><ArrowDown class="size-3" /></Kbd>

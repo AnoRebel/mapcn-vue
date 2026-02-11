@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { Map, DeckGLOverlay } from '~~/registry/map'
-import { Card, CardContent } from '~/components/ui/card'
-import { ScreenGridLayer } from '@deck.gl/aggregation-layers'
+import { ref, computed } from "vue";
+import { Map, DeckGLOverlay } from "~~/registry/map";
+import { Card, CardContent } from "~/components/ui/card";
+import { ScreenGridLayer } from "@deck.gl/aggregation-layers";
 
 // Generate dense urban data
 const urbanData = Array.from({ length: 10000 }, () => ({
@@ -10,30 +10,30 @@ const urbanData = Array.from({ length: 10000 }, () => ({
     -74.006 + (Math.random() - 0.5) * 0.1,
     40.7128 + (Math.random() - 0.5) * 0.1,
   ],
-}))
+}));
 
-const cellSize = ref(20)
-const colorRange = ref([
+const cellSize = ref(20);
+const colorRange = ref<[number, number, number][]>([
   [255, 255, 204],
   [255, 237, 160],
   [254, 217, 118],
   [254, 178, 76],
   [253, 141, 60],
   [252, 78, 42],
-])
+]);
 
 const layers = computed(() => [
   new ScreenGridLayer({
-    id: 'screen-grid-layer',
+    id: "screen-grid-layer",
     data: urbanData,
-    getPosition: d => d.position,
+    getPosition: (d) => d.position,
     cellSize: cellSize.value,
     colorRange: colorRange.value,
     gpuAggregation: true,
-    aggregation: 'SUM',
+    aggregation: "SUM",
     pickable: true,
   }),
-])
+]);
 </script>
 
 <template>
@@ -43,7 +43,14 @@ const layers = computed(() => [
       <CardContent class="p-4 space-y-4">
         <div class="space-y-2">
           <span class="text-sm font-medium">Cell Size (pixels)</span>
-          <input v-model.number="cellSize" type="range" min="10" max="50" step="5" class="w-full" >
+          <input
+            v-model.number="cellSize"
+            type="range"
+            min="10"
+            max="50"
+            step="5"
+            class="w-full"
+          />
           <span class="text-xs text-muted-foreground">{{ cellSize }}px</span>
         </div>
       </CardContent>
@@ -57,8 +64,9 @@ const layers = computed(() => [
     </div>
 
     <p class="text-sm text-muted-foreground">
-      ScreenGridLayer aggregates points into screen-space grid cells. GPU-accelerated 
-      for handling millions of points. Best for dense urban datasets at city scale.
+      ScreenGridLayer aggregates points into screen-space grid cells.
+      GPU-accelerated for handling millions of points. Best for dense urban
+      datasets at city scale.
     </p>
   </div>
 </template>

@@ -1,37 +1,38 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Map } from '~~/registry/map'
-import { Card, CardContent } from '~/components/ui/card'
-import { Button } from '~/components/ui/button'
-import { RotateCcw } from 'lucide-vue-next'
+import { ref } from "vue";
+import { Map } from "~~/registry/map";
+import { Card, CardContent } from "~/components/ui/card";
+import { Button } from "~/components/ui/button";
+import { RotateCcw } from "lucide-vue-next";
 
-const pitch = ref(0)
-const bearing = ref(0)
-const mapRef = ref<InstanceType<typeof Map>>()
+const pitch = ref(0);
+const bearing = ref(0);
+const mapRef = ref<InstanceType<typeof Map>>();
 
 function updateCamera() {
-  const map = (mapRef.value as any)?.mapInstance
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const map = (mapRef.value as any)?.mapInstance;
   if (map) {
     map.easeTo({
       pitch: pitch.value,
       bearing: bearing.value,
       duration: 500,
-    })
+    });
   }
 }
 
 function resetCamera() {
-  pitch.value = 0
-  bearing.value = 0
-  updateCamera()
+  pitch.value = 0;
+  bearing.value = 0;
+  updateCamera();
 }
 
 const presetViews = [
-  { name: 'Flat', pitch: 0, bearing: 0 },
-  { name: 'Tilted', pitch: 45, bearing: 0 },
-  { name: '3D View', pitch: 60, bearing: 30 },
-  { name: 'Overview', pitch: 60, bearing: -45 },
-]
+  { name: "Flat", pitch: 0, bearing: 0 },
+  { name: "Tilted", pitch: 45, bearing: 0 },
+  { name: "3D View", pitch: 60, bearing: 30 },
+  { name: "Overview", pitch: 60, bearing: -45 },
+];
 </script>
 
 <template>
@@ -53,7 +54,7 @@ const presetViews = [
               step="5"
               class="w-full"
               @input="updateCamera"
-            >
+            />
           </div>
           <div class="space-y-2">
             <div class="flex justify-between">
@@ -68,7 +69,7 @@ const presetViews = [
               step="10"
               class="w-full"
               @input="updateCamera"
-            >
+            />
           </div>
         </div>
 
@@ -78,7 +79,11 @@ const presetViews = [
             :key="view.name"
             variant="outline"
             size="sm"
-            @click="pitch = view.pitch; bearing = view.bearing; updateCamera()"
+            @click="
+              pitch = view.pitch;
+              bearing = view.bearing;
+              updateCamera();
+            "
           >
             {{ view.name }}
           </Button>
@@ -103,8 +108,9 @@ const presetViews = [
     </div>
 
     <p class="text-sm text-muted-foreground">
-      Pitch and bearing controls for 3D map navigation. Adjust the sliders to tilt 
-      the map (pitch) and rotate the view (bearing). Use preset buttons for common angles.
+      Pitch and bearing controls for 3D map navigation. Adjust the sliders to
+      tilt the map (pitch) and rotate the view (bearing). Use preset buttons for
+      common angles.
     </p>
   </div>
 </template>
