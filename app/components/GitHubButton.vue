@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Button } from '~/components/ui/button'
-import { Skeleton } from '~/components/ui/skeleton'
+import { Button } from "~/components/ui/button";
+import { Skeleton } from "~/components/ui/skeleton";
 
-const { data: starsData, pending } = await useFetch('/api/github-stars')
+const { data: starsData, pending } = await useFetch("/api/github-stars");
 </script>
 
 <template>

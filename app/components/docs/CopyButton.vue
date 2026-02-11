@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Check, Copy } from 'lucide-vue-next'
-import { cn } from '@/lib/utils'
+import { ref } from "vue";
+import { Check, Copy } from "lucide-vue-next";
+import { cn } from "@/lib/utils";
 
 const props = defineProps<{
-  text: string
-  class?: string
-}>()
+  text: string;
+  class?: string;
+}>();
 
-const copied = ref(false)
+const copied = ref(false);
 
 async function copy() {
-  await navigator.clipboard.writeText(props.text)
-  copied.value = true
-  setTimeout(() => copied.value = false, 2000)
+  await navigator.clipboard.writeText(props.text);
+  copied.value = true;
+  setTimeout(() => (copied.value = false), 2000);
 }
 </script>
 

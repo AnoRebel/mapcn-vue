@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { useColorMode } from '#imports'
-import { Button } from '~/components/ui/button'
-import { Kbd } from '~/components/ui/kbd'
-import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
+import { useColorMode } from "#imports";
+import { Button } from "~/components/ui/button";
+import { Kbd } from "~/components/ui/kbd";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
-const colorMode = useColorMode()
+const colorMode = useColorMode();
 
 function toggleTheme() {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+  colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
 }
 
 // Keyboard shortcut: 'T' key
@@ -18,18 +22,18 @@ onMounted(() => {
       e.target instanceof HTMLTextAreaElement ||
       (e.target as HTMLElement)?.isContentEditable
     ) {
-      return
+      return;
     }
 
-    if ((e.key === 't' || e.key === 'T') && !e.metaKey && !e.ctrlKey) {
-      e.preventDefault()
-      toggleTheme()
+    if ((e.key === "t" || e.key === "T") && !e.metaKey && !e.ctrlKey) {
+      e.preventDefault();
+      toggleTheme();
     }
   }
 
-  document.addEventListener('keydown', handleKeyDown)
-  onUnmounted(() => document.removeEventListener('keydown', handleKeyDown))
-})
+  document.addEventListener("keydown", handleKeyDown);
+  onUnmounted(() => document.removeEventListener("keydown", handleKeyDown));
+});
 </script>
 
 <template>

@@ -1,80 +1,90 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, shallowRef } from 'vue'
-import MapLibreGL, { type PopupOptions } from 'maplibre-gl'
-import { X } from 'lucide-vue-next'
-import { cn } from '@/lib/utils'
-import { useMap } from './composables/useMap'
+import { ref, onMounted, onUnmounted, watch, shallowRef } from "vue";
+import MapLibreGL, { type PopupOptions } from "maplibre-gl";
+import { X } from "lucide-vue-next";
+import { cn } from "@/lib/utils";
+import { useMap } from "./composables/useMap";
 
-const props = withDefaults(defineProps<{
-  longitude: number
-  latitude: number
-  onClose?: () => void
-  class?: string
-  closeButton?: boolean
-} & Omit<PopupOptions, 'className' | 'closeButton'>>(), {
-  closeButton: false,
-  offset: 16,
-})
+const props = withDefaults(
+  defineProps<
+    {
+      longitude: number;
+      latitude: number;
+      onClose?: () => void;
+      class?: string;
+      closeButton?: boolean;
+    } & Omit<PopupOptions, "className" | "closeButton">
+  >(),
+  {
+    closeButton: false,
+    offset: 16,
+  },
+);
 
-const { map } = useMap()
-const containerRef = ref<HTMLDivElement>()
-const popupRef = shallowRef<MapLibreGL.Popup | null>(null)
+const { map } = useMap();
+const containerRef = ref<HTMLDivElement>();
+const popupRef = shallowRef<MapLibreGL.Popup | null>(null);
 
 onMounted(() => {
-  if (!map.value || !containerRef.value) return
+  if (!map.value || !containerRef.value) return;
 
   const popup = new MapLibreGL.Popup({
     ...props,
     closeButton: false,
   })
-    .setMaxWidth('none')
-    .setLngLat([props.longitude, props.latitude])
+    .setMaxWidth("none")
+    .setLngLat([props.longitude, props.latitude]);
 
-  popup.setDOMContent(containerRef.value)
+  popup.setDOMContent(containerRef.value);
 
   const handleClose = () => {
-    props.onClose?.()
-  }
+    props.onClose?.();
+  };
 
-  popup.on('close', handleClose)
-  popup.addTo(map.value)
+  popup.on("close", handleClose);
+  popup.addTo(map.value);
 
-  popupRef.value = popup
+  popupRef.value = popup;
 
   onUnmounted(() => {
-    popup.off('close', handleClose)
+    popup.off("close", handleClose);
     if (popup.isOpen()) {
-      popup.remove()
+      popup.remove();
     }
-  })
-})
+  });
+});
 
 // Watch for position changes
 watch([() => props.longitude, () => props.latitude], ([lng, lat]) => {
   if (popupRef.value?.isOpen()) {
-    popupRef.value.setLngLat([lng, lat])
+    popupRef.value.setLngLat([lng, lat]);
   }
-})
+});
 
 // Watch for offset changes
-watch(() => props.offset, (offset) => {
-  if (popupRef.value?.isOpen()) {
-    popupRef.value.setOffset(offset ?? 16)
-  }
-})
+watch(
+  () => props.offset,
+  (offset) => {
+    if (popupRef.value?.isOpen()) {
+      popupRef.value.setOffset(offset ?? 16);
+    }
+  },
+);
 
 function handleClose() {
-  popupRef.value?.remove()
+  popupRef.value?.remove();
 }
 </script>
 
 <template>
   <div ref="containerRef" class="contents">
     <div
-      :class="cn(
-        'relative rounded-md border bg-popover p-3 text-popover-foreground shadow-md',
-        props.class
-      )"
+      :class="
+        cn(
+          'relative rounded-md border bg-popover p-3 text-popover-foreground shadow-md',
+          props.class,
+        )
+      "
     >
       <button
         v-if="closeButton"

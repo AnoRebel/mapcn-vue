@@ -1,11 +1,12 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'default' })
+definePageMeta({ layout: "default" });
 
 useSeoMeta({
-  title: 'Beautiful Maps Made Simple',
-  description: 'Ready-to-use, customizable map components for Vue/Nuxt. Built on MapLibre GL, styled with Tailwind CSS. Zero config, copy-paste into your project.',
-  ogImage: '/banner.png',
-})
+  title: "Beautiful Maps Made Simple",
+  description:
+    "Ready-to-use, customizable map components for Vue/Nuxt. Built on MapLibre GL, styled with Tailwind CSS. Zero config, copy-paste into your project.",
+  ogImage: "/banner.png",
+});
 </script>
 
 <template>

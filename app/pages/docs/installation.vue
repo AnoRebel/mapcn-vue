@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import { Map, MapControls } from '~~/registry/map'
-import { Card } from '~/components/ui/card'
-import DocsLayout from '~/components/docs/DocsLayout.vue'
-import DocsSection from '~/components/docs/DocsSection.vue'
-import DocsCode from '~/components/docs/DocsCode.vue'
-import CodeBlock from '~/components/docs/CodeBlock.vue'
-import DocsNote from '~/components/docs/DocsNote.vue'
-import PackageManagerTabs from '~/components/docs/PackageManagerTabs.vue'
+import { Map, MapControls } from "~~/registry/map";
+import { Card } from "~/components/ui/card";
+import DocsLayout from "~/components/docs/DocsLayout.vue";
+import DocsSection from "~/components/docs/DocsSection.vue";
+import DocsCode from "~/components/docs/DocsCode.vue";
+import CodeBlock from "~/components/docs/CodeBlock.vue";
+import DocsNote from "~/components/docs/DocsNote.vue";
+import PackageManagerTabs from "~/components/docs/PackageManagerTabs.vue";
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: "docs" });
 useSeoMeta({
-  title: 'Installation',
-  description: 'Install mapcn-vue map components with one command using shadcn-vue CLI. Works with npm, yarn, pnpm, and bun.',
-})
+  title: "Installation",
+  description:
+    "Install mapcn-vue map components with one command using shadcn-vue CLI. Works with npm, yarn, pnpm, and bun.",
+});
 
-const config = useRuntimeConfig()
-const siteUrl = config.public.siteUrl
+const config = useRuntimeConfig();
+const siteUrl = config.public.siteUrl;
 
 const installCommands = {
   npm: `npx shadcn-vue@latest add ${siteUrl}/maps/map.json`,
   yarn: `npx shadcn-vue@latest add ${siteUrl}/maps/map.json`,
   pnpm: `pnpm dlx shadcn-vue@latest add ${siteUrl}/maps/map.json`,
   bun: `bunx --bun shadcn-vue@latest add ${siteUrl}/maps/map.json`,
-}
+};
 
 const usageCode = `<script setup lang="ts">
 import { Map, MapControls } from "@/components/ui/map"
@@ -34,7 +35,7 @@ import { Map, MapControls } from "@/components/ui/map"
       <MapControls />
     </Map>
   </Card>
-</template>`
+</template>`;
 </script>
 
 <template>
@@ -52,9 +53,13 @@ import { Map, MapControls } from "@/components/ui/map"
     <DocsSection title="Prerequisites">
       <p>
         A project with
-        <DocsLink href="https://tailwindcss.com" external>Tailwind CSS</DocsLink>
+        <DocsLink href="https://tailwindcss.com" external
+          >Tailwind CSS</DocsLink
+        >
         and
-        <DocsLink href="https://www.shadcn-vue.com" external>shadcn-vue</DocsLink>
+        <DocsLink href="https://www.shadcn-vue.com" external
+          >shadcn-vue</DocsLink
+        >
         set up.
       </p>
     </DocsSection>

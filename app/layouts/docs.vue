@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { SidebarProvider } from '~/components/ui/sidebar'
-import { TooltipProvider } from '~/components/ui/tooltip'
+import { SidebarProvider } from "~/components/ui/sidebar";
+import { TooltipProvider } from "~/components/ui/tooltip";
 </script>
 
 <template>

@@ -1,6 +1,8 @@
 <template>
   <footer class="w-full py-6 border-t">
-    <div class="w-full container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+    <div
+      class="w-full container flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground"
+    >
       <div class="flex items-center gap-2 flex-wrap">
         <span class="font-medium text-foreground">mapcn-vue</span>
         <span class="text-muted-foreground/80">•</span>
@@ -38,10 +40,7 @@
         </span>
       </div>
       <div class="flex items-center gap-5">
-        <NuxtLink
-          to="/docs"
-          class="hover:text-foreground transition-colors"
-        >
+        <NuxtLink to="/docs" class="hover:text-foreground transition-colors">
           Documentation
         </NuxtLink>
         <a

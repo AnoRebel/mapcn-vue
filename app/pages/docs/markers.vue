@@ -1,25 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Map, MapMarker, MarkerContent, MarkerTooltip, MarkerPopup } from '~~/registry/map'
-import DocsLayout from '~/components/docs/DocsLayout.vue'
-import DocsSection from '~/components/docs/DocsSection.vue'
-import DocsCode from '~/components/docs/DocsCode.vue'
-import DocsNote from '~/components/docs/DocsNote.vue'
-import DocsLink from '~/components/docs/DocsLink.vue'
-import ExamplePreview from '~/components/docs/ExamplePreview.vue'
-import RichPopupsExample from '~/components/docs/examples/RichPopupsExample.vue'
+import { ref } from "vue";
+import {
+  Map,
+  MapMarker,
+  MarkerContent,
+  MarkerTooltip,
+  MarkerPopup,
+} from "~~/registry/map";
+import DocsLayout from "~/components/docs/DocsLayout.vue";
+import DocsSection from "~/components/docs/DocsSection.vue";
+import DocsCode from "~/components/docs/DocsCode.vue";
+import DocsNote from "~/components/docs/DocsNote.vue";
+import DocsLink from "~/components/docs/DocsLink.vue";
+import ExamplePreview from "~/components/docs/ExamplePreview.vue";
+import RichPopupsExample from "~/components/docs/examples/RichPopupsExample.vue";
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: "docs" });
 useSeoMeta({
-  title: 'Markers',
-  description: 'Add interactive markers to your map with custom content, tooltips, popups, labels, and drag support.',
-})
+  title: "Markers",
+  description:
+    "Add interactive markers to your map with custom content, tooltips, popups, labels, and drag support.",
+});
 
 const locations = [
-  { id: 1, name: 'Empire State Building', lng: -73.9857, lat: 40.7484 },
-  { id: 2, name: 'Central Park', lng: -73.9654, lat: 40.7829 },
-  { id: 3, name: 'Times Square', lng: -73.9855, lat: 40.758 },
-]
+  { id: 1, name: "Empire State Building", lng: -73.9857, lat: 40.7484 },
+  { id: 2, name: "Central Park", lng: -73.9654, lat: 40.7829 },
+  { id: 3, name: "Times Square", lng: -73.9855, lat: 40.758 },
+];
 
 const basicMarkersCode = `<script setup lang="ts">
 const locations = [
@@ -42,7 +49,7 @@ const locations = [
       </MarkerContent>
     </MapMarker>
   </Map>
-</template>`
+</template>`;
 
 const markersWithTooltipsCode = `<script setup lang="ts">
 const locations = [
@@ -66,7 +73,7 @@ const locations = [
       <MarkerTooltip>{{ location.name }}</MarkerTooltip>
     </MapMarker>
   </Map>
-</template>`
+</template>`;
 
 const markersWithPopupsCode = `<script setup lang="ts">
 const locations = [
@@ -97,9 +104,9 @@ const locations = [
       </MarkerPopup>
     </MapMarker>
   </Map>
-</template>`
+</template>`;
 
-const draggablePosition = ref({ lng: -73.9857, lat: 40.7484 })
+const draggablePosition = ref({ lng: -73.9857, lat: 40.7484 });
 
 const draggableMarkerCode = `<script setup lang="ts">
 import { ref } from 'vue'
@@ -125,7 +132,7 @@ const position = ref({ lng: -73.9857, lat: 40.7484 })
       </MarkerTooltip>
     </MapMarker>
   </Map>
-</template>`
+</template>`;
 
 const richPopupsCode = `<script setup lang="ts">
 import { Map, MapMarker, MarkerContent, MarkerLabel, MarkerPopup } from '@/components/ui/map'
@@ -192,7 +199,7 @@ const places = [
       </MarkerPopup>
     </MapMarker>
   </Map>
-</template>`
+</template>`;
 </script>
 
 <template>
@@ -211,8 +218,9 @@ const places = [
   >
     <DocsSection id="basic-markers" title="Basic Markers">
       <p>
-        Use <DocsCode>MapMarker</DocsCode> to add markers to your map. Markers can contain
-        any custom content via the <DocsCode>MarkerContent</DocsCode> slot.
+        Use <DocsCode>MapMarker</DocsCode> to add markers to your map. Markers
+        can contain any custom content via the
+        <DocsCode>MarkerContent</DocsCode> slot.
       </p>
       <ExamplePreview :code="basicMarkersCode" class="mt-4">
         <Map :center="[-73.98, 40.76]" :zoom="12" class="h-full">
@@ -223,7 +231,9 @@ const places = [
             :latitude="location.lat"
           >
             <MarkerContent>
-              <div class="size-4 rounded-full bg-primary border-2 border-white shadow-lg" />
+              <div
+                class="size-4 rounded-full bg-primary border-2 border-white shadow-lg"
+              />
             </MarkerContent>
           </MapMarker>
         </Map>
@@ -232,7 +242,8 @@ const places = [
 
     <DocsSection id="with-tooltips" title="With Tooltips">
       <p>
-        Add tooltips that appear on hover using the <DocsCode>MarkerTooltip</DocsCode> component.
+        Add tooltips that appear on hover using the
+        <DocsCode>MarkerTooltip</DocsCode> component.
       </p>
       <ExamplePreview :code="markersWithTooltipsCode" class="mt-4">
         <Map :center="[-73.98, 40.76]" :zoom="12" class="h-full">
@@ -243,7 +254,9 @@ const places = [
             :latitude="location.lat"
           >
             <MarkerContent>
-              <div class="size-4 rounded-full bg-primary border-2 border-white shadow-lg" />
+              <div
+                class="size-4 rounded-full bg-primary border-2 border-white shadow-lg"
+              />
             </MarkerContent>
             <MarkerTooltip>{{ location.name }}</MarkerTooltip>
           </MapMarker>
@@ -253,7 +266,8 @@ const places = [
 
     <DocsSection id="with-popups" title="With Popups">
       <p>
-        Add popups that open on click using the <DocsCode>MarkerPopup</DocsCode> component.
+        Add popups that open on click using the
+        <DocsCode>MarkerPopup</DocsCode> component.
       </p>
       <ExamplePreview :code="markersWithPopupsCode" class="mt-4">
         <Map :center="[-73.98, 40.76]" :zoom="12" class="h-full">
@@ -264,7 +278,9 @@ const places = [
             :latitude="location.lat"
           >
             <MarkerContent>
-              <div class="size-4 rounded-full bg-primary border-2 border-white shadow-lg" />
+              <div
+                class="size-4 rounded-full bg-primary border-2 border-white shadow-lg"
+              />
             </MarkerContent>
             <MarkerPopup>
               <div class="space-y-1">
@@ -281,7 +297,8 @@ const places = [
 
     <DocsSection id="rich-popups" title="Rich Popups">
       <p>
-        Build complex popups with images, ratings, and action buttons using shadcn/ui components.
+        Build complex popups with images, ratings, and action buttons using
+        shadcn/ui components.
       </p>
       <ExamplePreview :code="richPopupsCode" class="mt-4" height="h-[500px]">
         <RichPopupsExample />
@@ -299,15 +316,23 @@ const places = [
             :longitude="draggablePosition.lng"
             :latitude="draggablePosition.lat"
             :draggable="true"
-            :on-drag-end="(lngLat: { lng: number; lat: number }) => { draggablePosition.lng = lngLat.lng; draggablePosition.lat = lngLat.lat }"
+            :on-drag-end="
+              (lngLat: { lng: number; lat: number }) => {
+                draggablePosition.lng = lngLat.lng;
+                draggablePosition.lat = lngLat.lat;
+              }
+            "
           >
             <MarkerContent>
-              <div class="size-6 rounded-full bg-destructive border-2 border-white shadow-lg flex items-center justify-center">
+              <div
+                class="size-6 rounded-full bg-destructive border-2 border-white shadow-lg flex items-center justify-center"
+              >
                 <span class="text-white text-[8px] font-bold">D</span>
               </div>
             </MarkerContent>
             <MarkerTooltip>
-              Drag me! {{ draggablePosition.lat.toFixed(4) }}, {{ draggablePosition.lng.toFixed(4) }}
+              Drag me! {{ draggablePosition.lat.toFixed(4) }},
+              {{ draggablePosition.lng.toFixed(4) }}
             </MarkerTooltip>
           </MapMarker>
         </Map>
@@ -315,9 +340,11 @@ const places = [
     </DocsSection>
 
     <DocsNote class="mt-8">
-      <strong>Performance tip:</strong> For displaying many points (100+), consider using
-      <DocsLink href="/docs/clusters">MapClusterLayer</DocsLink> instead of individual markers.
-      MapClusterLayer uses WebGL-rendered circles managed entirely by MapLibre, avoiding DOM overhead.
+      <strong>Performance tip:</strong> For displaying many points (100+),
+      consider using
+      <DocsLink href="/docs/clusters">MapClusterLayer</DocsLink> instead of
+      individual markers. MapClusterLayer uses WebGL-rendered circles managed
+      entirely by MapLibre, avoiding DOM overhead.
     </DocsNote>
   </DocsLayout>
 </template>

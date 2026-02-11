@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Map, MapPopup } from '~~/registry/map'
-import { Button } from '~/components/ui/button'
-import DocsLayout from '~/components/docs/DocsLayout.vue'
-import DocsSection from '~/components/docs/DocsSection.vue'
-import DocsCode from '~/components/docs/DocsCode.vue'
-import ExamplePreview from '~/components/docs/ExamplePreview.vue'
+import { ref } from "vue";
+import { Map, MapPopup } from "~~/registry/map";
+import { Button } from "~/components/ui/button";
+import DocsLayout from "~/components/docs/DocsLayout.vue";
+import DocsSection from "~/components/docs/DocsSection.vue";
+import DocsCode from "~/components/docs/DocsCode.vue";
+import ExamplePreview from "~/components/docs/ExamplePreview.vue";
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: "docs" });
 useSeoMeta({
-  title: 'Popups',
-  description: 'Display standalone popups at any coordinates on the map with custom content, close buttons, and anchor positioning.',
-})
+  title: "Popups",
+  description:
+    "Display standalone popups at any coordinates on the map with custom content, close buttons, and anchor positioning.",
+});
 
-const showPopup = ref(true)
+const showPopup = ref(true);
 
 const popupCode = `<script setup lang="ts">
 import { ref } from 'vue'
@@ -46,7 +47,7 @@ const showPopup = ref(true)
       Show Popup
     </Button>
   </div>
-</template>`
+</template>`;
 </script>
 
 <template>
@@ -55,14 +56,12 @@ const showPopup = ref(true)
     description="Display information windows that can be positioned on the map."
     :prev="{ title: 'Markers', href: '/docs/markers' }"
     :next="{ title: 'Routes', href: '/docs/routes' }"
-    :toc="[
-      { title: 'Basic Popup', slug: 'basic-popup' },
-    ]"
+    :toc="[{ title: 'Basic Popup', slug: 'basic-popup' }]"
   >
     <DocsSection id="basic-popup" title="Basic Popup">
       <p>
-        Use <DocsCode>MapPopup</DocsCode> to display content at a specific location.
-        Popups can be closed and support custom content.
+        Use <DocsCode>MapPopup</DocsCode> to display content at a specific
+        location. Popups can be closed and support custom content.
       </p>
       <ExamplePreview :code="popupCode" class="mt-4">
         <div class="relative h-full">
@@ -85,7 +84,11 @@ const showPopup = ref(true)
               </div>
             </MapPopup>
           </Map>
-          <Button v-if="!showPopup" class="absolute bottom-4 left-4 z-10" @click="showPopup = true">
+          <Button
+            v-if="!showPopup"
+            class="absolute bottom-4 left-4 z-10"
+            @click="showPopup = true"
+          >
             Show Popup
           </Button>
         </div>

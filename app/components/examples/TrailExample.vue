@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Map, MapRoute, MapMarker, MarkerContent } from '~~/registry/map'
-import { Bike, Flame, Clock, Route } from 'lucide-vue-next'
-import ExampleCard from './ExampleCard.vue'
+import { Map, MapRoute, MapMarker, MarkerContent } from "~~/registry/map";
+import { Bike, Flame, Clock, Route } from "lucide-vue-next";
+import ExampleCard from "./ExampleCard.vue";
 
 const trailCoordinates = [
   [-73.95846730810143, 40.80035246904919],
@@ -17,36 +17,44 @@ const trailCoordinates = [
   [-73.94937945594087, 40.79668351998197],
   [-73.9498273526222, 40.797167598041455],
   [-73.95699644240298, 40.80016017872583],
-] as [number, number][]
+] as [number, number][];
 
-const start = trailCoordinates[0]!
-const end = trailCoordinates[trailCoordinates.length - 1]!
+const start = trailCoordinates[0]!;
+const end = trailCoordinates[trailCoordinates.length - 1]!;
 </script>
 
 <template>
   <ExampleCard label="" class="aspect-square" delay="delay-500">
-    <div class="absolute top-3 left-3 z-10 bg-background/95 backdrop-blur-md rounded-lg p-3 border border-border/50 shadow-lg">
+    <div
+      class="absolute top-3 left-3 z-10 bg-background/95 backdrop-blur-md rounded-lg p-3 border border-border/50 shadow-lg"
+    >
       <div class="flex items-center gap-1.5 mb-2">
         <Bike class="size-3.5 text-emerald-500" />
         <span class="text-xs font-medium">Central Park Loop</span>
       </div>
       <div class="grid grid-cols-3 gap-3 text-center">
         <div>
-          <div class="flex items-center justify-center gap-1 text-muted-foreground mb-0.5">
+          <div
+            class="flex items-center justify-center gap-1 text-muted-foreground mb-0.5"
+          >
             <Route class="size-3" />
           </div>
           <div class="text-sm font-semibold">6.2</div>
           <div class="text-[9px] text-muted-foreground uppercase">Miles</div>
         </div>
         <div>
-          <div class="flex items-center justify-center gap-1 text-muted-foreground mb-0.5">
+          <div
+            class="flex items-center justify-center gap-1 text-muted-foreground mb-0.5"
+          >
             <Clock class="size-3" />
           </div>
           <div class="text-sm font-semibold">32</div>
           <div class="text-[9px] text-muted-foreground uppercase">Mins</div>
         </div>
         <div>
-          <div class="flex items-center justify-center gap-1 text-muted-foreground mb-0.5">
+          <div
+            class="flex items-center justify-center gap-1 text-muted-foreground mb-0.5"
+          >
             <Flame class="size-3" />
           </div>
           <div class="text-sm font-semibold">285</div>
@@ -66,13 +74,17 @@ const end = trailCoordinates[trailCoordinates.length - 1]!
 
         <MapMarker :longitude="start[0]" :latitude="start[1]">
           <MarkerContent>
-            <div class="size-3 rounded-full bg-emerald-500 border-2 border-white shadow-lg" />
+            <div
+              class="size-3 rounded-full bg-emerald-500 border-2 border-white shadow-lg"
+            />
           </MarkerContent>
         </MapMarker>
 
         <MapMarker :longitude="end[0]" :latitude="end[1]">
           <MarkerContent>
-            <div class="size-3 rounded-full bg-red-500 border-2 border-white shadow-lg" />
+            <div
+              class="size-3 rounded-full bg-red-500 border-2 border-white shadow-lg"
+            />
           </MarkerContent>
         </MapMarker>
       </Map>

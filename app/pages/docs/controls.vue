@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { Map, MapControls } from '~~/registry/map'
-import DocsLayout from '~/components/docs/DocsLayout.vue'
-import DocsSection from '~/components/docs/DocsSection.vue'
-import DocsCode from '~/components/docs/DocsCode.vue'
-import ExamplePreview from '~/components/docs/ExamplePreview.vue'
+import { Map, MapControls } from "~~/registry/map";
+import DocsLayout from "~/components/docs/DocsLayout.vue";
+import DocsSection from "~/components/docs/DocsSection.vue";
+import DocsCode from "~/components/docs/DocsCode.vue";
+import ExamplePreview from "~/components/docs/ExamplePreview.vue";
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: "docs" });
 useSeoMeta({
-  title: 'Controls',
-  description: 'Add zoom, compass, geolocation, and fullscreen controls to your map with the MapControls component.',
-})
+  title: "Controls",
+  description:
+    "Add zoom, compass, geolocation, and fullscreen controls to your map with the MapControls component.",
+});
 
 const controlsCode = `<template>
   <div class="h-[400px] w-full">
@@ -23,7 +24,7 @@ const controlsCode = `<template>
       />
     </Map>
   </div>
-</template>`
+</template>`;
 </script>
 
 <template>
@@ -32,9 +33,7 @@ const controlsCode = `<template>
     description="Add interactive controls to your map for zoom, compass, location, and fullscreen."
     :prev="{ title: 'Map', href: '/docs/basic-map' }"
     :next="{ title: 'Markers', href: '/docs/markers' }"
-    :toc="[
-      { title: 'Default Controls', slug: 'default-controls' },
-    ]"
+    :toc="[{ title: 'Default Controls', slug: 'default-controls' }]"
   >
     <DocsSection id="default-controls" title="Default Controls">
       <p>

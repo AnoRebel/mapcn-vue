@@ -1,18 +1,25 @@
 <script setup lang="ts">
-import { Map, MapRoute, MapMarker, MarkerContent, MapControls } from '~~/registry/map'
-import DocsLayout from '~/components/docs/DocsLayout.vue'
-import DocsSection from '~/components/docs/DocsSection.vue'
-import DocsCode from '~/components/docs/DocsCode.vue'
-import DocsLink from '~/components/docs/DocsLink.vue'
-import ExamplePreview from '~/components/docs/ExamplePreview.vue'
-import RoutePlanningExample from '~/components/docs/examples/RoutePlanningExample.vue'
-import AnimatedRouteExample from '~/components/docs/examples/AnimatedRouteExample.vue'
+import {
+  Map,
+  MapRoute,
+  MapMarker,
+  MarkerContent,
+  MapControls,
+} from "~~/registry/map";
+import DocsLayout from "~/components/docs/DocsLayout.vue";
+import DocsSection from "~/components/docs/DocsSection.vue";
+import DocsCode from "~/components/docs/DocsCode.vue";
+import DocsLink from "~/components/docs/DocsLink.vue";
+import ExamplePreview from "~/components/docs/ExamplePreview.vue";
+import RoutePlanningExample from "~/components/docs/examples/RoutePlanningExample.vue";
+import AnimatedRouteExample from "~/components/docs/examples/AnimatedRouteExample.vue";
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: "docs" });
 useSeoMeta({
-  title: 'Routes',
-  description: 'Draw routes and lines on the map with animation, dash patterns, auto-fit bounds, and click interactions.',
-})
+  title: "Routes",
+  description:
+    "Draw routes and lines on the map with animation, dash patterns, auto-fit bounds, and click interactions.",
+});
 
 // NYC to Brooklyn route example
 const routeCoordinates: [number, number][] = [
@@ -20,7 +27,7 @@ const routeCoordinates: [number, number][] = [
   [-73.9857, 40.7484],
   [-73.9654, 40.7829],
   [-73.9442, 40.6782],
-]
+];
 
 const routeCode = `<script setup lang="ts">
 const routeCoordinates = [
@@ -54,7 +61,7 @@ const routeCoordinates = [
       </MapMarker>
     </Map>
   </div>
-</template>`
+</template>`;
 
 const animatedRouteCode = `<script setup lang="ts">
 const routeCoordinates = [
@@ -90,7 +97,7 @@ const routeCoordinates = [
       </MapMarker>
     </Map>
   </div>
-</template>`
+</template>`;
 </script>
 
 <template>
@@ -109,8 +116,8 @@ const routeCoordinates = [
     <DocsSection>
       <p>
         Use <DocsCode>MapRoute</DocsCode> to draw lines connecting a series of
-        coordinates. Perfect for showing directions, trails, or any path
-        between points.
+        coordinates. Perfect for showing directions, trails, or any path between
+        points.
       </p>
     </DocsSection>
 
@@ -132,7 +139,9 @@ const routeCoordinates = [
             :latitude="coord[1]"
           >
             <MarkerContent>
-              <div class="size-4.5 rounded-full bg-blue-500 border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-semibold">
+              <div
+                class="size-4.5 rounded-full bg-blue-500 border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-semibold"
+              >
                 {{ index + 1 }}
               </div>
             </MarkerContent>
@@ -143,7 +152,10 @@ const routeCoordinates = [
     </DocsSection>
 
     <DocsSection id="animated-route" title="Animated Route">
-      <p>Add smooth animation to your routes with the <DocsCode>animated</DocsCode> prop.</p>
+      <p>
+        Add smooth animation to your routes with the
+        <DocsCode>animated</DocsCode> prop.
+      </p>
       <ExamplePreview :code="animatedRouteCode" class="mt-4">
         <Map class="h-full">
           <MapRoute
@@ -162,7 +174,9 @@ const routeCoordinates = [
             :latitude="coord[1]"
           >
             <MarkerContent>
-              <div class="size-4.5 rounded-full bg-emerald-500 border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-semibold">
+              <div
+                class="size-4.5 rounded-full bg-emerald-500 border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-semibold"
+              >
                 {{ index + 1 }}
               </div>
             </MarkerContent>
@@ -175,16 +189,17 @@ const routeCoordinates = [
     <DocsSection id="live-tracking" title="Live Tracking">
       <p>
         Simulate a vehicle or person traveling along a route with configurable
-        transport modes (walking, driving, commuting). Features start/pause/reset
-        controls, progress tracking, and editable destinations.
+        transport modes (walking, driving, commuting). Features
+        start/pause/reset controls, progress tracking, and editable
+        destinations.
       </p>
       <AnimatedRouteExample class="mt-4" />
     </DocsSection>
 
     <DocsSection id="route-planning" title="Route Planning">
       <p>
-        Display multiple route options and let users select between them.
-        This example fetches real driving directions from the
+        Display multiple route options and let users select between them. This
+        example fetches real driving directions from the
         <DocsLink href="http://project-osrm.org/" external>OSRM API</DocsLink>.
         Click on a route or use the buttons to switch.
       </p>

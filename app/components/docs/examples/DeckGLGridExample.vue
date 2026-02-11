@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { Map, DeckGLOverlay } from '~~/registry/map'
-import { Card, CardContent } from '~/components/ui/card'
-import { GridLayer } from '@deck.gl/aggregation-layers'
+import { ref, computed } from "vue";
+import { Map, DeckGLOverlay } from "~~/registry/map";
+import { Card, CardContent } from "~/components/ui/card";
+import { GridLayer } from "@deck.gl/aggregation-layers";
 
 // Generate crime incident data
 const incidents = Array.from({ length: 5000 }, () => ({
@@ -10,17 +10,17 @@ const incidents = Array.from({ length: 5000 }, () => ({
     -74.006 + (Math.random() - 0.5) * 0.2,
     40.7128 + (Math.random() - 0.5) * 0.2,
   ],
-}))
+}));
 
-const cellSize = ref(100)
-const elevationScale = ref(10)
-const coverage = ref(0.9)
+const cellSize = ref(100);
+const elevationScale = ref(10);
+const coverage = ref(0.9);
 
 const layers = computed(() => [
   new GridLayer({
-    id: 'grid-layer',
+    id: "grid-layer",
     data: incidents,
-    getPosition: d => d.position,
+    getPosition: (d) => d.position,
     cellSize: cellSize.value,
     elevationScale: elevationScale.value,
     coverage: coverage.value,
@@ -37,7 +37,7 @@ const layers = computed(() => [
     ],
     pickable: true,
   }),
-])
+]);
 </script>
 
 <template>
@@ -47,18 +47,43 @@ const layers = computed(() => [
       <CardContent class="p-4 grid grid-cols-3 gap-4">
         <div class="space-y-2">
           <span class="text-sm font-medium">Cell Size</span>
-          <input v-model.number="cellSize" type="range" min="50" max="500" step="25" class="w-full" >
+          <input
+            v-model.number="cellSize"
+            type="range"
+            min="50"
+            max="500"
+            step="25"
+            class="w-full"
+          />
           <span class="text-xs text-muted-foreground">{{ cellSize }}m</span>
         </div>
         <div class="space-y-2">
           <span class="text-sm font-medium">Elevation</span>
-          <input v-model.number="elevationScale" type="range" min="0" max="50" step="5" class="w-full" >
-          <span class="text-xs text-muted-foreground">{{ elevationScale }}x</span>
+          <input
+            v-model.number="elevationScale"
+            type="range"
+            min="0"
+            max="50"
+            step="5"
+            class="w-full"
+          />
+          <span class="text-xs text-muted-foreground"
+            >{{ elevationScale }}x</span
+          >
         </div>
         <div class="space-y-2">
           <span class="text-sm font-medium">Coverage</span>
-          <input v-model.number="coverage" type="range" min="0.5" max="1" step="0.05" class="w-full" >
-          <span class="text-xs text-muted-foreground">{{ Math.round(coverage * 100) }}%</span>
+          <input
+            v-model.number="coverage"
+            type="range"
+            min="0.5"
+            max="1"
+            step="0.05"
+            class="w-full"
+          />
+          <span class="text-xs text-muted-foreground"
+            >{{ Math.round(coverage * 100) }}%</span
+          >
         </div>
       </CardContent>
     </Card>
@@ -71,8 +96,9 @@ const layers = computed(() => [
     </div>
 
     <p class="text-sm text-muted-foreground">
-      GridLayer aggregates points into square grid cells. Similar to HexagonLayer but uses 
-      square bins instead. Great for urban planning and hotspot analysis with 3D elevation.
+      GridLayer aggregates points into square grid cells. Similar to
+      HexagonLayer but uses square bins instead. Great for urban planning and
+      hotspot analysis with 3D elevation.
     </p>
   </div>
 </template>

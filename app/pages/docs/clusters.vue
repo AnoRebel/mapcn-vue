@@ -1,24 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Map, MapClusterLayer, MapPopup, MapControls } from '~~/registry/map'
-import DocsLayout from '~/components/docs/DocsLayout.vue'
-import DocsSection from '~/components/docs/DocsSection.vue'
-import DocsCode from '~/components/docs/DocsCode.vue'
-import ExamplePreview from '~/components/docs/ExamplePreview.vue'
+import { ref } from "vue";
+import { Map, MapClusterLayer, MapPopup, MapControls } from "~~/registry/map";
+import DocsLayout from "~/components/docs/DocsLayout.vue";
+import DocsSection from "~/components/docs/DocsSection.vue";
+import DocsCode from "~/components/docs/DocsCode.vue";
+import ExamplePreview from "~/components/docs/ExamplePreview.vue";
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: "docs" });
 useSeoMeta({
-  title: 'Clusters',
-  description: 'Efficiently render thousands of points with automatic clustering using MapClusterLayer. Color-coded clusters expand on zoom.',
-})
+  title: "Clusters",
+  description:
+    "Efficiently render thousands of points with automatic clustering using MapClusterLayer. Color-coded clusters expand on zoom.",
+});
 
 interface SelectedPoint {
-  feature: GeoJSON.Feature
-  coords: [number, number]
+  feature: GeoJSON.Feature;
+  coords: [number, number];
 }
 
 // Must be defined at top level of script setup
-const selectedPoint = ref<SelectedPoint | null>(null)
+const selectedPoint = ref<SelectedPoint | null>(null);
 
 const clusterCode = `<script setup lang="ts">
 import { ref } from 'vue'
@@ -64,14 +65,14 @@ function handlePopupClose() {
       <MapControls />
     </Map>
   </div>
-</template>`
+</template>`;
 
 function handlePointClick(feature: GeoJSON.Feature, coords: [number, number]) {
-  selectedPoint.value = { feature, coords }
+  selectedPoint.value = { feature, coords };
 }
 
 function handlePopupClose() {
-  selectedPoint.value = null
+  selectedPoint.value = null;
 }
 </script>
 
@@ -84,17 +85,17 @@ function handlePopupClose() {
   >
     <DocsSection>
       <p>
-        The <DocsCode>MapClusterLayer</DocsCode> component uses
-        MapLibre's built-in clustering to efficiently render large
-        numbers of points. Points are automatically grouped into clusters at
-        low zoom levels, and expand as you zoom in.
+        The <DocsCode>MapClusterLayer</DocsCode> component uses MapLibre's
+        built-in clustering to efficiently render large numbers of points.
+        Points are automatically grouped into clusters at low zoom levels, and
+        expand as you zoom in.
       </p>
     </DocsSection>
 
     <DocsSection id="basic-example" title="Basic Example">
       <p>
-        Click on clusters to zoom in. Click individual points to see details
-        in a popup.
+        Click on clusters to zoom in. Click individual points to see details in
+        a popup.
       </p>
       <ExamplePreview :code="clusterCode" class="mt-4">
         <Map :center="[-103.59, 40.66]" :zoom="3.4" class="h-full">
@@ -115,7 +116,9 @@ function handlePopupClose() {
           >
             <div class="space-y-1 p-2">
               <p class="text-sm font-medium">Earthquake</p>
-              <p class="text-xs text-muted-foreground">Magnitude: {{ (selectedPoint.feature.properties as any)?.mag }}</p>
+              <p class="text-xs text-muted-foreground">
+                Magnitude: {{ (selectedPoint.feature.properties as any)?.mag }}
+              </p>
             </div>
           </MapPopup>
           <MapControls />

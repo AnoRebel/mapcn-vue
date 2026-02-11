@@ -1,31 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Map, type MapViewport } from '~~/registry/map'
-import DocsLayout from '~/components/docs/DocsLayout.vue'
-import DocsSection from '~/components/docs/DocsSection.vue'
-import DocsCode from '~/components/docs/DocsCode.vue'
-import DocsLink from '~/components/docs/DocsLink.vue'
-import ExamplePreview from '~/components/docs/ExamplePreview.vue'
-import CustomStyleExample from '~/components/docs/examples/CustomStyleExample.vue'
+import { ref } from "vue";
+import { Map, type MapViewport } from "~~/registry/map";
+import DocsLayout from "~/components/docs/DocsLayout.vue";
+import DocsSection from "~/components/docs/DocsSection.vue";
+import DocsCode from "~/components/docs/DocsCode.vue";
+import DocsLink from "~/components/docs/DocsLink.vue";
+import ExamplePreview from "~/components/docs/ExamplePreview.vue";
+import CustomStyleExample from "~/components/docs/examples/CustomStyleExample.vue";
 
-definePageMeta({ layout: 'docs' })
+definePageMeta({ layout: "docs" });
 
 const viewport = ref<MapViewport>({
   center: [-74.006, 40.7128],
   zoom: 8,
   bearing: 0,
   pitch: 0,
-})
+});
 useSeoMeta({
-  title: 'Map',
-  description: 'Learn how to render a basic map, control the viewport programmatically, and use custom map tile styles with mapcn-vue.',
-})
+  title: "Map",
+  description:
+    "Learn how to render a basic map, control the viewport programmatically, and use custom map tile styles with mapcn-vue.",
+});
 
 const basicMapCode = `<template>
   <div class="h-[400px] w-full">
     <Map :center="[-74.006, 40.7128]" :zoom="12" />
   </div>
-</template>`
+</template>`;
 
 const controlledMapCode = `<script setup lang="ts">
 import { ref } from 'vue'
@@ -48,7 +49,7 @@ const viewport = ref<MapViewport>({
       <span>zoom: {{ viewport.zoom.toFixed(1) }}</span>
     </div>
   </div>
-</template>`
+</template>`;
 
 const customStylesCode = `<script setup lang="ts">
 import { ref, watch, computed } from 'vue'
@@ -90,7 +91,7 @@ const currentStyleUrl = computed(() => styles[selectedStyle.value])
       </select>
     </div>
   </div>
-</template>`
+</template>`;
 </script>
 
 <template>
@@ -123,12 +124,14 @@ const currentStyleUrl = computed(() => styles[selectedStyle.value])
       </p>
       <ExamplePreview :code="controlledMapCode" class="mt-4">
         <div class="relative h-full">
-          <Map 
-            :viewport="viewport" 
-            class="h-full" 
-            @viewport-change="viewport = $event" 
+          <Map
+            :viewport="viewport"
+            class="h-full"
+            @viewport-change="viewport = $event"
           />
-          <div class="absolute top-2 left-2 z-10 flex flex-wrap gap-x-3 gap-y-1 text-xs font-mono bg-background/80 backdrop-blur px-2 py-1.5 rounded border">
+          <div
+            class="absolute top-2 left-2 z-10 flex flex-wrap gap-x-3 gap-y-1 text-xs font-mono bg-background/80 backdrop-blur px-2 py-1.5 rounded border"
+          >
             <span>lng: {{ viewport.center[0].toFixed(3) }}</span>
             <span>lat: {{ viewport.center[1].toFixed(3) }}</span>
             <span>zoom: {{ viewport.zoom.toFixed(1) }}</span>
@@ -141,8 +144,8 @@ const currentStyleUrl = computed(() => styles[selectedStyle.value])
       <p>
         Use the <DocsCode>styles</DocsCode> prop to provide custom map styles.
         This example uses free vector tiles from
-        <DocsLink href="https://openfreemap.org" external>OpenFreeMap</DocsLink>,
-        an open-source project, the data comes from OpenStreetMap.
+        <DocsLink href="https://openfreemap.org" external>OpenFreeMap</DocsLink
+        >, an open-source project, the data comes from OpenStreetMap.
       </p>
       <ExamplePreview :code="customStylesCode" class="mt-4" height="h-[400px]">
         <CustomStyleExample />

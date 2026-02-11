@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { MapPin, Heart } from 'lucide-vue-next'
-import { cn } from '@/lib/utils'
-import { Button } from '~/components/ui/button'
-import { Separator } from '~/components/ui/separator'
-import { Tooltip, TooltipContent, TooltipTrigger } from '~/components/ui/tooltip'
+import { MapPin, Heart } from "lucide-vue-next";
+import { cn } from "@/lib/utils";
+import { Button } from "~/components/ui/button";
+import { Separator } from "~/components/ui/separator";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 const props = defineProps<{
-  class?: string
-}>()
+  class?: string;
+}>();
 </script>
 
 <template>
