@@ -21,7 +21,7 @@ const currentStyleUrl = computed(() => styles[selectedStyle.value]);
 </script>
 
 <template>
-  <div class="h-[400px] relative w-full">
+  <div class="h-full relative w-full">
     <Map
       :center="[-0.1276, 51.5074]"
       :zoom="15"

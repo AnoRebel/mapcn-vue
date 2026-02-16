@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import type { Map as MapLibreMap } from "maplibre-gl";
 import { Map, MapMarker, MarkerContent } from "~~/registry/map";
 import { Button } from "~/components/ui/button";
-import { Card, CardContent } from "~/components/ui/card";
 import { Slider } from "~/components/ui/slider";
 import { Plane, Navigation, Zap, RotateCcw } from "lucide-vue-next";
 import type { Component } from "vue";
@@ -47,20 +47,20 @@ type AnimationType = "flyTo" | "easeTo" | "jumpTo";
 const currentCity = ref<CityLocation>(cities[0]!);
 const animationType = ref<AnimationType>("flyTo");
 const duration = ref([2000]);
-const mapRef = ref<InstanceType<typeof Map>>();
+const mapRef = ref<{ getMap: () => MapLibreMap | null } | null>(null);
 
-async function flyToCity(city: CityLocation) {
-  if (!mapRef.value) return;
+function getMapInstance(): MapLibreMap | null {
+  return mapRef.value?.getMap() ?? null;
+}
+
+function flyToCity(city: CityLocation) {
+  const map = getMapInstance();
+  if (!map) return;
 
   currentCity.value = city;
 
-  // Access the underlying maplibre map instance
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const map = (mapRef.value as any).mapInstance;
-  if (!map) return;
-
   const options = {
-    center: city.coordinates,
+    center: city.coordinates as [number, number],
     zoom: city.zoom,
     pitch: city.pitch ?? 0,
     bearing: city.bearing ?? 0,
@@ -76,7 +76,7 @@ async function flyToCity(city: CityLocation) {
       break;
     case "jumpTo":
       map.jumpTo({
-        center: city.coordinates,
+        center: city.coordinates as [number, number],
         zoom: city.zoom,
         pitch: city.pitch ?? 0,
         bearing: city.bearing ?? 0,
@@ -86,9 +86,7 @@ async function flyToCity(city: CityLocation) {
 }
 
 function resetView() {
-  if (!mapRef.value) return;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const map = (mapRef.value as any).mapInstance;
+  const map = getMapInstance();
   if (!map) return;
 
   map.flyTo({
@@ -108,19 +106,24 @@ const animationIcons: Record<AnimationType, Component> = {
 </script>
 
 <template>
-  <div class="space-y-4">
-    <!-- Controls -->
-    <Card>
-      <CardContent class="p-4 space-y-4">
-        <!-- Animation Type -->
-        <div class="space-y-2">
-          <span class="text-sm font-medium">Animation Type</span>
-          <div class="flex gap-2">
+  <div class="flex flex-col gap-3 h-full">
+    <!-- Controls row -->
+    <div
+      class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 p-3 rounded-lg border bg-card shrink-0"
+    >
+      <!-- Left: animation type + duration -->
+      <div class="space-y-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-medium text-muted-foreground shrink-0"
+            >Type:</span
+          >
+          <div class="flex gap-1.5">
             <Button
               v-for="(icon, type) in animationIcons"
               :key="type"
               variant="outline"
               size="sm"
+              class="h-7 px-2 text-xs"
               :class="
                 animationType === type
                   ? 'bg-primary text-primary-foreground'
@@ -128,59 +131,55 @@ const animationIcons: Record<AnimationType, Component> = {
               "
               @click="animationType = type"
             >
-              <component :is="icon" class="w-4 h-4 mr-1" />
+              <component :is="icon" class="w-3.5 h-3.5 mr-1" />
               {{ type }}
             </Button>
           </div>
-          <p class="text-xs text-muted-foreground">
-            <template v-if="animationType === 'flyTo'">
-              flyTo: Smooth animated transition with curve
-            </template>
-            <template v-else-if="animationType === 'easeTo'">
-              easeTo: Smooth linear transition
-            </template>
-            <template v-else> jumpTo: Instant jump, no animation </template>
-          </p>
         </div>
-
-        <!-- Duration Slider -->
-        <div class="space-y-2">
-          <div class="flex justify-between">
-            <span class="text-sm font-medium">Duration</span>
-            <span class="text-sm text-muted-foreground"
-              >{{ duration[0] }}ms</span
-            >
-          </div>
-          <Slider v-model="duration" :min="500" :max="5000" :step="100" />
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-medium text-muted-foreground shrink-0"
+            >Duration:</span
+          >
+          <Slider
+            v-model="duration"
+            :min="500"
+            :max="5000"
+            :step="100"
+            class="flex-1"
+          />
+          <span
+            class="text-xs tabular-nums text-muted-foreground w-14 text-right"
+            >{{ duration[0] }}ms</span
+          >
         </div>
-
-        <!-- City Buttons -->
-        <div class="space-y-2">
-          <span class="text-sm font-medium">Fly to City</span>
-          <div class="flex flex-wrap gap-2">
-            <Button
-              v-for="city in cities"
-              :key="city.name"
-              variant="outline"
-              size="sm"
-              :class="currentCity.name === city.name ? 'bg-secondary' : ''"
-              @click="flyToCity(city)"
-            >
-              {{ city.name }}
-            </Button>
-          </div>
-        </div>
-
-        <!-- Reset -->
-        <Button variant="ghost" size="sm" class="w-full" @click="resetView">
-          <RotateCcw class="w-4 h-4 mr-1" />
-          Reset View
+      </div>
+      <!-- Right: city buttons -->
+      <div class="flex flex-wrap gap-1.5 items-start">
+        <Button
+          v-for="city in cities"
+          :key="city.name"
+          variant="outline"
+          size="sm"
+          class="h-7 px-2 text-xs"
+          :class="currentCity.name === city.name ? 'bg-secondary' : ''"
+          @click="flyToCity(city)"
+        >
+          {{ city.name }}
         </Button>
-      </CardContent>
-    </Card>
+        <Button
+          variant="ghost"
+          size="sm"
+          class="h-7 px-2 text-xs"
+          @click="resetView"
+        >
+          <RotateCcw class="w-3 h-3 mr-1" />
+          Reset
+        </Button>
+      </div>
+    </div>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map ref="mapRef" :center="[-74.006, 40.7128]" :zoom="2" class="h-full">
         <MapMarker
           v-for="city in cities"
@@ -190,7 +189,7 @@ const animationIcons: Record<AnimationType, Component> = {
         >
           <MarkerContent>
             <div
-              class="w-3 h-3 rounded-full bg-primary border-2 border-white shadow-lg"
+              class="w-2.5 h-2.5 rounded-full bg-primary border-2 border-white shadow-lg"
             />
           </MarkerContent>
         </MapMarker>

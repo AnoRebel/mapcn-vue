@@ -106,7 +106,7 @@ function handlePointClick(feature: Feature) {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-4 h-full">
     <!-- Feature Info -->
     <Card v-if="selectedFeature">
       <CardContent class="p-4">
@@ -139,15 +139,17 @@ function handlePointClick(feature: Feature) {
     </Card>
 
     <!-- Map Tabs -->
-    <Tabs default-value="points" class="w-full">
+    <Tabs default-value="points" class="w-full flex-1 flex flex-col min-h-0">
       <TabsList class="grid w-full grid-cols-3">
         <TabsTrigger value="points">Points (Circles)</TabsTrigger>
         <TabsTrigger value="polygons">Polygons (Fill)</TabsTrigger>
         <TabsTrigger value="lines">Lines</TabsTrigger>
       </TabsList>
 
-      <TabsContent value="points">
-        <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+      <TabsContent value="points" class="flex-1 min-h-0">
+        <div
+          class="h-full min-h-[250px] w-full rounded-lg overflow-hidden border"
+        >
           <Map :center="[-120, 37]" :zoom="5" class="h-full">
             <MapGeoJson
               :data="earthquakeData"
@@ -171,8 +173,10 @@ function handlePointClick(feature: Feature) {
         </p>
       </TabsContent>
 
-      <TabsContent value="polygons">
-        <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+      <TabsContent value="polygons" class="flex-1 min-h-0">
+        <div
+          class="h-full min-h-[250px] w-full rounded-lg overflow-hidden border"
+        >
           <Map :center="[-110, 44.5]" :zoom="6" class="h-full">
             <MapGeoJson
               :data="parkData"
@@ -192,8 +196,10 @@ function handlePointClick(feature: Feature) {
         </p>
       </TabsContent>
 
-      <TabsContent value="lines">
-        <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+      <TabsContent value="lines" class="flex-1 min-h-0">
+        <div
+          class="h-full min-h-[250px] w-full rounded-lg overflow-hidden border"
+        >
           <Map :center="[-119, 35]" :zoom="5" class="h-full">
             <MapGeoJson
               :data="faultLineData"
