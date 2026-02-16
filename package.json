@@ -18,7 +18,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.563.0",
-    "maplibre-gl": "^5.17.0",
+    "maplibre-gl": "^5.18.0",
     "node-gyp": "^12.2.0",
     "reka-ui": "^2.8.0",
     "shiki": "^3.22.0",
