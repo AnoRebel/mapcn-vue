@@ -9,7 +9,7 @@ definePageMeta({ layout: "docs" });
 useSeoMeta({
   title: "API Reference",
   description:
-    "Complete prop reference for all mapcn-vue components: Map, MapMarker, MapPopup, MapRoute, MapClusterLayer, MapControls, and composables.",
+    "Complete prop reference for all mapcn-vue components: Map, MapMarker, MapPopup, MapRoute, MapClusterLayer, MapGeoJson, MapImageOverlay, DeckGLOverlay, MapControls, and composables.",
 });
 
 const anatomyCode = `<Map>
@@ -25,6 +25,9 @@ const anatomyCode = `<Map>
   <MapControls :show-compass="true" :show-locate="true" />
   <MapRoute :coordinates="..." color="#3b82f6" />
   <MapClusterLayer :data="..." />
+  <MapGeoJson :data="geojson" layer-type="fill" />
+  <MapImageOverlay url="..." :coordinates="[[...], [...], [...], [...]]" />
+  <DeckGLOverlay :layers="[...]" :interleaved="true" />
 </Map>`;
 
 const useMapCode = `const { map, isLoaded, isStyleLoaded, hasRendered } = useMap()`;
@@ -486,6 +489,126 @@ const clusterProps = [
       "Callback when a cluster is clicked (defaults to zoom-to-expand)",
   },
 ];
+
+const geoJsonProps = [
+  {
+    name: "id",
+    type: "string",
+    description: "Unique identifier for the layer (auto-generated if omitted)",
+  },
+  {
+    name: "data",
+    type: "FeatureCollection | Feature<Geometry>",
+    description: "GeoJSON data to render on the map",
+  },
+  {
+    name: "layerType",
+    type: "'fill' | 'line' | 'circle' | 'symbol'",
+    default: "'fill'",
+    description: "The type of MapLibre layer to render",
+  },
+  {
+    name: "style",
+    type: "GeoJsonLayerStyle",
+    description:
+      "Style overrides (fillColor, strokeColor, strokeWidth, circleRadius, etc.)",
+  },
+  {
+    name: "fitBounds",
+    type: "boolean",
+    default: "false",
+    description: "Automatically fit the map bounds to the data extent",
+  },
+  {
+    name: "fitBoundsOptions",
+    type: "FitBoundsOptions",
+    description: "MapLibre fit bounds options (padding, maxZoom, etc.)",
+  },
+  {
+    name: "interactive",
+    type: "boolean",
+    default: "true",
+    description: "Enable hover and click interactions on the layer",
+  },
+];
+
+const geoJsonEvents = [
+  {
+    name: "@click",
+    type: "(feature: Feature) => void",
+    description: "Emitted when a feature is clicked",
+  },
+  {
+    name: "@mouseEnter",
+    type: "(feature: Feature) => void",
+    description: "Emitted when the cursor enters a feature",
+  },
+  {
+    name: "@mouseLeave",
+    type: "() => void",
+    description: "Emitted when the cursor leaves a feature",
+  },
+];
+
+const imageOverlayProps = [
+  {
+    name: "id",
+    type: "string",
+    description:
+      "Unique identifier for the overlay (auto-generated if omitted)",
+  },
+  {
+    name: "url",
+    type: "string",
+    description: "URL of the image to overlay on the map",
+  },
+  {
+    name: "coordinates",
+    type: "[[number, number], [number, number], [number, number], [number, number]]",
+    description:
+      "Four corner coordinates [topLeft, topRight, bottomRight, bottomLeft]",
+  },
+  {
+    name: "opacity",
+    type: "number",
+    default: "1",
+    description: "Opacity of the raster image (0-1)",
+  },
+];
+
+const deckGLOverlayProps = [
+  {
+    name: "layers",
+    type: "Layer[]",
+    description: "Array of deck.gl Layer instances to render",
+  },
+  {
+    name: "interleaved",
+    type: "boolean",
+    default: "true",
+    description:
+      "Whether deck.gl layers interleave with MapLibre layers (true) or render on top (false)",
+  },
+];
+
+const useMapRouteCode = `const { isSetup, sourceId, layerId } = useMapRoute({
+  coordinates: [...],
+  color: '#4285F4',
+  width: 3,
+  onClick: () => console.log('clicked'),
+})`;
+
+const useMapGeoJsonCode = `const { isSetup, sourceId, layerId } = useMapGeoJson({
+  data: geojsonData,
+  layerType: 'fill',
+  style: { fillColor: '#3b82f6', fillOpacity: 0.5 },
+  onClick: (feature) => console.log(feature),
+})`;
+
+const useDeckGLOverlayCode = `const { isSetup, overlayRef } = useDeckGLOverlay({
+  layers: [new ScatterplotLayer({ ... })],
+  interleaved: true,
+})`;
 </script>
 
 <template>
@@ -493,7 +616,7 @@ const clusterProps = [
     title="API Reference"
     description="Complete reference for all map components and their props."
     :prev="{ title: 'Installation', href: '/docs/installation' }"
-    :next="{ title: 'Map', href: '/docs/basic-map' }"
+    :next="{ title: 'Examples', href: '/docs/examples' }"
     :toc="[
       { title: 'Component Anatomy', slug: 'component-anatomy' },
       { title: 'Map', slug: 'map' },
@@ -507,6 +630,10 @@ const clusterProps = [
       { title: 'MapPopup', slug: 'mappopup' },
       { title: 'MapRoute', slug: 'maproute' },
       { title: 'MapClusterLayer', slug: 'mapclusterlayer' },
+      { title: 'MapGeoJson', slug: 'mapgeojson' },
+      { title: 'MapImageOverlay', slug: 'mapimageoverlay' },
+      { title: 'DeckGLOverlay', slug: 'deckgloverlay' },
+      { title: 'Composables', slug: 'composables' },
     ]"
   >
     <DocsNote>
@@ -641,6 +768,76 @@ const clusterProps = [
         zoom in.
       </p>
       <DocsPropTable :props="clusterProps" />
+    </DocsSection>
+
+    <DocsSection title="MapGeoJson">
+      <p>
+        Renders GeoJSON data on the map as fill, line, circle, or symbol layers.
+        Supports interactive features with click and hover events, automatic
+        bounds fitting, and customizable styling.
+      </p>
+      <DocsPropTable :props="geoJsonProps" />
+      <h4 class="text-sm font-medium mt-6 mb-2">Events</h4>
+      <DocsPropTable :props="geoJsonEvents" />
+    </DocsSection>
+
+    <DocsSection title="MapImageOverlay">
+      <p>
+        Overlays a raster image on the map, positioned by four corner
+        coordinates. Useful for historical maps, floor plans, or custom imagery.
+      </p>
+      <DocsPropTable :props="imageOverlayProps" />
+    </DocsSection>
+
+    <DocsSection title="DeckGLOverlay">
+      <p>
+        Integrates
+        <DocsLink href="https://deck.gl" external>deck.gl</DocsLink>
+        layers with the MapLibre map using the
+        <DocsCode>@deck.gl/mapbox</DocsCode> overlay. Supports interleaved
+        rendering where deck.gl layers render between MapLibre layers for proper
+        depth ordering.
+      </p>
+      <DocsPropTable :props="deckGLOverlayProps" />
+    </DocsSection>
+
+    <DocsSection title="Composables">
+      <p>
+        All renderless components are also available as composables for use in
+        <DocsCode>&lt;script setup&gt;</DocsCode> without a component wrapper.
+        Each composable provides the same functionality as its component
+        counterpart.
+      </p>
+
+      <h4 class="text-sm font-medium mt-6 mb-2">useMapRoute</h4>
+      <p class="text-sm text-muted-foreground mb-2">
+        Programmatically add a route/line layer to the map.
+      </p>
+      <CodeBlock
+        :code="useMapRouteCode"
+        language="ts"
+        :show-copy-button="false"
+      />
+
+      <h4 class="text-sm font-medium mt-6 mb-2">useMapGeoJson</h4>
+      <p class="text-sm text-muted-foreground mb-2">
+        Programmatically add a GeoJSON layer with interactive features.
+      </p>
+      <CodeBlock
+        :code="useMapGeoJsonCode"
+        language="ts"
+        :show-copy-button="false"
+      />
+
+      <h4 class="text-sm font-medium mt-6 mb-2">useDeckGLOverlay</h4>
+      <p class="text-sm text-muted-foreground mb-2">
+        Programmatically add a deck.gl overlay to the map.
+      </p>
+      <CodeBlock
+        :code="useDeckGLOverlayCode"
+        language="ts"
+        :show-copy-button="false"
+      />
     </DocsSection>
   </DocsLayout>
 </template>

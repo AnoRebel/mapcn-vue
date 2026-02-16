@@ -74,7 +74,7 @@ const imageCorners = [
     title="Layers"
     description="Advanced layer types for data visualization and custom overlays."
     :prev="{ title: 'Clusters', href: '/docs/clusters' }"
-    :next="{ title: 'Advanced Usage', href: '/docs/advanced-usage' }"
+    :next="{ title: 'deck.gl', href: '/docs/deckgl' }"
     :toc="[
       { title: 'GeoJSON Layers', slug: 'geojson-layers' },
       { title: 'Choropleth Maps', slug: 'choropleth-maps' },

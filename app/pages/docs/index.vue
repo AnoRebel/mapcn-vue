@@ -192,6 +192,16 @@ const features = [
         <DocsLink href="https://github.com/AnoRebel" external>AnoRebel</DocsLink
         >.
       </p>
+      <p class="mt-2">
+        Inspired by
+        <DocsLink href="https://mapcn-vue.geoql.in" external
+          >mapcn-vue by GeoQL</DocsLink
+        >
+        and
+        <DocsLink href="https://github.com/geoql/v-maplibre" external
+          >v-maplibre</DocsLink
+        >.
+      </p>
     </DocsSection>
   </DocsLayout>
 </template>

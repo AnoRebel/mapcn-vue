@@ -98,7 +98,7 @@ const currentStyleUrl = computed(() => styles[selectedStyle.value])
   <DocsLayout
     title="Map"
     description="The simplest way to add an interactive map to your application."
-    :prev="{ title: 'API Reference', href: '/docs/api-reference' }"
+    :prev="{ title: 'Examples', href: '/docs/examples' }"
     :next="{ title: 'Controls', href: '/docs/controls' }"
     :toc="[
       { title: 'Basic Usage', slug: 'basic-usage' },

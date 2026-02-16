@@ -162,7 +162,7 @@ function resetView() {
   <DocsLayout
     title="Advanced"
     description="Access the underlying MapLibre GL instance for advanced customization."
-    :prev="{ title: 'Clusters', href: '/docs/clusters' }"
+    :prev="{ title: 'deck.gl', href: '/docs/deckgl' }"
     :toc="[
       { title: 'Using a Ref', slug: 'using-a-ref' },
       { title: 'Using the Composable', slug: 'using-the-composable' },

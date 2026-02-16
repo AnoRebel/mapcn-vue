@@ -46,7 +46,7 @@ const layers = [
     title="deck.gl Integration"
     description="High-performance WebGL data visualization with deck.gl."
     :prev="{ title: 'Layers', href: '/docs/layers' }"
-    :next="{ title: 'API Reference', href: '/docs/api-reference' }"
+    :next="{ title: 'Advanced', href: '/docs/advanced-usage' }"
     :toc="[
       { title: 'Installation', slug: 'installation' },
       { title: 'Scatterplot Layer', slug: 'scatterplot' },
