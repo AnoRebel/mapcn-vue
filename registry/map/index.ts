@@ -18,3 +18,23 @@ export { default as DeckGLOverlay } from "./DeckGLOverlay.vue";
 // Export composables
 export { useMap } from "./composables/useMap";
 export { useMarkerContext } from "./composables/useMarker";
+export {
+  useMapRoute,
+  type UseMapRouteOptions,
+} from "./composables/useMapRoute";
+export {
+  useMapGeoJson,
+  type UseMapGeoJsonOptions,
+} from "./composables/useMapGeoJson";
+export {
+  useMapClusterLayer,
+  type UseMapClusterLayerOptions,
+} from "./composables/useMapClusterLayer";
+export {
+  useMapImageOverlay,
+  type UseMapImageOverlayOptions,
+} from "./composables/useMapImageOverlay";
+export {
+  useDeckGLOverlay,
+  type UseDeckGLOverlayOptions,
+} from "./composables/useDeckGLOverlay";
