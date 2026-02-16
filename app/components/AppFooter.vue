@@ -38,6 +38,27 @@
             AnoRebel
           </a>
         </span>
+        <span class="text-muted-foreground/80">•</span>
+        <span>
+          Inspired by
+          <a
+            href="https://mapcn-vue.geoql.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-medium text-foreground underline underline-offset-4"
+          >
+            GeoQL
+          </a>
+          &amp;
+          <a
+            href="https://github.com/geoql/v-maplibre"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-medium text-foreground underline underline-offset-4"
+          >
+            v-maplibre
+          </a>
+        </span>
       </div>
       <div class="flex items-center gap-5">
         <NuxtLink to="/docs" class="hover:text-foreground transition-colors">
