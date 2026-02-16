@@ -226,7 +226,16 @@ onMounted(() => {
 
   mapInstance.value = map;
 
+  // ResizeObserver for responsive map sizing
+  const resizeObserver = new ResizeObserver(() => {
+    if (mapInstance.value) {
+      mapInstance.value.resize();
+    }
+  });
+  resizeObserver.observe(containerRef.value);
+
   onUnmounted(() => {
+    resizeObserver.disconnect();
     clearStyleTimeout();
     canvas.removeEventListener("webglcontextlost", handleContextLost);
     canvas.removeEventListener("webglcontextrestored", handleContextRestored);
