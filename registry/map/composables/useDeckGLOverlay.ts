@@ -9,7 +9,7 @@ export interface UseDeckGLOverlayOptions {
 }
 
 export function useDeckGLOverlay(props: UseDeckGLOverlayOptions) {
-  const { map, isLoaded } = useMap();
+  const { map, isLoaded, isStyleLoaded } = useMap();
   const overlayRef = ref<MapboxOverlay | null>(null);
   const isSetup = ref(false);
 
@@ -18,15 +18,52 @@ export function useDeckGLOverlay(props: UseDeckGLOverlayOptions) {
   function setupOverlay() {
     if (!map.value || isSetup.value) return;
 
-    const overlay = new MapboxOverlay({
-      interleaved: interleaved(),
-      layers: props.layers,
-      useDevicePixels: true,
-    });
+    try {
+      // Create overlay with empty layers first — MapboxOverlay needs a
+      // render frame to sync the map viewport. Without a valid viewport,
+      // aggregation layers (Heatmap, Hexagon, etc.) can't build their
+      // textures, causing "viewport is null" errors and broken rendering.
+      const overlay = new MapboxOverlay({
+        interleaved: interleaved(),
+        layers: [],
+        useDevicePixels: true,
+      });
 
-    map.value.addControl(overlay);
-    overlayRef.value = overlay;
-    isSetup.value = true;
+      map.value.addControl(overlay);
+      overlayRef.value = overlay;
+      isSetup.value = true;
+
+      // Apply actual layers after the viewport is available
+      requestAnimationFrame(() => {
+        if (overlayRef.value) {
+          overlayRef.value.setProps({ layers: props.layers });
+        }
+      });
+    } catch {
+      // deck.gl may throw assertion errors on some WebGL contexts;
+      // retry once after a short delay
+      setTimeout(() => {
+        if (isSetup.value || !map.value) return;
+        try {
+          const overlay = new MapboxOverlay({
+            interleaved: interleaved(),
+            layers: [],
+            useDevicePixels: true,
+          });
+          map.value.addControl(overlay);
+          overlayRef.value = overlay;
+          isSetup.value = true;
+
+          requestAnimationFrame(() => {
+            if (overlayRef.value) {
+              overlayRef.value.setProps({ layers: props.layers });
+            }
+          });
+        } catch {
+          // silently fail – map still works without deck.gl overlay
+        }
+      }, 500);
+    }
   }
 
   function cleanupOverlay() {
@@ -44,25 +81,43 @@ export function useDeckGLOverlay(props: UseDeckGLOverlayOptions) {
 
   function updateLayers() {
     if (!overlayRef.value) return;
-    overlayRef.value.setProps({ layers: props.layers });
+    try {
+      overlayRef.value.setProps({ layers: props.layers });
+    } catch {
+      // ignore deck.gl rendering errors
+    }
+  }
+
+  // Wait for both map load AND style load before setting up overlay
+  // This ensures the WebGL context is fully initialized
+  function trySetup() {
+    if (isLoaded.value && isStyleLoaded.value) {
+      setupOverlay();
+      return true;
+    }
+    return false;
   }
 
   onMounted(() => {
-    if (isLoaded.value) {
-      setupOverlay();
-    } else {
-      const unwatch = watch(isLoaded, (loaded) => {
-        if (loaded) {
-          setupOverlay();
-          unwatch();
-        }
-      });
+    if (!trySetup()) {
+      const unwatch = watch(
+        [isLoaded, isStyleLoaded],
+        ([loaded, styleLoaded]) => {
+          if (loaded && styleLoaded) {
+            setupOverlay();
+            unwatch();
+          }
+        },
+      );
     }
   });
 
   onUnmounted(cleanupOverlay);
 
-  watch(() => props.layers, updateLayers, { deep: true });
+  // Layers are marked raw in examples to prevent Vue from deep-proxying
+  // deck.gl internals. A shallow watch on the array reference is sufficient
+  // because computed() returns a new array when reactive deps change.
+  watch(() => props.layers, updateLayers);
 
   return { isSetup, overlayRef };
 }
