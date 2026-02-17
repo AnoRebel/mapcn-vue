@@ -609,6 +609,40 @@ const useDeckGLOverlayCode = `const { isSetup, overlayRef } = useDeckGLOverlay({
   layers: [new ScatterplotLayer({ ... })],
   interleaved: true,
 })`;
+
+const useMapClusterLayerCode = `const { isSetup, sourceId } = useMapClusterLayer({
+  data: 'https://example.com/points.geojson',
+  clusterRadius: 50,
+  clusterMaxZoom: 14,
+  clusterColors: ['#22c55e', '#eab308', '#ef4444'],
+  onPointClick: (feature, coords) => console.log(feature),
+})`;
+
+const useMapImageOverlayCode = `const { isSetup, sourceId, layerId } = useMapImageOverlay({
+  url: 'https://example.com/overlay.png',
+  coordinates: [
+    [-80.425, 46.437],  // top-left
+    [-71.516, 46.437],  // top-right
+    [-71.516, 37.936],  // bottom-right
+    [-80.425, 37.936],  // bottom-left
+  ],
+  opacity: 0.7,
+})`;
+
+const useMarkerContextCode = `// Inside a MapMarker child component:
+const { marker, map, isReady } = useMarkerContext()`;
+
+const starfieldCode = `import { MapStarfieldLayer } from '@@/registry/map'
+
+// Add to map after style loads:
+map.addLayer(
+  MapStarfieldLayer({
+    starCount: 4000,
+    starSize: 2.0,
+    galaxyTextureUrl: '/milky-way.jpg',
+    galaxyBrightness: 0.35,
+  })
+)`;
 </script>
 
 <template>
@@ -633,6 +667,7 @@ const useDeckGLOverlayCode = `const { isSetup, overlayRef } = useDeckGLOverlay({
       { title: 'MapGeoJson', slug: 'mapgeojson' },
       { title: 'MapImageOverlay', slug: 'mapimageoverlay' },
       { title: 'DeckGLOverlay', slug: 'deckgloverlay' },
+      { title: 'MapStarfieldLayer', slug: 'mapstarfieldlayer' },
       { title: 'Composables', slug: 'composables' },
     ]"
   >
@@ -801,6 +836,47 @@ const useDeckGLOverlayCode = `const { isSetup, overlayRef } = useDeckGLOverlay({
       <DocsPropTable :props="deckGLOverlayProps" />
     </DocsSection>
 
+    <DocsSection title="MapStarfieldLayer">
+      <p>
+        A Three.js custom layer that renders a procedural starfield skybox
+        behind the globe. Implements MapLibre's
+        <DocsCode>CustomLayerInterface</DocsCode>. Best used with
+        <DocsCode>projection: { type: 'globe' }</DocsCode>.
+      </p>
+      <CodeBlock
+        :code="starfieldCode"
+        language="ts"
+        :show-copy-button="false"
+      />
+      <p class="mt-4">Options:</p>
+      <ul class="mt-2 space-y-1 list-disc list-inside text-sm">
+        <li>
+          <DocsCode>id</DocsCode> — Layer ID (default:
+          <DocsCode>"starfield"</DocsCode>)
+        </li>
+        <li>
+          <DocsCode>starCount</DocsCode> — Number of point stars (default: 4000)
+        </li>
+        <li><DocsCode>starSize</DocsCode> — Base point size (default: 2.0)</li>
+        <li>
+          <DocsCode>starColor</DocsCode> — Hex color for stars (default:
+          0xffffff)
+        </li>
+        <li>
+          <DocsCode>galaxyTextureUrl</DocsCode> — URL to a panoramic Milky Way
+          texture (equirectangular). Omit for point stars only.
+        </li>
+        <li>
+          <DocsCode>galaxyBrightness</DocsCode> — Brightness multiplier for the
+          galaxy texture (default: 0.35)
+        </li>
+      </ul>
+      <DocsNote class="mt-4">
+        Requires <DocsCode>three</DocsCode> as a peer dependency. Install with
+        <DocsCode>bun add three</DocsCode>.
+      </DocsNote>
+    </DocsSection>
+
     <DocsSection title="Composables">
       <p>
         All renderless components are also available as composables for use in
@@ -838,6 +914,54 @@ const useDeckGLOverlayCode = `const { isSetup, overlayRef } = useDeckGLOverlay({
         language="ts"
         :show-copy-button="false"
       />
+
+      <h4 class="text-sm font-medium mt-6 mb-2">useMapClusterLayer</h4>
+      <p class="text-sm text-muted-foreground mb-2">
+        Programmatically add a clustered point layer to the map. Points are
+        grouped into circles at low zoom levels and expand as you zoom in.
+      </p>
+      <CodeBlock
+        :code="useMapClusterLayerCode"
+        language="ts"
+        :show-copy-button="false"
+      />
+
+      <h4 class="text-sm font-medium mt-6 mb-2">useMapImageOverlay</h4>
+      <p class="text-sm text-muted-foreground mb-2">
+        Programmatically overlay a raster image on the map positioned by four
+        corner coordinates.
+      </p>
+      <CodeBlock
+        :code="useMapImageOverlayCode"
+        language="ts"
+        :show-copy-button="false"
+      />
+
+      <h4 class="text-sm font-medium mt-6 mb-2">useMarkerContext</h4>
+      <p class="text-sm text-muted-foreground mb-2">
+        Access the parent <DocsCode>MapMarker</DocsCode>'s marker instance and
+        map reference from a child component. Must be called inside a
+        <DocsCode>MapMarker</DocsCode>.
+      </p>
+      <CodeBlock
+        :code="useMarkerContextCode"
+        language="ts"
+        :show-copy-button="false"
+      />
+      <p class="mt-3 text-sm">Returns an object with:</p>
+      <ul class="mt-2 space-y-1 list-disc list-inside text-sm">
+        <li>
+          <DocsCode>marker</DocsCode> — The MapLibre Marker instance
+          (ShallowRef)
+        </li>
+        <li>
+          <DocsCode>map</DocsCode> — The MapLibre Map instance (ShallowRef)
+        </li>
+        <li>
+          <DocsCode>isReady</DocsCode> — Whether the marker has been added to
+          the map
+        </li>
+      </ul>
     </DocsSection>
   </DocsLayout>
 </template>
