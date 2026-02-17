@@ -19,9 +19,9 @@ defineProps<{
 </script>
 
 <template>
-  <div class="flex flex-1">
+  <div class="flex flex-1 min-w-0">
     <!-- Main Content -->
-    <main class="flex-1 min-w-0">
+    <main class="flex-1 min-w-0 overflow-x-hidden">
       <div class="px-4 sm:px-6 lg:px-8 xl:px-12 py-8 lg:py-12">
         <div class="max-w-4xl xl:max-w-5xl mx-auto w-full min-w-0">
           <!-- Header -->
@@ -39,7 +39,7 @@ defineProps<{
           </div>
 
           <!-- Content -->
-          <div class="space-y-10 w-full min-w-0">
+          <div class="space-y-10 w-full min-w-0 overflow-hidden">
             <slot />
           </div>
 
