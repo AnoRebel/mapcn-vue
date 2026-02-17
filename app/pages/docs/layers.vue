@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Map } from "~~/registry/map";
+import { Map, MapImageOverlay } from "~~/registry/map";
 import DocsLayout from "~/components/docs/DocsLayout.vue";
 import DocsSection from "~/components/docs/DocsSection.vue";
 import DocsCode from "~/components/docs/DocsCode.vue";
@@ -49,24 +49,37 @@ const data = {
 const imageOverlayCode = `<script setup lang="ts">
 import { Map, MapImageOverlay } from '@@/registry/map'
 
-// Image corners: [top-left, top-right, bottom-right, bottom-left]
-const imageCorners = [
-  [-80.5, 25.8],  // top-left
-  [-80.1, 25.8],  // top-right
-  [-80.1, 25.4],  // bottom-right
-  [-80.5, 25.4],  // bottom-left
+// Radar weather image over the northeastern US
+// Corners: [top-left, top-right, bottom-right, bottom-left]
+const radarCorners: [[number, number], [number, number], [number, number], [number, number]] = [
+  [-80.425, 46.437],  // top-left
+  [-71.516, 46.437],  // top-right
+  [-71.516, 37.936],  // bottom-right
+  [-80.425, 37.936],  // bottom-left
 ]
 <\/script>
 
 <template>
-  <Map :center="[-80.3, 25.6]" :zoom="10">
+  <Map :center="[-75.97, 42.19]" :zoom="5" theme="dark">
     <MapImageOverlay
-      url="/overlay-image.png"
-      :coordinates="imageCorners"
-      :opacity="0.8"
+      url="https://docs.mapbox.com/mapbox-gl-js/assets/radar.gif"
+      :coordinates="radarCorners"
+      :opacity="0.85"
     />
   </Map>
 </template>`;
+
+const radarCorners: [
+  [number, number],
+  [number, number],
+  [number, number],
+  [number, number],
+] = [
+  [-80.425, 46.437],
+  [-71.516, 46.437],
+  [-71.516, 37.936],
+  [-80.425, 37.936],
+];
 </script>
 
 <template>
@@ -122,15 +135,13 @@ const imageCorners = [
         the map. Provide corner coordinates to stretch the image over a
         geographic area.
       </p>
-      <ExamplePreview :code="imageOverlayCode" class="mt-4" height="h-[300px]">
-        <Map :center="[-80.3, 25.6]" :zoom="10" class="h-full">
-          <div
-            class="absolute inset-0 flex items-center justify-center bg-muted/50"
-          >
-            <p class="text-muted-foreground">
-              Image overlay example (requires image asset)
-            </p>
-          </div>
+      <ExamplePreview :code="imageOverlayCode" class="mt-4" height="h-[400px]">
+        <Map :center="[-75.97, 42.19]" :zoom="5" theme="dark" class="h-full">
+          <MapImageOverlay
+            url="https://docs.mapbox.com/mapbox-gl-js/assets/radar.gif"
+            :coordinates="radarCorners"
+            :opacity="0.85"
+          />
         </Map>
       </ExamplePreview>
     </DocsSection>
