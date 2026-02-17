@@ -56,7 +56,23 @@
           "type": "registry:component"
         },
         {
+          "path": "registry/map/MapGeoJson.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/MapImageOverlay.vue",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/map/DeckGLOverlay.vue",
+          "type": "registry:component"
+        },
+        {
           "path": "registry/map/constants.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/map/MapStarfield.ts",
           "type": "registry:lib"
         },
         {
@@ -69,6 +85,26 @@
         },
         {
           "path": "registry/map/composables/useResolvedTheme.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/map/composables/useMapRoute.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/map/composables/useMapGeoJson.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/map/composables/useMapClusterLayer.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/map/composables/useMapImageOverlay.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/map/composables/useDeckGLOverlay.ts",
           "type": "registry:hook"
         }
       ],

@@ -63,9 +63,29 @@
       "target": "components/ui/map/MapClusterLayer.vue"
     },
     {
+      "path": "registry/map/MapGeoJson.vue",
+      "type": "registry:component",
+      "target": "components/ui/map/MapGeoJson.vue"
+    },
+    {
+      "path": "registry/map/MapImageOverlay.vue",
+      "type": "registry:component",
+      "target": "components/ui/map/MapImageOverlay.vue"
+    },
+    {
+      "path": "registry/map/DeckGLOverlay.vue",
+      "type": "registry:component",
+      "target": "components/ui/map/DeckGLOverlay.vue"
+    },
+    {
       "path": "registry/map/constants.ts",
       "type": "registry:lib",
       "target": "components/ui/map/constants.ts"
+    },
+    {
+      "path": "registry/map/MapStarfield.ts",
+      "type": "registry:lib",
+      "target": "components/ui/map/MapStarfield.ts"
     },
     {
       "path": "registry/map/composables/useMap.ts",
@@ -81,6 +101,31 @@
       "path": "registry/map/composables/useResolvedTheme.ts",
       "type": "registry:hook",
       "target": "components/ui/map/composables/useResolvedTheme.ts"
+    },
+    {
+      "path": "registry/map/composables/useMapRoute.ts",
+      "type": "registry:hook",
+      "target": "components/ui/map/composables/useMapRoute.ts"
+    },
+    {
+      "path": "registry/map/composables/useMapGeoJson.ts",
+      "type": "registry:hook",
+      "target": "components/ui/map/composables/useMapGeoJson.ts"
+    },
+    {
+      "path": "registry/map/composables/useMapClusterLayer.ts",
+      "type": "registry:hook",
+      "target": "components/ui/map/composables/useMapClusterLayer.ts"
+    },
+    {
+      "path": "registry/map/composables/useMapImageOverlay.ts",
+      "type": "registry:hook",
+      "target": "components/ui/map/composables/useMapImageOverlay.ts"
+    },
+    {
+      "path": "registry/map/composables/useDeckGLOverlay.ts",
+      "type": "registry:hook",
+      "target": "components/ui/map/composables/useDeckGLOverlay.ts"
     }
   ],
   "css": {
