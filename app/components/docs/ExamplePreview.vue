@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, provide } from "vue";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components/ui/tabs";
 import CodeBlock from "./CodeBlock.vue";
 import CopyButton from "./CopyButton.vue";
-import { Eye, Code2, PanelTopClose, PanelTopOpen } from "lucide-vue-next";
+import { Eye, Code2, SlidersHorizontal } from "lucide-vue-next";
 
 const props = defineProps<{
   code?: string;
@@ -16,6 +16,9 @@ const props = defineProps<{
 const activeTab = ref("preview");
 const fetchedCode = ref("");
 const controlsVisible = ref(true);
+
+// Provide controls visibility to child examples so they can respond properly
+provide("preview-controls-visible", controlsVisible);
 
 // If a sourceFile is provided, fetch the actual source code
 if (props.sourceFile) {
@@ -46,14 +49,14 @@ const displayCode = computed(() => fetchedCode.value || props.code || "");
         <TabsList class="h-7 bg-transparent p-0 gap-0.5">
           <TabsTrigger
             value="preview"
-            class="h-6 gap-1 px-2.5 text-xs font-medium rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all"
+            class="h-6 gap-1 px-2.5 text-xs font-medium rounded-md data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm dark:data-[state=active]:bg-secondary transition-all"
           >
             <Eye class="w-3 h-3" />
             Preview
           </TabsTrigger>
           <TabsTrigger
             value="code"
-            class="h-6 gap-1 px-2.5 text-xs font-medium rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all"
+            class="h-6 gap-1 px-2.5 text-xs font-medium rounded-md data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm dark:data-[state=active]:bg-secondary transition-all"
           >
             <Code2 class="w-3 h-3" />
             Code
@@ -63,11 +66,11 @@ const displayCode = computed(() => fetchedCode.value || props.code || "");
         <div class="flex items-center gap-0.5">
           <button
             class="inline-flex items-center justify-center h-6 w-6 text-muted-foreground hover:text-foreground rounded-md hover:bg-accent transition-colors"
-            :title="controlsVisible ? 'Collapse controls' : 'Expand controls'"
+            :class="!controlsVisible ? 'text-foreground bg-accent' : ''"
+            :title="controlsVisible ? 'Hide controls' : 'Show controls'"
             @click="controlsVisible = !controlsVisible"
           >
-            <PanelTopClose v-if="controlsVisible" class="w-3.5 h-3.5" />
-            <PanelTopOpen v-else class="w-3.5 h-3.5" />
+            <SlidersHorizontal class="w-3.5 h-3.5" />
           </button>
           <CopyButton :text="displayCode" />
         </div>
@@ -82,12 +85,8 @@ const displayCode = computed(() => fetchedCode.value || props.code || "");
         >
           <ClientOnly>
             <div
-              class="h-full transition-all duration-200"
-              :class="
-                controlsVisible
-                  ? ''
-                  : '[&>div>div:first-child]:!hidden [&>div>.grid:first-child]:!hidden [&>div>.flex.flex-col>*:first-child:not(:last-child)]:!hidden [&>div>.space-y-3>*:first-child]:!hidden [&>div>.space-y-4>*:first-child]:!hidden'
-              "
+              class="h-full"
+              :class="controlsVisible ? '' : 'preview-controls-hidden'"
             >
               <slot />
             </div>
@@ -119,7 +118,7 @@ const displayCode = computed(() => fetchedCode.value || props.code || "");
             :code="displayCode"
             :language="language || 'vue'"
             :show-copy-button="false"
-            class="rounded-none border-0 [&>div:first-child]:hidden"
+            class="rounded-none border-0"
           />
         </div>
       </TabsContent>

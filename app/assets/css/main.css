@@ -209,6 +209,12 @@
   animation-delay: 900ms;
 }
 
+/* ExamplePreview: hide controls panel when toggle is off */
+.preview-controls-hidden > div > .example-controls,
+.preview-controls-hidden > .example-controls {
+  display: none !important;
+}
+
 /* Shiki syntax highlighting - dual theme support */
 html .shiki,
 html .shiki span {
