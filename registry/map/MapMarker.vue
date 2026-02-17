@@ -185,7 +185,16 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="elementRef" class="relative cursor-pointer">
-    <slot />
+  <!--
+    Stable anchor div: MapLibre's marker.addTo(map) reparents elementRef out of
+    Vue's DOM tree via appendChild. Without this wrapper, Vue loses its reference
+    for sibling insertBefore operations, causing "Child to insert before is not
+    a child of this node" errors when conditional siblings mount/unmount.
+    display:none keeps the anchor invisible; elementRef escapes it once reparented.
+  -->
+  <div style="display: none">
+    <div ref="elementRef" class="relative cursor-pointer">
+      <slot />
+    </div>
   </div>
 </template>
