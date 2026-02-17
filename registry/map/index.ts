@@ -14,6 +14,7 @@ export {
 } from "./MapGeoJson.vue";
 export { default as MapImageOverlay } from "./MapImageOverlay.vue";
 export { default as DeckGLOverlay } from "./DeckGLOverlay.vue";
+export { MapStarfieldLayer, type MapStarfieldOptions } from "./MapStarfield";
 
 // Export composables
 export { useMap } from "./composables/useMap";
