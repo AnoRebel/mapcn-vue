@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Slider } from "~/components/ui/slider";
 import { ScatterplotLayer } from "@deck.gl/layers";
 
-// NYC taxi pickup locations (sample data) - plain object, not reactive
-const taxiData = Object.freeze([
+// NYC taxi pickup locations (sample data)
+// Plain array — NOT frozen. deck.gl manages its own data;
+// Object.freeze + Vue Proxy violates non-writable invariant checks.
+const taxiData: { position: [number, number]; pickups: number }[] = [
   { position: [-74.006, 40.7128], pickups: 500 },
   { position: [-73.9857, 40.7484], pickups: 800 },
   { position: [-73.9654, 40.7829], pickups: 600 },
@@ -16,7 +18,7 @@ const taxiData = Object.freeze([
   { position: [-73.9969, 40.7061], pickups: 450 },
   { position: [-74.0092, 40.7251], pickups: 300 },
   { position: [-73.9712, 40.7614], pickups: 700 },
-]);
+];
 
 const radius = ref([1000]);
 const opacity = ref([0.8]);
@@ -26,47 +28,44 @@ const layers = computed(() => {
   const currentOpacity = opacity.value[0] ?? 0.8;
   const currentRadius = radius.value[0] ?? 1000;
   return [
-    new ScatterplotLayer({
-      id: "scatterplot-layer",
-      data: taxiData as unknown as Array<{
-        position: number[];
-        pickups: number;
-      }>,
-      getPosition: (d: { position: number[]; pickups: number }) =>
-        d.position as [number, number],
-      getRadius: (d: { position: number[]; pickups: number }) =>
-        Math.sqrt(d.pickups) * 30,
-      getFillColor: [255, 99, 71],
-      getLineColor: [255, 255, 255],
-      lineWidthMinPixels: 2,
-      radiusMinPixels: 5,
-      radiusMaxPixels: 100,
-      stroked: true,
-      filled: true,
-      opacity: currentOpacity,
-      radiusScale: currentRadius / 1000,
-      pickable: true,
-      onHover: (info: { object?: { pickups: number } }) => {
-        if (info.object) {
-          hoverInfo.value = `Pickups: ${info.object.pickups}`;
-        } else {
-          hoverInfo.value = "";
-        }
-      },
-      updateTriggers: {
+    markRaw(
+      new ScatterplotLayer<{ position: [number, number]; pickups: number }>({
+        id: "scatterplot-layer",
+        data: taxiData,
+        getPosition: (d) => d.position,
+        getRadius: (d) => Math.sqrt(d.pickups) * 30,
+        getFillColor: [255, 99, 71],
+        getLineColor: [255, 255, 255],
+        lineWidthMinPixels: 2,
+        radiusMinPixels: 5,
+        radiusMaxPixels: 100,
+        stroked: true,
+        filled: true,
         opacity: currentOpacity,
-        radiusScale: currentRadius,
-      },
-    }),
+        radiusScale: currentRadius / 1000,
+        pickable: true,
+        onHover: (info: { object?: { pickups: number } }) => {
+          if (info.object) {
+            hoverInfo.value = `Pickups: ${info.object.pickups}`;
+          } else {
+            hoverInfo.value = "";
+          }
+        },
+        updateTriggers: {
+          opacity: currentOpacity,
+          radiusScale: currentRadius,
+        },
+      }),
+    ),
   ];
 });
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 h-full">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-lg border bg-card shrink-0"
+      class="example-controls grid grid-cols-1 sm:grid-cols-2 gap-2 px-3 py-2 rounded-lg border bg-card shrink-0"
     >
       <div class="flex items-center gap-3">
         <span class="text-xs font-medium text-muted-foreground shrink-0"

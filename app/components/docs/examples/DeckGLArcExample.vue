@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Slider } from "~/components/ui/slider";
 import { ArcLayer } from "@deck.gl/layers";
 
-// Flight routes data - frozen to avoid Vue proxy issues with deck.gl
-const flightRoutes = Object.freeze([
+// Flight routes data — plain array, not frozen.
+// deck.gl manages its own data; Object.freeze + Vue Proxy breaks invariants.
+type FlightRoute = {
+  source: [number, number];
+  target: [number, number];
+  passengers: number;
+};
+
+const flightRoutes: FlightRoute[] = [
   { source: [-74.006, 40.7128], target: [-0.1276, 51.5074], passengers: 500 },
   { source: [-74.006, 40.7128], target: [139.6917, 35.6895], passengers: 400 },
   {
@@ -36,13 +43,7 @@ const flightRoutes = Object.freeze([
     passengers: 420,
   },
   { source: [139.6917, 35.6895], target: [55.2708, 25.2048], passengers: 280 },
-]);
-
-type FlightRoute = {
-  source: readonly number[];
-  target: readonly number[];
-  passengers: number;
-};
+];
 
 const height = ref([1]);
 const width = ref([2]);
@@ -51,32 +52,33 @@ const layers = computed(() => {
   const currentHeight = (height.value[0] ?? 1) * 0.5;
   const currentWidth = width.value[0] ?? 2;
   return [
-    new ArcLayer({
-      id: "arc-layer",
-      data: flightRoutes as unknown as FlightRoute[],
-      getSourcePosition: (d: FlightRoute) => d.source as [number, number],
-      getTargetPosition: (d: FlightRoute) => d.target as [number, number],
-      getSourceColor: [255, 200, 0],
-      getTargetColor: [0, 128, 255],
-      getHeight: currentHeight,
-      getWidth: (d: FlightRoute) =>
-        Math.max(2, (d.passengers / 500) * currentWidth * 5),
-      pickable: true,
-      greatCircle: true,
-      updateTriggers: {
+    markRaw(
+      new ArcLayer<FlightRoute>({
+        id: "arc-layer",
+        data: flightRoutes,
+        getSourcePosition: (d) => d.source,
+        getTargetPosition: (d) => d.target,
+        getSourceColor: [255, 200, 0],
+        getTargetColor: [0, 128, 255],
         getHeight: currentHeight,
-        getWidth: currentWidth,
-      },
-    }),
+        getWidth: (d) => Math.max(2, (d.passengers / 500) * currentWidth * 5),
+        pickable: true,
+        greatCircle: true,
+        updateTriggers: {
+          getHeight: currentHeight,
+          getWidth: currentWidth,
+        },
+      }),
+    ),
   ];
 });
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 h-full">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-lg border bg-card shrink-0"
+      class="example-controls grid grid-cols-1 sm:grid-cols-2 gap-2 px-3 py-2 rounded-lg border bg-card shrink-0"
     >
       <div class="flex items-center gap-3">
         <span class="text-xs font-medium text-muted-foreground shrink-0"
@@ -103,7 +105,7 @@ const layers = computed(() => {
     <!-- Map -->
     <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map :center="[0, 20]" :zoom="1.5" :pitch="30" class="h-full">
-        <DeckGLOverlay :layers="layers" :interleaved="true" />
+        <DeckGLOverlay :layers="layers" :interleaved="false" />
       </Map>
     </div>
   </div>

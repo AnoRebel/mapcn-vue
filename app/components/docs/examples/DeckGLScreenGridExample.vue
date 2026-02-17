@@ -1,72 +1,110 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
-import { Card, CardContent } from "~/components/ui/card";
+import { Slider } from "~/components/ui/slider";
 import { ScreenGridLayer } from "@deck.gl/aggregation-layers";
 
-// Generate dense urban data
-const urbanData = Array.from({ length: 10000 }, () => ({
-  position: [
-    -74.006 + (Math.random() - 0.5) * 0.1,
-    40.7128 + (Math.random() - 0.5) * 0.1,
-  ],
-}));
+// San Francisco incident data with clustered distribution
+function generateScreenGridData(count: number) {
+  const clusters = [
+    { center: [-122.42, 37.78], spread: 0.015, weight: 0.3 },
+    { center: [-122.41, 37.785], spread: 0.01, weight: 0.25 },
+    { center: [-122.405, 37.79], spread: 0.008, weight: 0.15 },
+    { center: [-122.43, 37.77], spread: 0.012, weight: 0.15 },
+    { center: [-122.395, 37.795], spread: 0.006, weight: 0.1 },
+    { center: [-122.44, 37.775], spread: 0.008, weight: 0.05 },
+  ];
 
-const cellSize = ref(20);
-const colorRange = ref<[number, number, number][]>([
-  [255, 255, 204],
-  [255, 237, 160],
-  [254, 217, 118],
-  [254, 178, 76],
-  [253, 141, 60],
-  [252, 78, 42],
-]);
+  const points: { position: [number, number]; weight: number }[] = [];
+
+  for (let i = 0; i < count; i++) {
+    let r = Math.random();
+    let cluster = clusters[0]!;
+    for (const c of clusters) {
+      r -= c.weight;
+      if (r <= 0) {
+        cluster = c;
+        break;
+      }
+    }
+
+    const u1 = Math.random();
+    const u2 = Math.random();
+    const z0 =
+      Math.sqrt(-2 * Math.log(u1 || 0.001)) * Math.cos(2 * Math.PI * u2);
+    const z1 =
+      Math.sqrt(-2 * Math.log(u1 || 0.001)) * Math.sin(2 * Math.PI * u2);
+
+    points.push({
+      position: [
+        cluster.center[0]! + z0 * cluster.spread,
+        cluster.center[1]! + z1 * cluster.spread,
+      ] as [number, number],
+      weight: 1 + Math.random() * 5,
+    });
+  }
+
+  return points;
+}
+
+const screenGridData = generateScreenGridData(5000);
+
+const cellSizePixels = ref([40]);
 
 const layers = computed(() => [
-  new ScreenGridLayer({
-    id: "screen-grid-layer",
-    data: urbanData,
-    getPosition: (d) => d.position,
-    cellSize: cellSize.value,
-    colorRange: colorRange.value,
-    gpuAggregation: true,
-    aggregation: "SUM",
-    pickable: true,
-  }),
+  markRaw(
+    new ScreenGridLayer({
+      id: "screen-grid-layer",
+      data: screenGridData,
+      getPosition: (d: (typeof screenGridData)[0]) => d.position,
+      getWeight: (d: (typeof screenGridData)[0]) => d.weight,
+      cellSizePixels: cellSizePixels.value[0] ?? 40,
+      cellMarginPixels: 2,
+      colorRange: [
+        [255, 255, 204],
+        [254, 217, 118],
+        [254, 178, 76],
+        [253, 141, 60],
+        [252, 78, 42],
+        [227, 26, 28],
+      ],
+      gpuAggregation: false,
+      aggregation: "SUM",
+      opacity: 0.8,
+      updateTriggers: {
+        cellSizePixels: cellSizePixels.value[0],
+      },
+    }),
+  ),
 ]);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
-    <Card>
-      <CardContent class="p-4 space-y-4">
-        <div class="space-y-2">
-          <span class="text-sm font-medium">Cell Size (pixels)</span>
-          <input
-            v-model.number="cellSize"
-            type="range"
-            min="10"
-            max="50"
-            step="5"
-            class="w-full"
-          />
-          <span class="text-xs text-muted-foreground">{{ cellSize }}px</span>
-        </div>
-      </CardContent>
-    </Card>
-
-    <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
-      <Map :center="[-74.006, 40.7128]" :zoom="13" class="h-full">
-        <DeckGLOverlay :layers="layers" :interleaved="true" />
-      </Map>
+    <div
+      class="example-controls flex items-center gap-3 px-3 py-2 rounded-lg border bg-card shrink-0"
+    >
+      <span class="text-xs font-medium text-muted-foreground shrink-0"
+        >Cell Size</span
+      >
+      <Slider
+        v-model="cellSizePixels"
+        :min="10"
+        :max="100"
+        :step="5"
+        class="flex-1"
+      />
+      <span class="text-xs tabular-nums text-muted-foreground w-10 text-right"
+        >{{ cellSizePixels[0] }}px</span
+      >
     </div>
 
-    <p class="text-sm text-muted-foreground">
-      ScreenGridLayer aggregates points into screen-space grid cells.
-      GPU-accelerated for handling millions of points. Best for dense urban
-      datasets at city scale.
-    </p>
+    <!-- Map -->
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
+      <Map :center="[-122.4, 37.78]" :zoom="11" theme="dark" class="h-full">
+        <DeckGLOverlay :layers="layers" :interleaved="false" />
+      </Map>
+    </div>
   </div>
 </template>

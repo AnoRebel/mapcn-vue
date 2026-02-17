@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Card, CardContent } from "~/components/ui/card";
 import { LineLayer } from "@deck.gl/layers";
@@ -24,24 +24,26 @@ const width = ref(3);
 const opacity = ref(0.8);
 
 const layers = computed(() => [
-  new LineLayer({
-    id: "line-layer",
-    data: flightConnections,
-    getSourcePosition: (d) => d.source,
-    getTargetPosition: (d) => d.target,
-    getColor: [0, 128, 255],
-    getWidth: (d) => Math.max(1, (d.passengers / 500) * width.value),
-    opacity: opacity.value,
-    pickable: true,
-  }),
+  markRaw(
+    new LineLayer({
+      id: "line-layer",
+      data: flightConnections,
+      getSourcePosition: (d) => d.source,
+      getTargetPosition: (d) => d.target,
+      getColor: [0, 128, 255],
+      getWidth: (d) => Math.max(1, (d.passengers / 500) * width.value),
+      opacity: opacity.value,
+      pickable: true,
+    }),
+  ),
 ]);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
-    <Card>
-      <CardContent class="p-4 space-y-4">
+    <Card class="example-controls py-1 shrink-0">
+      <CardContent class="p-4 space-y-2">
         <div class="space-y-2">
           <div class="flex justify-between">
             <span class="text-sm font-medium">Line Width</span>
@@ -76,16 +78,10 @@ const layers = computed(() => [
     </Card>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map :center="[0, 20]" :zoom="1.5" class="h-full">
-        <DeckGLOverlay :layers="layers" :interleaved="true" />
+        <DeckGLOverlay :layers="layers" :interleaved="false" />
       </Map>
     </div>
-
-    <p class="text-sm text-muted-foreground">
-      LineLayer for rendering straight-line connections between two points.
-      Compare with ArcLayer for curved great-circle paths. Good for simple
-      connections and network graphs.
-    </p>
   </div>
 </template>

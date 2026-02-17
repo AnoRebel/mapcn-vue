@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Card, CardContent } from "~/components/ui/card";
 import { TileLayer } from "@deck.gl/geo-layers";
@@ -9,27 +9,29 @@ const _showLabels = ref(true);
 
 // Example using satellite tiles
 const layers = computed(() => [
-  new TileLayer({
-    id: "tile-layer",
-    data: "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{x}/{y}.jpg",
-    minZoom: 0,
-    maxZoom: 19,
-    tileSize: 256,
-    renderSubLayers: (props) => {
-      const { west, south, east, north } = props.tile.bbox as {
-        west: number;
-        south: number;
-        east: number;
-        north: number;
-      };
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return new (props.constructor as any)({
-        ...props,
-        bounds: [west, south, east, north],
-        opacity: opacity.value,
-      });
-    },
-  }),
+  markRaw(
+    new TileLayer({
+      id: "tile-layer",
+      data: "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{x}/{y}.jpg",
+      minZoom: 0,
+      maxZoom: 19,
+      tileSize: 256,
+      renderSubLayers: (props) => {
+        const { west, south, east, north } = props.tile.bbox as {
+          west: number;
+          south: number;
+          east: number;
+          north: number;
+        };
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return new (props.constructor as any)({
+          ...props,
+          bounds: [west, south, east, north],
+          opacity: opacity.value,
+        });
+      },
+    }),
+  ),
 ]);
 
 const _exampleCode = `<TileLayer
@@ -43,9 +45,9 @@ const _exampleCode = `<TileLayer
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
-    <Card>
+    <Card class="example-controls shrink-0">
       <CardContent class="p-4 space-y-4">
         <div class="space-y-2">
           <div class="flex justify-between">
@@ -67,16 +69,10 @@ const _exampleCode = `<TileLayer
     </Card>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map :center="[0, 0]" :zoom="2" class="h-full">
         <DeckGLOverlay :layers="layers" :interleaved="true" />
       </Map>
     </div>
-
-    <p class="text-sm text-muted-foreground">
-      TileLayer for rendering raster tile layers. Perfect for satellite imagery,
-      weather data, or any tiled raster source. Supports XYZ, TMS, and WMTS tile
-      schemes.
-    </p>
   </div>
 </template>

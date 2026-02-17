@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Card, CardContent } from "~/components/ui/card";
 import { BitmapLayer } from "@deck.gl/layers";
@@ -17,27 +17,29 @@ const opacity = ref(0.8);
 const transparentColor = ref(false);
 
 const layers = computed(() => [
-  new BitmapLayer({
-    id: "bitmap-layer",
-    bounds: [
-      imageBounds.left,
-      imageBounds.bottom,
-      imageBounds.right,
-      imageBounds.top,
-    ],
-    image:
-      "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-districts.png",
-    opacity: opacity.value,
-    transparentColor: transparentColor.value ? [0, 0, 0, 0] : undefined,
-    tintColor: [255, 255, 255],
-  }),
+  markRaw(
+    new BitmapLayer({
+      id: "bitmap-layer",
+      bounds: [
+        imageBounds.left,
+        imageBounds.bottom,
+        imageBounds.right,
+        imageBounds.top,
+      ],
+      image:
+        "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/sf-districts.png",
+      opacity: opacity.value,
+      transparentColor: transparentColor.value ? [0, 0, 0, 0] : undefined,
+      tintColor: [255, 255, 255],
+    }),
+  ),
 ]);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
-    <Card>
+    <Card class="example-controls shrink-0">
       <CardContent class="p-4 space-y-4">
         <div class="space-y-2">
           <span class="text-sm font-medium">Opacity</span>
@@ -61,16 +63,10 @@ const layers = computed(() => [
     </Card>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map :center="[-74.0, 40.715]" :zoom="13" class="h-full">
         <DeckGLOverlay :layers="layers" :interleaved="true" />
       </Map>
     </div>
-
-    <p class="text-sm text-muted-foreground">
-      BitmapLayer displays georeferenced images on the map. Provide the image
-      URL and bounds (left, bottom, right, top) to position the image correctly.
-      Supports transparency and tinting.
-    </p>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Card, CardContent } from "~/components/ui/card";
 import { PathLayer } from "@deck.gl/layers";
@@ -52,30 +52,32 @@ const widthScale = ref(1);
 const selectedTrail = ref<string | null>(null);
 
 const layers = computed(() => [
-  new PathLayer({
-    id: "path-layer",
-    data: trailData,
-    getPath: (d) => d.path,
-    getColor: (d) => d.color,
-    getWidth: (d) => d.width * widthScale.value,
-    widthMinPixels: 2,
-    widthMaxPixels: 20,
-    capRounded: true,
-    jointRounded: true,
-    pickable: true,
-    onClick: (info) => {
-      if (info.object) {
-        selectedTrail.value = info.object.name;
-      }
-    },
-  }),
+  markRaw(
+    new PathLayer({
+      id: "path-layer",
+      data: trailData,
+      getPath: (d) => d.path,
+      getColor: (d) => d.color,
+      getWidth: (d) => d.width * widthScale.value,
+      widthMinPixels: 2,
+      widthMaxPixels: 20,
+      capRounded: true,
+      jointRounded: true,
+      pickable: true,
+      onClick: (info) => {
+        if (info.object) {
+          selectedTrail.value = info.object.name;
+        }
+      },
+    }),
+  ),
 ]);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Selected Trail -->
-    <Card v-if="selectedTrail">
+    <Card v-if="selectedTrail" class="py-1 shrink-0">
       <CardContent class="p-4">
         <div class="flex items-center justify-between">
           <div>
@@ -93,9 +95,9 @@ const layers = computed(() => [
     </Card>
 
     <!-- Controls -->
-    <Card>
-      <CardContent class="p-4 space-y-4">
-        <div class="space-y-2">
+    <Card class="example-controls shrink-0 py-1">
+      <CardContent class="p-4 space-y-1">
+        <div class="space-y-1">
           <div class="flex justify-between">
             <span class="text-sm font-medium">Line Width</span>
             <span class="text-sm text-muted-foreground"
@@ -115,15 +117,10 @@ const layers = computed(() => [
     </Card>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map :center="[-122.42, 37.77]" :zoom="11" class="h-full">
-        <DeckGLOverlay :layers="layers" :interleaved="true" />
+        <DeckGLOverlay :layers="layers" :interleaved="false" />
       </Map>
     </div>
-
-    <p class="text-sm text-muted-foreground">
-      PathLayer for rendering GPS trails, routes, and paths with customizable
-      width and colors. Click on any trail to select it.
-    </p>
   </div>
 </template>

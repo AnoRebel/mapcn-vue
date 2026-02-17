@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Card, CardContent } from "~/components/ui/card";
 import { IconLayer } from "@deck.gl/layers";
@@ -72,36 +72,38 @@ const iconMapping: Record<string, string> = {
 };
 
 const layers = computed(() => [
-  new IconLayer({
-    id: "icon-layer",
-    data: pois,
-    getPosition: (d) => d.position,
-    // @ts-expect-error deck.gl IconLayer getIcon type mismatch
-    getIcon: (d) => ({
-      url: iconMapping[d.icon] || iconMapping.restaurant,
-      width: iconSize.value,
-      height: iconSize.value,
-      mask: true,
+  markRaw(
+    new IconLayer({
+      id: "icon-layer",
+      data: pois,
+      getPosition: (d) => d.position,
+      // @ts-expect-error deck.gl IconLayer getIcon type mismatch
+      getIcon: (d) => ({
+        url: iconMapping[d.icon] || iconMapping.restaurant,
+        width: iconSize.value,
+        height: iconSize.value,
+        mask: true,
+      }),
+      getSize: () => iconSize.value,
+      getColor: (d) => d.color,
+      sizeScale: 1,
+      billboard: billboard.value,
+      pickable: true,
+      onClick: (info) => {
+        if (info.object) {
+          console.log("Clicked:", info.object.name);
+        }
+      },
     }),
-    getSize: () => iconSize.value,
-    getColor: (d) => d.color,
-    sizeScale: 1,
-    billboard: billboard.value,
-    pickable: true,
-    onClick: (info) => {
-      if (info.object) {
-        console.log("Clicked:", info.object.name);
-      }
-    },
-  }),
+  ),
 ]);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
-    <Card>
-      <CardContent class="p-4 space-y-4">
+    <Card class="example-controls py-0.5 shrink-0">
+      <CardContent class="p-4 space-y-2">
         <div class="space-y-2">
           <span class="text-sm font-medium">Icon Size</span>
           <input
@@ -122,15 +124,10 @@ const layers = computed(() => [
     </Card>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map :center="[-73.98, 40.75]" :zoom="12" class="h-full">
         <DeckGLOverlay :layers="layers" :interleaved="true" />
       </Map>
     </div>
-
-    <p class="text-sm text-muted-foreground">
-      IconLayer renders custom icons at point locations. Supports SVG icons,
-      billboarding, and interaction. Perfect for POI visualization.
-    </p>
   </div>
 </template>

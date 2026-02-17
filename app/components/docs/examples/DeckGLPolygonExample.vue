@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Card, CardContent } from "~/components/ui/card";
 import { PolygonLayer } from "@deck.gl/layers";
@@ -62,29 +62,31 @@ const extruded = ref(false);
 const elevationScale = ref(100);
 
 const layers = computed(() => [
-  new PolygonLayer({
-    id: "polygon-layer",
-    data: districts,
-    getPolygon: (d) => d.contour,
-    getFillColor: (d) => d.color,
-    getLineColor: [255, 255, 255],
-    getLineWidth: 20,
-    getElevation: (d) => d.population / 1000,
-    filled: filled.value,
-    stroked: stroked.value,
-    extruded: extruded.value,
-    elevationScale: elevationScale.value,
-    lineWidthMinPixels: 1,
-    pickable: true,
-  }),
+  markRaw(
+    new PolygonLayer({
+      id: "polygon-layer",
+      data: districts,
+      getPolygon: (d) => d.contour,
+      getFillColor: (d) => d.color,
+      getLineColor: [255, 255, 255],
+      getLineWidth: 20,
+      getElevation: (d) => d.population / 1000,
+      filled: filled.value,
+      stroked: stroked.value,
+      extruded: extruded.value,
+      elevationScale: elevationScale.value,
+      lineWidthMinPixels: 1,
+      pickable: true,
+    }),
+  ),
 ]);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
-    <Card>
-      <CardContent class="p-4 space-y-4">
+    <Card class="example-controls py-1 shrink-0">
+      <CardContent class="p-4 space-y-2">
         <div class="flex flex-wrap gap-4">
           <label class="flex items-center gap-2">
             <input v-model="filled" type="checkbox" class="rounded" />
@@ -115,7 +117,7 @@ const layers = computed(() => [
     </Card>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map
         :center="[-73.99, 40.735]"
         :zoom="12"
@@ -125,11 +127,5 @@ const layers = computed(() => [
         <DeckGLOverlay :layers="layers" :interleaved="true" />
       </Map>
     </div>
-
-    <p class="text-sm text-muted-foreground">
-      PolygonLayer for rendering filled and stroked polygons. Supports 3D
-      extrusion based on data values. Perfect for zoning maps, district
-      boundaries, or building footprints.
-    </p>
   </div>
 </template>

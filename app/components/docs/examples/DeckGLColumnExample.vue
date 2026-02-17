@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Card, CardContent } from "~/components/ui/card";
 import { ColumnLayer } from "@deck.gl/layers";
@@ -60,30 +60,32 @@ const pitch = ref(60);
 const radius = ref(200);
 
 const layers = computed(() => [
-  new ColumnLayer({
-    id: "column-layer",
-    data: buildings,
-    diskResolution: 12,
-    radius: radius.value,
-    extruded: true,
-    pickable: true,
-    elevationScale: 1,
-    getPosition: (d) => d.position,
-    getFillColor: (d) => d.color,
-    getElevation: (d) => d.height,
-    getLineColor: [255, 255, 255],
-    lineWidthMinPixels: 2,
-    stroked: true,
-  }),
+  markRaw(
+    new ColumnLayer({
+      id: "column-layer",
+      data: buildings,
+      diskResolution: 12,
+      radius: radius.value,
+      extruded: true,
+      pickable: true,
+      elevationScale: 1,
+      getPosition: (d) => d.position,
+      getFillColor: (d) => d.color,
+      getElevation: (d) => d.height,
+      getLineColor: [255, 255, 255],
+      lineWidthMinPixels: 2,
+      stroked: true,
+    }),
+  ),
 ]);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
-    <Card>
-      <CardContent class="p-4 space-y-4">
-        <div class="space-y-2">
+    <Card class="example-controls py-1 shrink-0">
+      <CardContent class="p-4 space-y-1">
+        <div class="space-y-1">
           <span class="text-sm font-medium">Column Radius</span>
           <input
             v-model.number="radius"
@@ -95,7 +97,7 @@ const layers = computed(() => [
           />
           <span class="text-xs text-muted-foreground">{{ radius }}m</span>
         </div>
-        <div class="space-y-2">
+        <div class="space-y-1">
           <span class="text-sm font-medium">Map Pitch</span>
           <input
             v-model.number="pitch"
@@ -111,16 +113,10 @@ const layers = computed(() => [
     </Card>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map :center="[-73.98, 40.75]" :zoom="12" :pitch="pitch" class="h-full">
         <DeckGLOverlay :layers="layers" :interleaved="true" />
       </Map>
     </div>
-
-    <p class="text-sm text-muted-foreground">
-      ColumnLayer for 3D visualization. Extruded columns with configurable
-      radius and height. Adjust pitch to see the 3D effect better. Perfect for
-      showing building heights, population density, or any quantitative data.
-    </p>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, markRaw } from "vue";
 import { Map, DeckGLOverlay } from "~~/registry/map";
 import { Card, CardContent } from "~/components/ui/card";
 import { TextLayer } from "@deck.gl/layers";
@@ -23,36 +23,38 @@ const showPopulation = ref(true);
 const textAlign = ref<"start" | "middle" | "end">("middle");
 
 const layers = computed(() => [
-  new TextLayer({
-    id: "text-layer",
-    data: cities,
-    getPosition: (d) => d.position,
-    getText: (d) =>
-      showPopulation.value ? `${d.name}\n(${d.population}M)` : d.name,
-    getSize: () => fontSize.value,
-    getColor: [0, 0, 0],
-    getAngle: 0,
-    getTextAnchor: textAlign.value,
-    getAlignmentBaseline: "center",
-    fontFamily: "system-ui, sans-serif",
-    fontWeight: "bold",
-    pickable: true,
-    billboard: true,
-    background: true,
-    getBackgroundColor: [255, 255, 255, 200],
-    getBorderColor: [0, 0, 0],
-    getBorderWidth: 1,
-    backgroundPadding: [4, 4],
-  }),
+  markRaw(
+    new TextLayer({
+      id: "text-layer",
+      data: cities,
+      getPosition: (d) => d.position,
+      getText: (d) =>
+        showPopulation.value ? `${d.name}\n(${d.population}M)` : d.name,
+      getSize: () => fontSize.value,
+      getColor: [0, 0, 0],
+      getAngle: 0,
+      getTextAnchor: textAlign.value,
+      getAlignmentBaseline: "center",
+      fontFamily: "system-ui, sans-serif",
+      fontWeight: "bold",
+      pickable: true,
+      billboard: true,
+      background: true,
+      getBackgroundColor: [255, 255, 255, 200],
+      getBorderColor: [0, 0, 0],
+      getBorderWidth: 1,
+      backgroundPadding: [4, 4],
+    }),
+  ),
 ]);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls -->
-    <Card>
-      <CardContent class="p-4 space-y-4">
-        <div class="space-y-2">
+    <Card class="example-controls py-1 shrink-0">
+      <CardContent class="p-4 space-y-1">
+        <div class="space-y-1">
           <span class="text-sm font-medium">Font Size</span>
           <input
             v-model.number="fontSize"
@@ -68,7 +70,7 @@ const layers = computed(() => [
           <input v-model="showPopulation" type="checkbox" class="rounded" />
           <span class="text-sm">Show Population</span>
         </label>
-        <div class="space-y-2">
+        <div class="space-y-1">
           <span class="text-sm font-medium">Text Alignment</span>
           <select
             v-model="textAlign"
@@ -83,16 +85,10 @@ const layers = computed(() => [
     </Card>
 
     <!-- Map -->
-    <div class="h-[400px] w-full rounded-lg overflow-hidden border">
+    <div class="flex-1 min-h-[200px] w-full rounded-lg overflow-hidden border">
       <Map :center="[-98, 39]" :zoom="3.5" class="h-full">
         <DeckGLOverlay :layers="layers" :interleaved="true" />
       </Map>
     </div>
-
-    <p class="text-sm text-muted-foreground">
-      TextLayer renders labels and text at point locations. Supports multi-line
-      text, backgrounds, borders, and collision detection. Perfect for city
-      labels and annotations.
-    </p>
   </div>
 </template>
