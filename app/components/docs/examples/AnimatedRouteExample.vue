@@ -155,16 +155,16 @@ const TransportIcon = computed(() => transportModes[mode.value].icon);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-1">
     <!-- Configuration Panel -->
-    <Card>
-      <CardHeader class="pb-3">
+    <Card class="gap-2">
+      <CardHeader class="pb-1">
         <CardTitle class="text-sm font-medium">Route Configuration</CardTitle>
       </CardHeader>
-      <CardContent class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <CardContent class="space-y-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
           <!-- Start Location -->
-          <div class="space-y-2">
+          <div class="space-y-1">
             <Label class="text-xs">Start Location</Label>
             <div class="flex gap-2">
               <Input
@@ -174,7 +174,7 @@ const TransportIcon = computed(() => transportModes[mode.value].icon);
                 @blur="updateConfig"
               />
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-1">
               <Input
                 v-model.number="config.start.lng"
                 placeholder="Longitude"
@@ -195,7 +195,7 @@ const TransportIcon = computed(() => transportModes[mode.value].icon);
           </div>
 
           <!-- End Location -->
-          <div class="space-y-2">
+          <div class="space-y-1">
             <Label class="text-xs">End Location</Label>
             <div class="flex gap-2">
               <Input

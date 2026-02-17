@@ -106,37 +106,32 @@ const animationIcons: Record<AnimationType, Component> = {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 h-full">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Controls row -->
     <div
-      class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 p-3 rounded-lg border bg-card shrink-0"
+      class="example-controls grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-2 px-3 py-2 rounded-lg border bg-card shrink-0"
     >
       <!-- Left: animation type + duration -->
-      <div class="space-y-3">
+      <div class="space-y-2">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="text-xs font-medium text-muted-foreground shrink-0"
+          <!-- <span class="text-xs font-medium text-muted-foreground shrink-0"
             >Type:</span
-          >
-          <div class="flex gap-1.5">
+            > -->
+          <div class="flex gap-1">
             <Button
               v-for="(icon, type) in animationIcons"
               :key="type"
-              variant="outline"
+              :variant="animationType === type ? 'default' : 'outline'"
               size="sm"
-              class="h-7 px-2 text-xs"
-              :class="
-                animationType === type
-                  ? 'bg-primary text-primary-foreground'
-                  : ''
-              "
+              class="h-6 px-2 text-xs"
               @click="animationType = type"
             >
-              <component :is="icon" class="w-3.5 h-3.5 mr-1" />
+              <component :is="icon" class="w-3 h-3 mr-1" />
               {{ type }}
             </Button>
           </div>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
           <span class="text-xs font-medium text-muted-foreground shrink-0"
             >Duration:</span
           >
@@ -154,13 +149,13 @@ const animationIcons: Record<AnimationType, Component> = {
         </div>
       </div>
       <!-- Right: city buttons -->
-      <div class="flex flex-wrap gap-1.5 items-start">
+      <div class="flex flex-wrap gap-1 items-start">
         <Button
           v-for="city in cities"
           :key="city.name"
           variant="outline"
           size="sm"
-          class="h-7 px-2 text-xs"
+          class="h-6 px-2 text-xs"
           :class="currentCity.name === city.name ? 'bg-secondary' : ''"
           @click="flyToCity(city)"
         >
@@ -169,7 +164,7 @@ const animationIcons: Record<AnimationType, Component> = {
         <Button
           variant="ghost"
           size="sm"
-          class="h-7 px-2 text-xs"
+          class="h-6 px-2 text-xs"
           @click="resetView"
         >
           <RotateCcw class="w-3 h-3 mr-1" />

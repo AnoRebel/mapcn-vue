@@ -33,7 +33,7 @@ const currentStyleUrl = computed(() => styles[selectedStyle.value]);
       "
       class="h-full"
     />
-    <div class="absolute top-2 right-2 z-10">
+    <div class="example-controls absolute top-2 right-2 z-10">
       <select
         v-model="selectedStyle"
         class="bg-background text-foreground border rounded-md px-2 py-1 text-sm shadow"

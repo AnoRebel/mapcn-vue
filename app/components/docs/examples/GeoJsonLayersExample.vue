@@ -106,35 +106,32 @@ function handlePointClick(feature: Feature) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 h-full">
+  <div class="flex flex-col gap-2 h-full">
     <!-- Feature Info -->
-    <Card v-if="selectedFeature">
-      <CardContent class="p-4">
+    <Card v-if="selectedFeature" class="py-1 example-controls">
+      <CardContent class="px-3 py-1.5">
         <div class="flex items-center justify-between">
-          <div>
-            <h3 class="font-semibold">
+          <div class="min-w-0">
+            <h3 class="text-sm font-semibold truncate">
               {{
                 selectedFeature.properties?.location ||
                 selectedFeature.properties?.name
               }}
             </h3>
-            <p class="text-sm text-muted-foreground">
-              {{ selectedFeature.properties?.type }}
+            <p class="text-xs text-muted-foreground">
+              {{
+                selectedFeature.properties?.time ||
+                selectedFeature.properties?.type
+              }}
             </p>
           </div>
           <div
             v-if="selectedFeature.properties?.magnitude"
-            class="text-2xl font-bold text-orange-500"
+            class="text-lg font-bold text-orange-500 shrink-0 ml-3"
           >
             M{{ selectedFeature.properties.magnitude }}
           </div>
         </div>
-        <p
-          v-if="selectedFeature.properties?.time"
-          class="text-xs text-muted-foreground mt-2"
-        >
-          {{ selectedFeature.properties.time }}
-        </p>
       </CardContent>
     </Card>
 
@@ -148,7 +145,7 @@ function handlePointClick(feature: Feature) {
 
       <TabsContent value="points" class="flex-1 min-h-0">
         <div
-          class="h-full min-h-[250px] w-full rounded-lg overflow-hidden border"
+          class="h-full min-h-[200px] w-full rounded-lg overflow-hidden border"
         >
           <Map :center="[-120, 37]" :zoom="5" class="h-full">
             <MapGeoJson
@@ -167,15 +164,11 @@ function handlePointClick(feature: Feature) {
             />
           </Map>
         </div>
-        <p class="text-sm text-muted-foreground mt-2">
-          Click on earthquake markers to see details. Circle size represents
-          magnitude.
-        </p>
       </TabsContent>
 
       <TabsContent value="polygons" class="flex-1 min-h-0">
         <div
-          class="h-full min-h-[250px] w-full rounded-lg overflow-hidden border"
+          class="h-full min-h-[200px] w-full rounded-lg overflow-hidden border"
         >
           <Map :center="[-110, 44.5]" :zoom="6" class="h-full">
             <MapGeoJson
@@ -191,14 +184,11 @@ function handlePointClick(feature: Feature) {
             />
           </Map>
         </div>
-        <p class="text-sm text-muted-foreground mt-2">
-          Polygons with fill color and stroke outline for boundaries.
-        </p>
       </TabsContent>
 
       <TabsContent value="lines" class="flex-1 min-h-0">
         <div
-          class="h-full min-h-[250px] w-full rounded-lg overflow-hidden border"
+          class="h-full min-h-[200px] w-full rounded-lg overflow-hidden border"
         >
           <Map :center="[-119, 35]" :zoom="5" class="h-full">
             <MapGeoJson
@@ -213,9 +203,6 @@ function handlePointClick(feature: Feature) {
             />
           </Map>
         </div>
-        <p class="text-sm text-muted-foreground mt-2">
-          Line strings for paths, routes, or fault lines.
-        </p>
       </TabsContent>
     </Tabs>
   </div>

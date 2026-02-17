@@ -135,9 +135,9 @@ const selectedStateData = computed(() => {
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-1">
     <!-- Info Panel -->
-    <Card v-if="selectedStateData">
+    <Card v-if="selectedStateData" class="py-1 gap-1">
       <CardContent class="p-4">
         <div class="flex items-center justify-between">
           <div>
