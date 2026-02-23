@@ -18,7 +18,7 @@
     "@deck.gl/aggregation-layers": "^9.2.7",
     "@deck.gl/geo-layers": "^9.2.7",
     "@deck.gl/layers": "^9.2.7",
-    "@deck.gl/mapbox": "^9.2.7",
+    "@deck.gl/mapbox": "^9.2.9",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/vue-table": "^8.21.3",
     "@vueuse/core": "^14.2.1",
