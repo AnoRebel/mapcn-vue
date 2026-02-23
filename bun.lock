@@ -6,7 +6,7 @@
       "name": "mapcn-vue",
       "dependencies": {
         "@deck.gl/aggregation-layers": "^9.2.7",
-        "@deck.gl/geo-layers": "^9.2.7",
+        "@deck.gl/geo-layers": "^9.2.9",
         "@deck.gl/layers": "^9.2.7",
         "@deck.gl/mapbox": "^9.2.7",
         "@tailwindcss/vite": "^4.1.18",
@@ -137,7 +137,7 @@
 
     "@deck.gl/extensions": ["@deck.gl/extensions@9.2.7", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-jIsep2NByEimWlScqc/NLjpqWknLk5rd+uP8UAl7qI8CTInXV4KdzaYgujL+bE4lSV4Zlg0oMOAkbcviMKDLNw=="],
 
-    "@deck.gl/geo-layers": ["@deck.gl/geo-layers@9.2.7", "", { "dependencies": { "@loaders.gl/3d-tiles": "^4.3.4", "@loaders.gl/gis": "^4.3.4", "@loaders.gl/loader-utils": "^4.3.4", "@loaders.gl/mvt": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@loaders.gl/terrain": "^4.3.4", "@loaders.gl/tiles": "^4.3.4", "@loaders.gl/wms": "^4.3.4", "@luma.gl/gltf": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/culling": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "@types/geojson": "^7946.0.8", "a5-js": "^0.5.0", "h3-js": "^4.1.0", "long": "^3.2.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/extensions": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@deck.gl/mesh-layers": "~9.2.0", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-DiEfsmWrW0EIM44FdwzdPAjUr8a8IPelpkt2fPvrgmaS0OSZFB1PkJWLmM3hoYO8mH0vuD0YL//m+Pvtw3bGSw=="],
+    "@deck.gl/geo-layers": ["@deck.gl/geo-layers@9.2.9", "", { "dependencies": { "@loaders.gl/3d-tiles": "^4.3.4", "@loaders.gl/gis": "^4.3.4", "@loaders.gl/loader-utils": "^4.3.4", "@loaders.gl/mvt": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@loaders.gl/terrain": "^4.3.4", "@loaders.gl/tiles": "^4.3.4", "@loaders.gl/wms": "^4.3.4", "@luma.gl/gltf": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/culling": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "@types/geojson": "^7946.0.8", "a5-js": "^0.5.0", "h3-js": "^4.1.0", "long": "^3.2.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/extensions": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@deck.gl/mesh-layers": "~9.2.0", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-+WgnXmnL2+XBWj2JuVqZWt/dIc3mc2lw+qdNM52fGjOeScFssQ7cZTBz0W7e6w4xt9lqOln/RS0zkmUWaBxW4A=="],
 
     "@deck.gl/google-maps": ["@deck.gl/google-maps@9.2.7", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "@luma.gl/webgl": "^9.2.6", "@math.gl/core": "^4.1.0", "@types/google.maps": "^3.48.6" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6" } }, "sha512-y430jwqZTbfO8bxFu2X8eZrYkH6rtTgwNwHDIjf6lLJDAjnGvu7vnpS1R1G9r2LiY4EvA8/IWlEtWs9eDr3oKg=="],
 
@@ -2872,6 +2872,8 @@
     "d3-weighted-voronoi/d3-array": ["d3-array@2.12.1", "", { "dependencies": { "internmap": "^1.0.0" } }, "sha512-B0ErZK/66mHtEsR1TkPEEkwdy+WDesimkM5gpZr5Dsg54BiTA5RXtYW5qTLIAcekaS9xfZrzBLF/OAkB3Qn1YQ=="],
 
     "d3-weighted-voronoi/d3-polygon": ["d3-polygon@2.0.0", "", {}, "sha512-MsexrCK38cTGermELs0cO1d79DcTsQRN7IWMJKczD/2kBjzNXxLUWP33qRF6VDpiLV/4EI4r6Gs0DAWQkE8pSQ=="],
+
+    "deck.gl/@deck.gl/geo-layers": ["@deck.gl/geo-layers@9.2.7", "", { "dependencies": { "@loaders.gl/3d-tiles": "^4.3.4", "@loaders.gl/gis": "^4.3.4", "@loaders.gl/loader-utils": "^4.3.4", "@loaders.gl/mvt": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@loaders.gl/terrain": "^4.3.4", "@loaders.gl/tiles": "^4.3.4", "@loaders.gl/wms": "^4.3.4", "@luma.gl/gltf": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/culling": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "@types/geojson": "^7946.0.8", "a5-js": "^0.5.0", "h3-js": "^4.1.0", "long": "^3.2.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/extensions": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@deck.gl/mesh-layers": "~9.2.0", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-DiEfsmWrW0EIM44FdwzdPAjUr8a8IPelpkt2fPvrgmaS0OSZFB1PkJWLmM3hoYO8mH0vuD0YL//m+Pvtw3bGSw=="],
 
     "dom-serializer/entities": ["entities@4.5.0", "", {}, "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="],
 
