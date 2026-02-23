@@ -14,7 +14,7 @@
         "@vueuse/core": "^14.2.1",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
-        "deck.gl": "^9.2.7",
+        "deck.gl": "^9.2.9",
         "lucide-vue-next": "^0.574.0",
         "maplibre-gl": "^5.18.0",
         "node-gyp": "^12.2.0",
@@ -129,9 +129,9 @@
 
     "@deck.gl/aggregation-layers": ["@deck.gl/aggregation-layers@9.2.7", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "d3-hexbin": "^0.2.1" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-dHBHMb8gitQVDNdgHlkPZ0YtxgU/4Ftbuelb6pE+1GiwXA/ie3tw+WWOQIxYiidmKJ5rVO2kr/cct75RhFcT2Q=="],
 
-    "@deck.gl/arcgis": ["@deck.gl/arcgis@9.2.7", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "esri-loader": "^3.7.0" }, "peerDependencies": { "@arcgis/core": "^4.0.0", "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6", "@luma.gl/webgl": "~9.2.6" } }, "sha512-589gjByRvxBgU1FbqTMypeWKMrvcvPRY7E61kLkzzPDqJJe+ItII6h8T1UVsURpn8CJZHcem5ghDSWhSjXcdPw=="],
+    "@deck.gl/arcgis": ["@deck.gl/arcgis@9.2.9", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "esri-loader": "^3.7.0" }, "peerDependencies": { "@arcgis/core": "^4.0.0", "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6", "@luma.gl/webgl": "~9.2.6" } }, "sha512-5lj6ivhH6EPPUJ07YGOW+fQSo3MzACvKeTONDRUFv1T4jaLAtGbFyOl8IgD/nYhbQDo0kkomtLbBzrWs/+b7XA=="],
 
-    "@deck.gl/carto": ["@deck.gl/carto@9.2.7", "", { "dependencies": { "@carto/api-client": "^0.5.19", "@loaders.gl/compression": "^4.3.4", "@loaders.gl/gis": "^4.3.4", "@loaders.gl/loader-utils": "^4.3.4", "@loaders.gl/mvt": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@loaders.gl/tiles": "^4.3.4", "@luma.gl/core": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/web-mercator": "^4.1.0", "@types/d3-array": "^3.0.2", "@types/d3-color": "^1.4.2", "@types/d3-scale": "^3.0.0", "cartocolor": "^5.0.2", "d3-array": "^3.2.0", "d3-color": "^3.1.0", "d3-format": "^3.1.0", "d3-scale": "^4.0.0", "earcut": "^2.2.4", "h3-js": "^4.1.0", "moment-timezone": "^0.6.0", "pbf": "^3.2.1", "quadbin": "^0.4.0" }, "peerDependencies": { "@deck.gl/aggregation-layers": "~9.2.0", "@deck.gl/core": "~9.2.0", "@deck.gl/extensions": "~9.2.0", "@deck.gl/geo-layers": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@loaders.gl/core": "^4.3.4" } }, "sha512-aFsfB+WDSj/Aij76Tfz0n+Q/tzEQBnxnc9nnmJMoBgs5suVA6YZi3vmMDLoMiCdmiNJPS0tTo05I8QP5iw1jPQ=="],
+    "@deck.gl/carto": ["@deck.gl/carto@9.2.9", "", { "dependencies": { "@carto/api-client": "^0.5.19", "@loaders.gl/compression": "^4.3.4", "@loaders.gl/gis": "^4.3.4", "@loaders.gl/loader-utils": "^4.3.4", "@loaders.gl/mvt": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@loaders.gl/tiles": "^4.3.4", "@luma.gl/core": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/web-mercator": "^4.1.0", "@types/d3-array": "^3.0.2", "@types/d3-color": "^1.4.2", "@types/d3-scale": "^3.0.0", "cartocolor": "^5.0.2", "d3-array": "^3.2.0", "d3-color": "^3.1.0", "d3-format": "^3.1.0", "d3-scale": "^4.0.0", "earcut": "^2.2.4", "h3-js": "^4.1.0", "moment-timezone": "^0.6.0", "pbf": "^3.2.1", "quadbin": "^0.4.0" }, "peerDependencies": { "@deck.gl/aggregation-layers": "~9.2.0", "@deck.gl/core": "~9.2.0", "@deck.gl/extensions": "~9.2.0", "@deck.gl/geo-layers": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@loaders.gl/core": "^4.3.4" } }, "sha512-2Bw0rqOkUzcaCMKyz87Bfxl2h+L4Obr7svEK7X7yjlG70Ub8bnbAlSAZ3p9kScE6k7y3r1mtapfR2nF/PnpBlQ=="],
 
     "@deck.gl/core": ["@deck.gl/core@9.2.7", "", { "dependencies": { "@loaders.gl/core": "^4.3.4", "@loaders.gl/images": "^4.3.4", "@luma.gl/constants": "^9.2.6", "@luma.gl/core": "^9.2.6", "@luma.gl/engine": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@luma.gl/webgl": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/sun": "^4.1.0", "@math.gl/types": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "@probe.gl/env": "^4.1.0", "@probe.gl/log": "^4.1.0", "@probe.gl/stats": "^4.1.0", "@types/offscreencanvas": "^2019.6.4", "gl-matrix": "^3.0.0", "mjolnir.js": "^3.0.0" } }, "sha512-mltYFDC2dMtAZPkAaVIadccbM3iy9jjnhLa5obFnWzPtXyc1UBr7OW50Cjy0IlQmAsgDI2BATzcw5a/p4zU8zw=="],
 
@@ -139,9 +139,9 @@
 
     "@deck.gl/geo-layers": ["@deck.gl/geo-layers@9.2.7", "", { "dependencies": { "@loaders.gl/3d-tiles": "^4.3.4", "@loaders.gl/gis": "^4.3.4", "@loaders.gl/loader-utils": "^4.3.4", "@loaders.gl/mvt": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@loaders.gl/terrain": "^4.3.4", "@loaders.gl/tiles": "^4.3.4", "@loaders.gl/wms": "^4.3.4", "@luma.gl/gltf": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/culling": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "@types/geojson": "^7946.0.8", "a5-js": "^0.5.0", "h3-js": "^4.1.0", "long": "^3.2.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/extensions": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@deck.gl/mesh-layers": "~9.2.0", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-DiEfsmWrW0EIM44FdwzdPAjUr8a8IPelpkt2fPvrgmaS0OSZFB1PkJWLmM3hoYO8mH0vuD0YL//m+Pvtw3bGSw=="],
 
-    "@deck.gl/google-maps": ["@deck.gl/google-maps@9.2.7", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "@luma.gl/webgl": "^9.2.6", "@math.gl/core": "^4.1.0", "@types/google.maps": "^3.48.6" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6" } }, "sha512-y430jwqZTbfO8bxFu2X8eZrYkH6rtTgwNwHDIjf6lLJDAjnGvu7vnpS1R1G9r2LiY4EvA8/IWlEtWs9eDr3oKg=="],
+    "@deck.gl/google-maps": ["@deck.gl/google-maps@9.2.9", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "@luma.gl/webgl": "^9.2.6", "@math.gl/core": "^4.1.0", "@types/google.maps": "^3.48.6" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6" } }, "sha512-WsZJ/k61n7mq7/0uWciyxKMi0KTlNtNRvY+Gr8gCPsEywFEYwYfrMc8iL1EnAdqm6eAgsgledXeKuTZIDL5CiA=="],
 
-    "@deck.gl/json": ["@deck.gl/json@9.2.7", "", { "dependencies": { "jsep": "^0.3.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0" } }, "sha512-8XnEOERjtW+BvaRsmWpdK0th5HWmVoaQ2l2G8Y2BdSdJdcOuFQlQamYnoPPDpqhwiqTd1hommQMGbf0/2hliaw=="],
+    "@deck.gl/json": ["@deck.gl/json@9.2.9", "", { "dependencies": { "jsep": "^0.3.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0" } }, "sha512-brs1Dp+v3VcmkQmmhRzN41HzUhVG6WcOSZ1DFRyYFqmg2HdNrlyNlv5JWa8+miTVvSpne49Qu1DK06gpy8u1Xg=="],
 
     "@deck.gl/layers": ["@deck.gl/layers@9.2.7", "", { "dependencies": { "@loaders.gl/images": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@luma.gl/shadertools": "^9.2.6", "@mapbox/tiny-sdf": "^2.0.5", "@math.gl/core": "^4.1.0", "@math.gl/polygon": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "earcut": "^2.2.4" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-oGRv3s+i+Rq4qQFTfdCBx2S650K4p0gGS/bPYpURCXW0a0LQBHqN8AkKbhdos7b7Lawp1iMwkIggBZSZaNkyXg=="],
 
@@ -149,9 +149,9 @@
 
     "@deck.gl/mesh-layers": ["@deck.gl/mesh-layers@9.2.7", "", { "dependencies": { "@loaders.gl/gltf": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@luma.gl/gltf": "^9.2.6", "@luma.gl/shadertools": "^9.2.6" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-EpWHJ3GaCXELCsYRlabvkXxtgLQwOZYU8YPOmlKUYf+/410B2D89oNGtJinRcfM1/T9TBelBS9CHMYsL1tv9cA=="],
 
-    "@deck.gl/react": ["@deck.gl/react@9.2.7", "", { "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/widgets": "~9.2.0", "react": ">=16.3.0", "react-dom": ">=16.3.0" } }, "sha512-ktCDdvGCkyAe1weCcgR78xSi8Jdgtrjql69QRaaJME73i3FrmCdyPqcASwg/XNKTzWrGATX2P579NSX0QFoOBA=="],
+    "@deck.gl/react": ["@deck.gl/react@9.2.9", "", { "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/widgets": "~9.2.0", "react": ">=16.3.0", "react-dom": ">=16.3.0" } }, "sha512-ZADiRJhT8dI1z6NfC3cJ62j8nt4j/5AfUmXSHNn6hnOTJFJB1YScERnmM2lz9LYBwjlWTWEeTDIxQ66S4nClYg=="],
 
-    "@deck.gl/widgets": ["@deck.gl/widgets@9.2.7", "", { "dependencies": { "preact": "^10.17.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6" } }, "sha512-JG2J+ER5+BTGZwZscek//TwNbcytJXqPxI6XJF0+OnDAWxJpDJ0RhbCYDr9YoDUtTGV004IGDf/0YSGZu0mgow=="],
+    "@deck.gl/widgets": ["@deck.gl/widgets@9.2.9", "", { "dependencies": { "preact": "^10.17.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6" } }, "sha512-dFIT1sJZ8gxZE7l+b62TY5LH/92ABcsukK7jH3L3T6PYlbFOnNCby6dkZRySYbhWPE77lykXXsx1V/NQQlqs8Q=="],
 
     "@dimforge/rapier3d-compat": ["@dimforge/rapier3d-compat@0.12.0", "", {}, "sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow=="],
 
@@ -1439,7 +1439,7 @@
 
     "debug": ["debug@4.4.3", "", { "dependencies": { "ms": "^2.1.3" } }, "sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA=="],
 
-    "deck.gl": ["deck.gl@9.2.7", "", { "dependencies": { "@deck.gl/aggregation-layers": "9.2.7", "@deck.gl/arcgis": "9.2.7", "@deck.gl/carto": "9.2.7", "@deck.gl/core": "9.2.7", "@deck.gl/extensions": "9.2.7", "@deck.gl/geo-layers": "9.2.7", "@deck.gl/google-maps": "9.2.7", "@deck.gl/json": "9.2.7", "@deck.gl/layers": "9.2.7", "@deck.gl/mapbox": "9.2.7", "@deck.gl/mesh-layers": "9.2.7", "@deck.gl/react": "9.2.7", "@deck.gl/widgets": "9.2.7", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "^9.2.6", "@luma.gl/engine": "^9.2.6" }, "peerDependencies": { "@arcgis/core": "^4.0.0", "react": ">=16.3.0", "react-dom": ">=16.3.0" }, "optionalPeers": ["@arcgis/core", "react", "react-dom"] }, "sha512-vCIfOTCRSJJrxG69hbA2JdLJkv2T+JI0NIP26VS5sgAOTJjNAqeEYoR1SPRPClg5VcFQ5yd7lL8uQazyqc/zrA=="],
+    "deck.gl": ["deck.gl@9.2.9", "", { "dependencies": { "@deck.gl/aggregation-layers": "9.2.9", "@deck.gl/arcgis": "9.2.9", "@deck.gl/carto": "9.2.9", "@deck.gl/core": "9.2.9", "@deck.gl/extensions": "9.2.9", "@deck.gl/geo-layers": "9.2.9", "@deck.gl/google-maps": "9.2.9", "@deck.gl/json": "9.2.9", "@deck.gl/layers": "9.2.9", "@deck.gl/mapbox": "9.2.9", "@deck.gl/mesh-layers": "9.2.9", "@deck.gl/react": "9.2.9", "@deck.gl/widgets": "9.2.9", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "^9.2.6", "@luma.gl/engine": "^9.2.6" }, "peerDependencies": { "@arcgis/core": "^4.0.0", "react": ">=16.3.0", "react-dom": ">=16.3.0" }, "optionalPeers": ["@arcgis/core", "react", "react-dom"] }, "sha512-tpGVm6OSgxOCqrZE1C4oxewNlzi9nH8dH7kyKz0E28MTfdBkTMacVFH2/NizDL0YRA94WOqmkM/leF0LLm8HkQ=="],
 
     "deep-equal": ["deep-equal@1.1.2", "", { "dependencies": { "is-arguments": "^1.1.1", "is-date-object": "^1.0.5", "is-regex": "^1.1.4", "object-is": "^1.1.5", "object-keys": "^1.1.1", "regexp.prototype.flags": "^1.5.1" } }, "sha512-5tdhKF6DbU7iIzrIOa1AOUt39ZRm13cmL1cGEh//aqR8x9+tNfbywRf0n5FD/18OKMdo7DNEtrX2t22ZAkI+eg=="],
 
@@ -2873,6 +2873,20 @@
 
     "d3-weighted-voronoi/d3-polygon": ["d3-polygon@2.0.0", "", {}, "sha512-MsexrCK38cTGermELs0cO1d79DcTsQRN7IWMJKczD/2kBjzNXxLUWP33qRF6VDpiLV/4EI4r6Gs0DAWQkE8pSQ=="],
 
+    "deck.gl/@deck.gl/aggregation-layers": ["@deck.gl/aggregation-layers@9.2.9", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "d3-hexbin": "^0.2.1" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-wWwDmRDn9ycc1fn5Cc9zjCAmsNt1TccUKlzK3lM8+CwLpyIW0iBjujXK+KpMKW1UJox1COW6/a9+FYwroYggOA=="],
+
+    "deck.gl/@deck.gl/core": ["@deck.gl/core@9.2.9", "", { "dependencies": { "@loaders.gl/core": "^4.3.4", "@loaders.gl/images": "^4.3.4", "@luma.gl/constants": "^9.2.6", "@luma.gl/core": "^9.2.6", "@luma.gl/engine": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@luma.gl/webgl": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/sun": "^4.1.0", "@math.gl/types": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "@probe.gl/env": "^4.1.1", "@probe.gl/log": "^4.1.1", "@probe.gl/stats": "^4.1.1", "@types/offscreencanvas": "^2019.6.4", "gl-matrix": "^3.0.0", "mjolnir.js": "^3.0.0" } }, "sha512-VBzYB5rh/YCnUZzlqYMLGBHglLvbUIiCeZHysYJPVVjPHRgrKo4wiTohCb1L1Z02pGp3HUN/8tEZhBPMIc+luw=="],
+
+    "deck.gl/@deck.gl/extensions": ["@deck.gl/extensions@9.2.9", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-DoKWVrtS/iuwQouL3ZCKkrdgX8Ei6aY6XaYxeMrLodRQNFQD1PX5+tnnirkS911WHQvhQ8Rq6tj/yJvoVGPZpQ=="],
+
+    "deck.gl/@deck.gl/geo-layers": ["@deck.gl/geo-layers@9.2.9", "", { "dependencies": { "@loaders.gl/3d-tiles": "^4.3.4", "@loaders.gl/gis": "^4.3.4", "@loaders.gl/loader-utils": "^4.3.4", "@loaders.gl/mvt": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@loaders.gl/terrain": "^4.3.4", "@loaders.gl/tiles": "^4.3.4", "@loaders.gl/wms": "^4.3.4", "@luma.gl/gltf": "^9.2.6", "@luma.gl/shadertools": "^9.2.6", "@math.gl/core": "^4.1.0", "@math.gl/culling": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "@types/geojson": "^7946.0.8", "a5-js": "^0.5.0", "h3-js": "^4.1.0", "long": "^3.2.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@deck.gl/extensions": "~9.2.0", "@deck.gl/layers": "~9.2.0", "@deck.gl/mesh-layers": "~9.2.0", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-+WgnXmnL2+XBWj2JuVqZWt/dIc3mc2lw+qdNM52fGjOeScFssQ7cZTBz0W7e6w4xt9lqOln/RS0zkmUWaBxW4A=="],
+
+    "deck.gl/@deck.gl/layers": ["@deck.gl/layers@9.2.9", "", { "dependencies": { "@loaders.gl/images": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@luma.gl/shadertools": "^9.2.6", "@mapbox/tiny-sdf": "^2.0.5", "@math.gl/core": "^4.1.0", "@math.gl/polygon": "^4.1.0", "@math.gl/web-mercator": "^4.1.0", "earcut": "^2.2.4" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@loaders.gl/core": "^4.3.4", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-MGXSIIUDiFspDBLC0/KH2JHpCVW0TToPArCQEWTctUdAap0ClYu6tI3cbpEiesFV8jsoDHfjU3tKM8JFD2S0wQ=="],
+
+    "deck.gl/@deck.gl/mapbox": ["@deck.gl/mapbox@9.2.9", "", { "dependencies": { "@luma.gl/constants": "^9.2.6", "@math.gl/web-mercator": "^4.1.0" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6" } }, "sha512-KGsh47Rrei0mPf88g1gXi297IKoUj8tTNSGJUjd9oapkmfYAziSCSL1baP66436V37CkfJKyyzFZ2Q10KKG92w=="],
+
+    "deck.gl/@deck.gl/mesh-layers": ["@deck.gl/mesh-layers@9.2.9", "", { "dependencies": { "@loaders.gl/gltf": "^4.3.4", "@loaders.gl/schema": "^4.3.4", "@luma.gl/gltf": "^9.2.6", "@luma.gl/shadertools": "^9.2.6" }, "peerDependencies": { "@deck.gl/core": "~9.2.0", "@luma.gl/core": "~9.2.6", "@luma.gl/engine": "~9.2.6" } }, "sha512-JxsCLZGqczS9RSbdFZQ7o57sTVg7ryMsBoSuGJ/xN829kAsfi4NGirxquv9McuSqWS9ncYaBiZ8Vve6vUDsJyA=="],
+
     "dom-serializer/entities": ["entities@4.5.0", "", {}, "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw=="],
 
     "dot-prop/type-fest": ["type-fest@5.4.4", "", { "dependencies": { "tagged-tag": "^1.0.0" } }, "sha512-JnTrzGu+zPV3aXIUhnyWJj4z/wigMsdYajGLIYakqyOW1nPllzXEJee0QQbHj+CTIQtXGlAjuK0UY+2xTyjVAw=="],
@@ -3038,6 +3052,12 @@
     "d3-sankey/d3-shape/d3-path": ["d3-path@1.0.9", "", {}, "sha512-VLaYcn81dtHVTjEHd8B+pbe9yHWpXKZUC87PzoFmsFrJqgFwDe/qxfp5MlfsfM1V5E/iVt0MmEbWQ7FVIXh/bg=="],
 
     "d3-weighted-voronoi/d3-array/internmap": ["internmap@1.0.1", "", {}, "sha512-lDB5YccMydFBtasVtxnZ3MRBHuaoE8GKsppq+EchKL2U4nK/DmEpPHNH8MZe5HkMtpSiTSOZwfN0tzYjO/lJEw=="],
+
+    "deck.gl/@deck.gl/core/@probe.gl/env": ["@probe.gl/env@4.1.1", "", {}, "sha512-+68seNDMVsEegRB47pFA/Ws1Fjy8agcFYXxzorKToyPcD6zd+gZ5uhwoLd7TzsSw6Ydns//2KEszWn+EnNHTbA=="],
+
+    "deck.gl/@deck.gl/core/@probe.gl/log": ["@probe.gl/log@4.1.1", "", { "dependencies": { "@probe.gl/env": "4.1.1" } }, "sha512-kcZs9BT44pL7hS1OkRGKYRXI/SN9KejUlPD+BY40DguRLzdC5tLG/28WGMyfKdn/51GT4a0p+0P8xvDn1Ez+Kg=="],
+
+    "deck.gl/@deck.gl/core/@probe.gl/stats": ["@probe.gl/stats@4.1.1", "", {}, "sha512-4VpAyMHOqydSvPlEyHwXaE+AkIdR03nX+Qhlxsk2D/IW4OVmDZgIsvJB1cDzyEEtcfKcnaEbfXeiPgejBceT6g=="],
 
     "eslint-plugin-jsdoc/espree/eslint-visitor-keys": ["eslint-visitor-keys@5.0.0", "", {}, "sha512-A0XeIi7CXU7nPlfHS9loMYEKxUaONu/hTEzHTGba9Huu94Cq1hPivf+DE5erJozZOky0LfvXAyrV/tcswpLI0Q=="],
 
