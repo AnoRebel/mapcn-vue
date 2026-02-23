@@ -15,7 +15,7 @@
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "deck.gl": "^9.2.7",
-        "lucide-vue-next": "^0.574.0",
+        "lucide-vue-next": "^0.575.0",
         "maplibre-gl": "^5.18.0",
         "node-gyp": "^12.2.0",
         "reka-ui": "^2.8.0",
@@ -1937,7 +1937,7 @@
 
     "lru-cache": ["lru-cache@11.2.5", "", {}, "sha512-vFrFJkWtJvJnD5hg+hJvVE8Lh/TcMzKnTgCWmtBipwI5yLX/iX+5UB2tfuyODF5E7k9xEzMdYgGqaSb1c0c5Yw=="],
 
-    "lucide-vue-next": ["lucide-vue-next@0.574.0", "", { "peerDependencies": { "vue": ">=3.0.1" } }, "sha512-WzsTQJ2YLINuGeN2iM2fmhHmgkyhGdAADbiXnbAvOuizry4ISFbE2oQGRz3ExjwK3wunW9oGe9EC8WNiXW2b9A=="],
+    "lucide-vue-next": ["lucide-vue-next@0.575.0", "", { "peerDependencies": { "vue": ">=3.0.1" } }, "sha512-UHzA3cYMCgBLyGay5R9IQaidwV0NLocx7cIBnFt8vJ9Xhl6IM/oKD0fUhoCUuouFta15SX1rLXVoko9s3TzWMA=="],
 
     "luxon": ["luxon@3.7.2", "", {}, "sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew=="],
 
